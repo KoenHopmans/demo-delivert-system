@@ -1,0 +1,114 @@
+.demo {
+    position: relative;
+    background-color: darkred;
+    padding: 5px;
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:    "comment-icon options-icon"
+    "music-icon music-icon"
+    "none none";
+
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    color: white;
+    -webkit-text-stroke: 3px black;
+    font-size: 30px;
+    /*gap: 5px;*/
+
+    transform: perspective(100px) rotateY(30deg);
+    perspective: 10px;
+    transition: .5s all;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.demo-container{
+    height: 300px;
+    width: 300px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+
+.demo-container:hover .demo{
+    transform: perspective(0px) rotateY(0deg);
+    width: 200px;
+    height: 200px;
+    font-size: 60px;
+
+
+}
+
+.demo-container:hover{
+    z-index: 8;
+}
+
+
+
+.comment-icon{
+    width: available;
+    height: available;
+    grid-area: comment-icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.comment-icon:hover{
+    color: green;
+
+}
+
+
+.music-icon{
+    width: available;
+    height: available;
+    grid-area: music-icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.options-icon{
+    width: available;
+    height: available;
+    grid-area: options-icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.song-name{
+    padding: 20px 10px 0px;
+    max-width: 120px;
+}
+
+.song-artist{
+    padding: 5px 10px 0px;
+}
+
+.demo-container:hover .song-name{
+}
+
+.demo-container:hover .song-artist{
+}
+
+.demo-info{
+
+    transform: scale(1) translateX(-10px) ;
+    transition: .5s all ease;
+}
+
+.demo-container:hover .demo-info{
+    transform: scale(2) translateX(70px);
+}

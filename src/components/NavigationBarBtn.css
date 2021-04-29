@@ -1,0 +1,25 @@
+
+.myIcon{
+    font-size: 25px;
+    color: white;
+}
+
+.navigation-bar__btn {
+    background: none;
+    z-index: 3;
+    border: 2px solid white;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 20px;
+    border-radius: 8px;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, .6));
+}
+
+.navigation-bar__btn:hover,
+.navigation-bar__btn:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em greenyellow;
+    transform: translateY(-0.25em);
+}
