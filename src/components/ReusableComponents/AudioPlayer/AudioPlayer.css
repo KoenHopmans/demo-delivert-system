@@ -1,0 +1,227 @@
+:root {
+    --white: #fff;
+}
+
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*html {*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    height: 100%;*/
+/*    background: var(--active-color);*/
+/*    transition: background 0.4s ease;*/
+/*}*/
+
+.audio-player-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    height: 5px;
+    -webkit-appearance: none;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    /*background: #3b7677;*/
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.audio-player {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    /*left: 150px;*/
+    bottom: 0px;
+    /*max-width: 350px;*/
+    width: 100%;
+    /*padding: 24px;*/
+    /*background: gray;*/
+    /*border-radius: 20px;*/
+    /*border: 2px red solid;*/
+    box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    color: var(--white);
+}
+
+.artwork {
+    /*position: fixed;*/
+    /*right: 0px;*/
+    /*bottom: 0px;*/
+    border-radius: 120px;
+    /*display: block;*/
+    margin: auto;
+    /*height: 200px;*/
+    /*width: 200px;*/
+    display: none;
+}
+
+.track-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:    "controls title artist progres";
+    width: 100%;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    z-index: 3;
+    position: relative;
+    background: linear-gradient(to right, rgb(78, 91, 62), rgb(45, 44, 49));
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, .6));
+}
+.progress{
+    display: inline-block;
+    max-width: 200px;
+    margin-bottom: 4px;
+    /*margin-right: 30px;*/
+    grid-area: progres;
+}
+
+.title {
+    font-family: 'Audiowide', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    max-width: 200px;
+    min-width: 150px;
+    min-height: 60px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    text-transform: uppercase;
+    grid-area: title;
+}
+
+.artist {
+    font-family: 'Audiowide', cursive;
+    max-width: 200px;
+    font-weight: 300;
+    margin-top: 0;
+    grid-area: artist;
+}
+
+.audio-controls {
+    margin-left: 200px;
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    /*width: 75%;*/
+    /*margin: 0 auto 15px;*/
+    grid-area: controls;
+}
+
+.audio-controls .prev svg,
+.audio-controls .next svg {
+    width: 45px;
+    height: 35px;
+}
+
+.audio-controls .play svg,
+.audio-controls .pause svg {
+    height: 40px;
+    width: 45px;
+}
+
+.audio-controls path {
+    fill: var(--white);
+}
+.audio-controls button{
+    border: outset dimgray;
+    padding: 3px 10px;
+}
+
+
+.audio-controls button:hover{
+    box-shadow: 0 0.5em 0.5em -0.4em lawngreen;
+    transform: translateY(-0.25em);
+}
+
+.audio-controls button:active {
+    border: inset dimgray;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /*border: 1px solid #000000;*/
+    height: 16px;
+    width: 16px;
+    border-radius: 3px;
+    background: linear-gradient(to right, rgb(78, 91, 62), rgb(45, 44, 49));
+    cursor: pointer;
+    /*margin-top: -14px; !* You need to specify a margin in Chrome, but in Firefox and IE it is automatic *!*/
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+.music-player-tv__video {
+    transform: perspective(95px) rotateY(30deg);
+    left: 80px;
+    width: 107px;
+    bottom: 84px;
+    position: fixed;
+    z-index: 4;
+
+
+}
+
+
+.music-player-tv__img {
+    /*border: 2px red solid;*/
+    width: 180px;
+    height: auto;
+    display: inline;
+    position: fixed;
+    z-index: 5;
+    bottom: 5px;
+    left: 10px;
+    filter: drop-shadow(20px 20px 5px rgba(0, 0, 0, .6));
+}
+
+/*.music-player {*/
+/*    z-index: 3;*/
+/*    position: fixed;*/
+/*    bottom: 17px;*/
+/*    left: 174px;*/
+/*    display: flex;*/
+/*    !*border: 2px red solid;*!*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+
+/*}*/
+
+
+
+
+
+
+
+@media only screen and (max-width: 1050px) {
+     .music-player-tv__img, .music-player-tv__video {
+        display: none;
+    }
+    /*.track-info {*/
+    /*display: flex;*/
+    /*    justify-content: space-between;*/
+    /*}*/
+    .audio-controls{
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .progress {
+        display: none;
+}
+}

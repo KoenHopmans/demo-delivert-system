@@ -1,0 +1,127 @@
+
+.profileMainContentContainer{
+    height: available;
+    min-height: 100%;
+    position: relative;
+    color: #fff;
+    z-index: 0;
+}
+
+.profileMainContent{
+    height: fit-content;
+    min-height: 1000px;
+    min-width: fit-content;
+    background: linear-gradient(rgb(47, 47, 47), black, rgb(47, 47, 47));
+    margin: 0px 90px 90px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    opacity: 95%;
+
+}
+
+.profile-box{
+    /*border: yellow solid 2px;*/
+    /*width: 30%;*/
+    /*height: 50%;*/
+    /*position: absolute;*/
+    /*top: 40%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%,-50%);*/
+    color: white;
+}
+
+
+.profile-box h1{
+    font-family: 'Julius Sans One', sans-serif;
+    floating: left;
+    font-size: 45px;
+    border-bottom: 6px solid dodgerblue;
+    margin: 50px;
+    padding: 13px 0;
+}
+
+.text-box{
+    font-family: 'M PLUS 1p', sans-serif ;
+    width: 100%;
+    overflow: hidden;
+    font-size: 25px;
+    padding: 8px 0;
+    margin: 8px 0;
+}
+
+.inputLabel{
+    border-bottom: 1px solid dodgerblue;
+    font-family: 'Julius Sans One', sans-serif
+}
+
+.error {
+    display: flex;
+    gap: 10px;
+    margin: 5px;
+    color: crimson;
+    /*border: 2px crimson solid;*/
+    font-family: 'M PLUS 1p', sans-serif ;
+    font-size: 18px;
+    /*border: 1px crimson solid;*/
+    /*box-shadow: 2px 2px 5px crimson;*/
+
+}
+
+
+
+.text-box input{
+    border: none;
+    outline: none;
+    color: white;
+    background: none;
+    font-size: 18px;
+    width: 80%;
+    /*float: left;*/
+    margin: 0 10px;
+}
+
+.text-box label{
+    margin: 10px;
+}
+
+
+.text-box input::-webkit-input-placeholder,
+.text-box input::-webkit-input-placeholder{
+    opacity: 1;
+    transition: opacity 0.30s ease-out;
+}
+
+
+.text-box input:hover::-webkit-input-placeholder,
+.text-box input:focus::-webkit-input-placeholder{
+    opacity: 0;
+}
+
+
+
+
+.btn{
+    font-family: 'Julius Sans One', sans-serif;
+    width: 100%;
+    background: none;
+    border: 2px solid dodgerblue;
+    color: white;
+    padding: 5px;
+    font-size: 25px;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.btn:hover{
+    box-shadow: 0 0 5px dodgerblue,
+    0 0 25px dodgerblue,
+    0 0 50px dodgerblue,
+    0 0 100px dodgerblue;
+    transform: translateY(-0.25em)
+}
+
+
