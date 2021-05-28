@@ -16,15 +16,10 @@ body {
 }
 
 #content-wrap {
-  padding-bottom: 2.5rem;    /* Footer height */
+  padding-bottom: 70px;    /* Footer height */
   border: 2px green solid;
+  height: fit-content;
 }
 
 
-.md-20 {
-  font-size: 20px;
-}
 
-.md-40 {
-  font-size: 40px;
-}

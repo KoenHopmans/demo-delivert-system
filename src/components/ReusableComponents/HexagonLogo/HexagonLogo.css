@@ -2,11 +2,11 @@
     position: relative;
     cursor: pointer;
     opacity: 100%;
-    margin:  50px;
+    margin:  40px 40px 60px 40px;
 }
 
 .logo-hexagon-container{
-    padding: 20px;
+    padding: 30px;
 }
 .logo-hexagon * {
     filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, .6));

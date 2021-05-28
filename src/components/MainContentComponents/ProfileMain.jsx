@@ -1,24 +1,35 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import './ProfileMain.css';
 import {
   BiLockAlt, BiUser, BiEnvelope, BiCalendar, BiPhone,
 } from 'react-icons/bi';
 import {
   BsExclamationCircle,
 } from 'react-icons/bs';
+import axios from 'axios';
 import HexagonProfile from '../ReusableComponents/HexagonProfile/HexagonProfile';
 
 const ProfileMainContent = () => {
+  async function postData(payload) {
+    console.log('hallo post data ');
+    try {
+      await axios.post('http://localhost:8080/api/v1/producers/', payload);
+      console.log(`payload${payload}`);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
+    console.log('hallo form submit 1 ');
     console.log(data);
+    postData(data);
+    console.log('hallo form submit 2');
   };
   return (
-    <div className="profileMainContentContainer">
-      <div className="profileMainContent">
-        <div className="profile-box">
+    <div className="mainContentContainer">
+      <div className="mainContent">
+        <div className="content-box">
           <h1>Profile</h1>
           <HexagonProfile photo="photo01" />
           <form onSubmit={handleSubmit(formSubmit)}>

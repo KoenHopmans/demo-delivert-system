@@ -4,17 +4,18 @@ import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVid
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
-import MusicPlayer from '../ReusableComponents/AudioPlayer/MusicPlayer';
-import DemosMain from '../MainContentComponents/DemosMain';
+import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
+import tracks from '../TrackLists/TrackListHexagon';
 
 function Hexagon() {
   return (
     <div>
-      <NavigationBar profileBtn singOutBtn demoOptionBtn />
-      <BackgroundVideo />
-      <Header />
-      <DemosMain />
-      <MusicPlayer />
+      <div id="content-wrap">
+        <NavigationBar singOutBtn demosBtn profileBtn />
+        <BackgroundVideo video="blueStar" />
+        <Header />
+        <AudioPlayer video="donDiablo" tracks={tracks} />
+      </div>
       <FooterHexagon />
     </div>
   );

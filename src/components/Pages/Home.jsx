@@ -5,7 +5,7 @@ import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import HomeMainContent from '../MainContentComponents/HomeMain';
-import tracks from '../TrackLists/TrackListHexagon';
+import tracks from '../TrackLists/TrackListHome';
 import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 
 function Home() {
@@ -15,7 +15,8 @@ function Home() {
         <NavigationBar loginBtn signUpBtn />
         <BackgroundVideo video="blueHexagon" />
         <Header />
-        <AudioPlayer video="donDiablo" tracks={tracks} />
+        <Header />
+        <AudioPlayer video="MusicPlayerVideo" tracks={tracks} />
         <HomeMainContent />
         <FooterHexagon />
       </div>

@@ -26,6 +26,7 @@ const Demo = ({
   };
   function handleClick(e) {
     // e.preventDefault();
+    console.log('hier');
     console.log(e.target.value);
     const mode = e.target.value;
     setSelectedMode(mode);

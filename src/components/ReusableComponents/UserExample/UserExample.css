@@ -1,0 +1,19 @@
+.hexagon-shape-container{
+    width: 202px;
+}
+
+.hexagon-shape{
+    background: black;
+    width: 200px;
+    height: calc(200px / 1.11);
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    margin-right: 100px;
+    color: #fff;
+    overflow: hidden;
+
+}
+
+.hexagon-shape img {
+    width: 200px;
+    height: 200px;
+}

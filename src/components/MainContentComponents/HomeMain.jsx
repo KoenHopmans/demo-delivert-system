@@ -1,9 +1,8 @@
 import React from 'react';
 import './HomeMain.css';
 import { useHistory } from 'react-router-dom';
-import { BsQuestionCircle } from 'react-icons/bs';
 import InfiniteText from '../ReusableComponents/InfiniteTextAnnimation/InfiniteText';
-import HexagonProfile from '../ReusableComponents/HexagonProfile/HexagonProfile';
+import UserExample from '../ReusableComponents/UserExample/UserExample';
 
 const HomeMainContent = () => {
   const history = useHistory();
@@ -14,47 +13,63 @@ const HomeMainContent = () => {
 
           <div className="btn-container">
             <button
-              onClick={() => {
-                history.goBack();
-              }}
+              onClick={() => history.push('/login', { from: 'App' })}
               type="button"
-              className="btn"
+              className="btn homePageBtn"
             >
-              Cancel
+              Login
             </button>
             <button
-              onClick={() => history.push('/', { from: 'App' })}
+              onClick={() => history.push('/sign-up', { from: 'App' })}
               type="button"
-              className="btn"
+              className="btn homePageBtn"
             >
-              Log Out
+              Sign up
             </button>
           </div>
-        </div>
-        <div className="question">
-          <BsQuestionCircle />
-          <div>What is soundport?</div>
+
+          <div className="question">
+            What is
+            <a href="#about-soundport"> soundport?</a>
+          </div>
         </div>
         <InfiniteText />
-        <HexagonProfile photo="photo01" />
-        <HexagonProfile photo="photo02" />
-        <section className="section section-a">
-          <div className="container">
-            <h1 id="about-soundport">Soundport</h1>
-            <p>
-              soundport is the way how you can share your own music demo&#39;s with
-              us.
-              <br />
-              Upload your music and we&#39; ll listen to it.
-              <br />
-              You get personal feedback from don diablo.
-              <br />
-              Maybe we even want to use your music and work with you.
-              <br />
-              We will support you with your music and hopefully we can help you to the next
-              level.
-            </p>
-          </div>
+        <UserExample
+          name="Sophie Lombardo"
+          genre="Bass house"
+          comment="I make happy bass house music. The collaboration with Hexagon is fantastic."
+          photo="photo01"
+        />
+        <UserExample
+          name="Marco Taylor"
+          genre="Techno house"
+          comment="My specialty is intros. Don Diablo helped me to a higher level."
+          photo="photo02"
+        />
+        <UserExample
+          name="Robin Montoro"
+          genre="Electronic Dance"
+          comment="The feedback has made my music even better. Thanks Don Diablo!"
+          photo="photo03"
+        />
+
+        <section className="about-soundport" id="about-soundport">
+          <h1>Soundport</h1>
+          <p>
+            With soundport you can share your own music demo&#39;s with
+            us.
+            <br />
+            It is the next step for rising producers.
+            <br />
+            Upload your music and we will listen to it.
+            <br />
+            You get personal feedback from don diablo.
+            <br />
+            Maybe we even want to use your music and work with you.
+            <br />
+            We will support you with your music and hopefully we can help you to the next
+            level.
+          </p>
         </section>
       </div>
     </div>

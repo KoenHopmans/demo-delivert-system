@@ -17,13 +17,12 @@ const HexagonProfile = ({ photo = 'photo01' }) => {
   };
   return (
     <article className="producer-example">
-      <div className="hexagon-box">
+      <div className="hexagon-shape">
         <img
           src={chosenPhoto()}
           alt="profile"
         />
       </div>
-      <p> Name 1</p>
     </article>
   );
 };

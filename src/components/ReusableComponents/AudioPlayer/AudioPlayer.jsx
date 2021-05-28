@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
 import AudioControls from './AudioControls';
 import './AudioPlayer.css';
@@ -23,7 +22,7 @@ const AudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
     }
   };
   // State
-  const [trackIndex, setTrackIndex] = useState(1);
+  const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 

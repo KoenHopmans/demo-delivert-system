@@ -1,7 +1,7 @@
-:root {
-    --numberOfHexagons: 4;
-    --gap: 1vw;
-    --hexagonSize: 200px;}
+/*:root {*/
+/*    --numberOfHexagons: 4;*/
+/*    --gap: 1vw;*/
+/*    --hexagonSize: 200px;}*/
 
 .home-main-content-container{
     margin: 0;
@@ -16,6 +16,7 @@
 
 }
 
+
 .home-main-content{
     position: relative;
     min-height: 70vh;
@@ -24,24 +25,24 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(rgb(47, 47, 47), black, rgb(47, 47, 47));
+    background: linear-gradient(rgba(47, 47, 47,0.7), rgba(0, 0, 0,0.7), rgba(47, 47, 47,0.7));
     /*margin: 0px 90px 90px 80px;*/
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 40px;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-    opacity: 80%;
+    /*opacity: 80%;*/
 
 }
 
-.home-main-content *{
-    opacity: 1;
+.home-main-content .home-box{
+    opacity: 100%;
 }
 
 .home-box{
-    border: yellow solid 2px;
+    /*border: yellow solid 2px;*/
     /*width: 40%;*/
     /*height: 50%;*/
     /*position: absolute;*/
@@ -67,51 +68,76 @@
     align-items: center;
 }
 
-.text-box{
-    font-family: 'M PLUS 1p', sans-serif ;
+.user-example{
+    display: flex;
+    padding: 40px;
     width: 100%;
-    overflow: hidden;
-    font-size: 25px;
-    /*padding: 8px 0;*/
-    /*margin: 8px 0;*/
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    font-family: 'M PLUS 1p', sans-serif;
 }
 
-.question{
-    border-bottom: 1px solid dodgerblue;
+.user-example h2{
+
+}
+
+
+/*.text-box{*/
+/*    font-family: 'M PLUS 1p', sans-serif ;*/
+/*    width: 100%;*/
+/*    overflow: hidden;*/
+/*    font-size: 25px;*/
+/*    !*padding: 8px 0;*!*/
+/*    !*margin: 8px 0;*!*/
+/*}*/
+
+/*.question{*/
+/*    border-bottom: 1px solid dodgerblue;*/
+/*    font-family: 'Julius Sans One', sans-serif;*/
+/*    font-size: 20px;*/
+/*    gap: 10px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin: 20px;*/
+/*}*/
+/*.btn-container{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin: 20px;*/
+/*    gap: 10px;*/
+/*}*/
+
+.homePageBtn{
+    margin: 80px 20px 10px 20px;
+}
+
+
+.about-soundport{
     font-family: 'Julius Sans One', sans-serif;
     font-size: 20px;
-    gap: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-}
-.btn-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    gap: 10px;
+    margin: 0px 20px 80px 20px;
 }
 
+/*.btn{*/
+/*    font-family: 'Julius Sans One', sans-serif;*/
+/*    width: 100%;*/
+/*    background: none;*/
+/*    border: 2px solid dodgerblue;*/
+/*    color: white;*/
+/*    padding: 30px;*/
+/*    font-size: 25px;*/
+/*    cursor: pointer;*/
+/*    margin: 20px;*/
+/*}*/
 
-.btn{
-    font-family: 'Julius Sans One', sans-serif;
-    width: 100%;
-    background: none;
-    border: 2px solid dodgerblue;
-    color: white;
-    padding: 5px;
-    font-size: 25px;
-    cursor: pointer;
-    margin: 20px 0;
-}
-
-.btn:hover{
-    box-shadow: 0 0 5px dodgerblue,
-    0 0 25px dodgerblue,
-    0 0 50px dodgerblue,
-    0 0 100px dodgerblue;
-    transform: translateY(-0.25em)
-}
+/*.btn:hover{*/
+/*    box-shadow: 0 0 5px dodgerblue,*/
+/*    0 0 25px dodgerblue,*/
+/*    0 0 50px dodgerblue,*/
+/*    0 0 100px dodgerblue;*/
+/*    transform: translateY(-0.25em)*/
+/*}*/
 
