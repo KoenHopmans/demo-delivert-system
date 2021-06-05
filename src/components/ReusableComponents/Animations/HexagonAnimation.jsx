@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import './HexagonLogo.css';
+import './HexagonAnimation.css';
 import HexagonLogoSvg from './HexagonLogoSvg';
 
-const HexagonLogo = ({
+const HexagonAnimation = ({
   isPlaying,
   onPlayPauseClick,
 }) => (
@@ -31,4 +31,4 @@ const HexagonLogo = ({
   </div>
 );
 
-export default HexagonLogo;
+export default HexagonAnimation;

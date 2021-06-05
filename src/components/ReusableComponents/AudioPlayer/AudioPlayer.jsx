@@ -4,7 +4,7 @@ import './AudioPlayer.css';
 import MusicPlayerImg from '../../../images/music-player-tv__img.png';
 import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
 import DonDiabloVideo from '../../../videos/videoplayback.mp4';
-import HexagonLogo from '../HexagonLogo/HexagonLogo';
+import HexagonAnimation from '../Animations/HexagonAnimation';
 
 /*
  * Read the blog post here:
@@ -168,7 +168,7 @@ const AudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
 
   return (
     <div className="audio-player-container">
-      <HexagonLogo
+      <HexagonAnimation
         isPlaying={isPlaying}
         onPlayPauseClick={setIsPlaying}
       />

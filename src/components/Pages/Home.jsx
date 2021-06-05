@@ -15,7 +15,6 @@ function Home() {
         <NavigationBar loginBtn signUpBtn />
         <BackgroundVideo video="blueHexagon" />
         <Header />
-        <Header />
         <AudioPlayer video="MusicPlayerVideo" tracks={tracks} />
         <HomeMainContent />
         <FooterHexagon />

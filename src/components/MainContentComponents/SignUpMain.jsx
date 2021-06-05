@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   BiEnvelope,
@@ -10,12 +10,16 @@ import {
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import UserComponent from '../ReusableComponents/UserComponent/UserComponent';
+import UsersList from '../ReusableComponents/UsersList/UsersList';
+import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const SignUpMainContent = () => {
+  const [succes, setSucces] = useState(false);
+
   async function postData(payload) {
     console.log('hallo post data ');
     try {
+      console.log(axios.defaults.headers, 'producers axios header');
       await axios.post('http://localhost:8080/api/v1/producers/', payload);
       console.log(`payload${payload}`);
     } catch (e) {
@@ -26,6 +30,7 @@ const SignUpMainContent = () => {
   const formSubmit = (data) => {
     console.log(data);
     postData(data);
+    setSucces(true);
   };
 
   console.log(errors);
@@ -33,95 +38,104 @@ const SignUpMainContent = () => {
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
-          <h1>Sign up</h1>
-          <form onSubmit={handleSubmit(formSubmit)}>
-            <div className="text-box">
-              <BiUser />
-              <label htmlFor="firstName" className="inputLabel">
-                First name
-                <input
-                  id="firstName"
-                  type="text"
-                  placeholder="Enter your firstName"
-                  {...register('firstName', {
-                    required: 'Please enter your firstName',
-                    minLength: { value: 4, message: 'At least 4 characters' },
+          {!succes ? (
+            <div>
+              <h1>Sign up</h1>
+              <form onSubmit={handleSubmit(formSubmit)}>
+                <div className="text-box">
+                  <BiUser />
+                  <label htmlFor="firstName" className="inputLabel">
+                    First name
+                    <input
+                      id="firstName"
+                      type="text"
+                      placeholder="Enter your firstName"
+                      {...register('firstName', {
+                        required: 'Please enter your firstName',
+                        minLength: { value: 4, message: 'At least 4 characters' },
 
-                  })}
-                />
-                {errors.firstName && (
-                  <div className="error">
-                    <BsExclamationCircle />
-                    {errors.firstName.message}
-                  </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiUser />
-              <label htmlFor="lastName" className="inputLabel">
-                Last name
-                <input
-                  id="lastName"
-                  type="text"
-                  placeholder="Enter your lastName"
-                  {...register('lastName', {
-                    required: 'Please enter your lastName',
-                    minLength: { value: 4, message: 'At least 4 characters' },
-
-                  })}
-                />
-                {errors.lastName && (
-                  <div className="error">
-                    <BsExclamationCircle />
-                    {errors.lastName.message}
-                  </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiEnvelope />
-              <label htmlFor="email" className="inputLabel">
-                Email
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  {...register('email', {
-                    required: 'Please enter your email',
-                    minLength: { value: 4, message: 'At least 4 characters' },
-
-                  })}
-                />
-                {errors.email && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.email.message}
+                      })}
+                    />
+                    {errors.firstName && (
+                      <div className="error">
+                        <BsExclamationCircle />
+                        {errors.firstName.message}
+                      </div>
+                    )}
+                  </label>
                 </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiLockAlt />
-              <label htmlFor="password" className="inputLabel">
-                Password
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
+                <div className="text-box">
+                  <BiUser />
+                  <label htmlFor="lastName" className="inputLabel">
+                    Last name
+                    <input
+                      id="lastName"
+                      type="text"
+                      placeholder="Enter your lastName"
+                      {...register('lastName', {
+                        required: 'Please enter your lastName',
+                        minLength: { value: 4, message: 'At least 4 characters' },
+
+                      })}
+                    />
+                    {errors.lastName && (
+                      <div className="error">
+                        <BsExclamationCircle />
+                        {errors.lastName.message}
+                      </div>
+                    )}
+                  </label>
+                </div>
+                <div className="text-box">
+                  <BiEnvelope />
+                  <label htmlFor="email" className="inputLabel">
+                    Email
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      {...register('email', {
+                        required: 'Please enter your email',
+                        minLength: { value: 4, message: 'At least 4 characters' },
+
+                      })}
+                    />
+                    {errors.email && (
+                      <div className="error">
+                        <BsExclamationCircle />
+                        {errors.email.message}
+                      </div>
+                    )}
+                  </label>
+                </div>
+                <div className="text-box">
+                  <BiLockAlt />
+                  <label htmlFor="password" className="inputLabel">
+                    Password
+                    <input
+                      id="password"
+                      type="password"
+                      placeholder="Enter your password"
                                     // name="password"
-                  {...register('password')}
-                />
-              </label>
+                      {...register('password')}
+                    />
+                  </label>
+                </div>
+                <input className="btn" type="submit" name="" value="Sign in" />
+              </form>
+              <div className="question">
+                Already have an account?
+                <Link to="/login"> Login here</Link>
+              </div>
             </div>
-            <input className="btn" type="submit" name="" value="Sign in" />
-          </form>
-          <div className="question">
-            Already have an account?
-            <Link to="/login"> Login here</Link>
-          </div>
+          ) : (
+            <div>
+              <div className="question">Loading... Please wait </div>
+              <LoadingAnimation />
+            </div>
+          )}
         </div>
-        <UserComponent />
+        <UsersList />
       </div>
     </div>
   );

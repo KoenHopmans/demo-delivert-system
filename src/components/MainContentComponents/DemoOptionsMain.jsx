@@ -7,13 +7,43 @@ import {
   BsExclamationCircle,
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const DemoOptionsMainContent = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+
   const formSubmit = (data) => {
     console.log(data);
   };
   console.log(errors);
+
+  async function download() {
+    try {
+      console.log('download');
+      const result = await axios.get('http://localhost:8080/api/v1/downloadFile/test3.mp3', {
+        responseType: 'arraybuffer',
+        headers: {
+          'Content-Type': 'audio/wav',
+        },
+      });
+      console.log(result);
+      const blob = new Blob([result.data], {
+        type: 'audio/mp3',
+      });
+      const filename = 'test3.mp3';
+      const objectURL = URL.createObjectURL(blob);
+      const downloadLink = document.createElement('a');
+      document.body.appendChild(downloadLink);
+      downloadLink.href = objectURL;
+      downloadLink.download = filename;
+      downloadLink.style.display = 'none';
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
@@ -121,6 +151,13 @@ const DemoOptionsMainContent = () => {
               </label>
             </div>
             <input className="btn" type="submit" name="" value="Sign in" />
+          </form>
+          <form id="file-downloader">
+            <label htmlFor="file-url">
+              URL
+              <input type="text" id="file-url" name="file-url" required />
+            </label>
+            <button className="btn" onClick={download} type="submit">DOWNLOAD</button>
           </form>
           <div className="question">
             <Link to="/demos"> To all demo&#39;s </Link>

@@ -6,6 +6,7 @@ import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
 import DonDiabloVideo from '../../../videos/videoplayback.mp4';
 import BlueStar from '../../../videos/blue-star-background.mp4';
 import BlueHexagon from '../../../videos/blue-hexagon-stars.mp4';
+import PageNotFound from '../../../videos/background-page-not-found.mp4';
 
 const BackgroundVideo = ({ video = 'blueStar' }) => {
   const chosenVideo = () => {
@@ -18,6 +19,8 @@ const BackgroundVideo = ({ video = 'blueStar' }) => {
         return BlueStar;
       case 'blueHexagon':
         return BlueHexagon;
+      case 'pageNotFound':
+        return PageNotFound;
       default:
         return MusicPlayerVideo;
     }

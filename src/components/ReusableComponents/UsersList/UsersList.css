@@ -1,0 +1,14 @@
+.users-table{
+    font-family: 'M PLUS 1p', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 50px 50px 50px 50px;
+}
+
+.users-table td{
+    padding: 5px;
+}
+
+.users-table thead *{
+    border-bottom: 1px solid dodgerblue;
+}

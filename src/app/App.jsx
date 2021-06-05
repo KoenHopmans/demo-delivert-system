@@ -13,6 +13,7 @@ import Profile from '../components/Pages/Profile';
 import AddDemo from '../components/Pages/AddDemo';
 import DemoOptions from '../components/Pages/DemoOptions';
 import Hexagon from '../components/Pages/Hexagon';
+import PageNotFound from '../components/Pages/PageNotFound';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/add-demo" exact component={AddDemo} />
         <Route path="/demo-options" exact component={DemoOptions} />
         <Route path="/hexagon" exact component={Hexagon} />
+        <Route path="/" component={PageNotFound} />
       </Switch>
     </Router>
   );

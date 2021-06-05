@@ -1,0 +1,64 @@
+.logo-loading {
+    position: relative;
+    opacity: 100%;
+    margin:  40px 40px 60px 40px;
+}
+
+.logo-loading-container{
+    padding: 30px;
+}
+.logo-loading * {
+    filter: drop-shadow(5px 5px 5px dodgerblue);
+}
+
+
+.logo-loading__svg .logo-loading__svg__triangle__bottom-line {
+    opacity: 0;
+}
+
+.logo-loading__svg__loading {
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: 100px 100px;
+    transition: transform 1s;
+
+
+}
+
+@keyframes loading {
+    0%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.loading-text{
+    animation-name: visible;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: 100px 100px;
+    transition: transform 1s;
+}
+
+@keyframes visible {
+    0%{
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+
