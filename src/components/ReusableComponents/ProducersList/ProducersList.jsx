@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './UsersList.css';
+import './ProducersList.css';
 
-const UsersList = () => {
+const ProducersList = () => {
   const [users, setUsers] = useState([]);
 
   async function fetchData() {
@@ -48,4 +48,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default ProducersList;

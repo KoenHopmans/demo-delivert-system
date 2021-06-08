@@ -20,7 +20,7 @@ const AddDemoMainContent = () => {
   async function postData(payload) {
     console.log('hallo post data ');
     try {
-      await axios.post('http://localhost:8080/api/v1/file-upload', payload);
+      await axios.post('http://localhost:8080/api/v1/demo-upload', payload);
       console.log(`payload${payload}`);
     } catch (e) {
       console.error(e);
@@ -28,19 +28,11 @@ const AddDemoMainContent = () => {
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
-    console.log('this is the old data');
-    console.log(data);
-    const newData = data;
-    console.log('this is the newData before');
-    console.log({ newData });
-    // const music = data.file[0];
-    // console.log(`this is the music${music}`);
-    // console.log({ music });
-    // // eslint-disable-next-line prefer-destructuring
-    // newData.file = music;
-    // console.log(`this is the newData${newData}`);
-    // console.log({ newData });
     formData.append('file', data.file[0]);
+    formData.append('artist', data.artist);
+    formData.append('username', data.username);
+    formData.append('comment', data.comment);
+    formData.append('feedback', data.feedback);
     console.log('This is the formData');
     console.log(formData);
     postData(formData);
@@ -76,22 +68,22 @@ const AddDemoMainContent = () => {
                 </div>
                 <div className="text-box">
                   <BiPencil />
-                  <label htmlFor="trackName" className="inputLabel">
-                    Track name
+                  <label htmlFor="username" className="inputLabel">
+                    User name
                     <input
-                      id="trackName"
+                      id="username"
                       type="text"
                       placeholder="Enter your track name"
-                      {...register('trackName', {
+                      {...register('username', {
                         // required: 'Please enter your track name',
                         // minLength: { value: 4, message: 'At least 4 characters' },
 
                       })}
                     />
-                    {errors.trackName && (
+                    {errors.username && (
                       <div className="error">
                         <BsExclamationCircle />
-                        {errors.trackName.message}
+                        {errors.username.message}
                       </div>
                     )}
                   </label>
@@ -137,6 +129,28 @@ const AddDemoMainContent = () => {
                         <BsExclamationCircle />
                         {errors.comment.message}
                       </div>
+                    )}
+                  </label>
+                </div>
+                <div className="text-box">
+                  <BiMessageEdit />
+                  <label htmlFor="feedback" className="inputLabel">
+                    Feedback
+                    <input
+                      id="feedback"
+                      type="text"
+                      placeholder="Enter your feedback"
+                      {...register('feedback', {
+                        // required: 'Please enter your feedback',
+                        // minLength: { value: 4, message: 'At least 4 characters' },
+
+                      })}
+                    />
+                    {errors.feedback && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.feedback.message}
+                    </div>
                     )}
                   </label>
                 </div>

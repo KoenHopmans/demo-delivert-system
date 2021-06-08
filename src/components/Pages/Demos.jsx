@@ -5,7 +5,7 @@ import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVid
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
-import DemosMain from '../MainContentComponents/DemosMain';
+import DemosMain from '../MainComponents/DemosMain';
 import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 import tracks from '../TrackLists/TrackListDemos';
 

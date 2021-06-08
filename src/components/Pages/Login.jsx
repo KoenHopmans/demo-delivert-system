@@ -6,7 +6,7 @@ import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 import tracks from '../TrackLists/TrackListHexagon';
-import LoginMainContent from '../MainContentComponents/LoginMain';
+import LoginMainContent from '../MainComponents/LoginMain';
 
 function Login() {
   return (

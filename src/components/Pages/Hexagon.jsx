@@ -6,7 +6,7 @@ import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 import tracks from '../TrackLists/TrackListHexagon';
-import HexagonMain from '../MainContentComponents/HexagonMain';
+import HexagonMain from '../MainComponents/HexagonMain';
 
 function Hexagon() {
   return (

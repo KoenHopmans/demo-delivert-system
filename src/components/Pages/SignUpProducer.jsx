@@ -6,9 +6,9 @@ import Header from '../ReusableComponents/Header/Header';
 import tracks from '../TrackLists/TrackListHexagon';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
-import SignUpMainContent from '../MainContentComponents/SignUpMain';
+import SignUpProducerMainContent from '../MainComponents/SignUpProducerMain';
 
-function SignUp() {
+function SignUpProducer() {
   return (
     <div>
       <div id="content-wrap">
@@ -16,11 +16,11 @@ function SignUp() {
         <BackgroundVideo />
         <Header />
         <AudioPlayer video="donDiablo" tracks={tracks} />
-        <SignUpMainContent />
+        <SignUpProducerMainContent />
         <FooterHexagon />
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default SignUpProducer;

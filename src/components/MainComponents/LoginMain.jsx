@@ -36,17 +36,6 @@ const LoginMainContent = () => {
     }
   }
 
-  // const TokenContext = React.createContext(null);
-  // console.log(TokenContext);
-  //
-  // function TokenContextProvider({ children }) {
-  //   return (
-  //     <TokenContext.Provider value={localStorage.getItem('token')}>
-  //       { children }
-  //     </TokenContext.Provider>
-  //   );
-  // }
-
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
     console.log(data);

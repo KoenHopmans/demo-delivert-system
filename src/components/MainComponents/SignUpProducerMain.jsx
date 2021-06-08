@@ -10,10 +10,10 @@ import {
 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import UsersList from '../ReusableComponents/UsersList/UsersList';
+import ProducersList from '../ReusableComponents/ProducersList/ProducersList';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
-const SignUpMainContent = () => {
+const SignUpProducerMainContent = () => {
   const [succes, setSucces] = useState(false);
 
   async function postData(payload) {
@@ -40,7 +40,7 @@ const SignUpMainContent = () => {
         <div className="content-box">
           {!succes ? (
             <div>
-              <h1>Sign up</h1>
+              <h1>Sign up producer</h1>
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
                   <BiUser />
@@ -135,10 +135,10 @@ const SignUpMainContent = () => {
             </div>
           )}
         </div>
-        <UsersList />
+        <ProducersList />
       </div>
     </div>
   );
 };
 
-export default SignUpMainContent;
+export default SignUpProducerMainContent;
