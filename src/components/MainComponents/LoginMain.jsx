@@ -7,12 +7,14 @@ import {
 import {
   BsExclamationCircle,
 } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const LoginMainContent = () => {
   const [succes, setSucces] = useState(false);
+
+  const history = useHistory();
 
   async function postData(payload) {
     console.log('hallo post data ');
@@ -41,6 +43,7 @@ const LoginMainContent = () => {
     console.log(data);
     postData(data);
     setSucces(true);
+    history.push(`/profile/${data.username}`);
   };
 
   console.log(errors);

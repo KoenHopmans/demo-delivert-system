@@ -52,7 +52,7 @@ const SignUpPageMainContent = () => {
                       placeholder="Enter your username"
                       {...register('username', {
                         required: 'Please enter your user name',
-                        minLength: { value: 4, message: 'At least 4 characters' },
+                        minLength: { value: 3, message: 'At least 3 characters' },
 
                       })}
                     />

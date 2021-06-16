@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  BiPencil, BiMessageEdit, BiTrash,
+  BiPencil, BiMessageEdit,
 } from 'react-icons/bi';
 import {
   BsExclamationCircle,
@@ -33,6 +33,7 @@ const AddDemoMainContent = () => {
     formData.append('username', data.username);
     formData.append('comment', data.comment);
     formData.append('feedback', data.feedback);
+    formData.append('trackName', data.trackName);
     console.log('This is the formData');
     console.log(formData);
     postData(formData);
@@ -55,7 +56,6 @@ const AddDemoMainContent = () => {
                       id="file"
                       // name="file"
                       type="file"
-                      placeholder="Enter your track name"
                       {...register('file')}
                     />
                     {errors.File && (
@@ -69,13 +69,13 @@ const AddDemoMainContent = () => {
                 <div className="text-box">
                   <BiPencil />
                   <label htmlFor="username" className="inputLabel">
-                    User name
+                    User Name
                     <input
                       id="username"
                       type="text"
-                      placeholder="Enter your track name"
+                      placeholder="Enter your username"
                       {...register('username', {
-                        // required: 'Please enter your track name',
+                        required: 'Please enter your User Name',
                         // minLength: { value: 4, message: 'At least 4 characters' },
 
                       })}
@@ -90,8 +90,30 @@ const AddDemoMainContent = () => {
                 </div>
                 <div className="text-box">
                   <BiPencil />
+                  <label htmlFor="trackName" className="inputLabel">
+                    Track Name
+                    <input
+                      id="trackName"
+                      type="text"
+                      placeholder="Enter your track name"
+                      {...register('trackName', {
+                        required: 'Please enter your track name',
+                        minLength: { value: 4, message: 'At least 4 characters' },
+
+                      })}
+                    />
+                    {errors.trackName && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.trackName.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
+                <div className="text-box">
+                  <BiPencil />
                   <label htmlFor="artist" className="inputLabel">
-                    artist
+                    Artist Name
                     <input
                       id="artist"
                       type="text"
@@ -152,18 +174,6 @@ const AddDemoMainContent = () => {
                       {errors.feedback.message}
                     </div>
                     )}
-                  </label>
-                </div>
-                <div className="text-box">
-                  <BiTrash />
-                  <label htmlFor="delete" className="inputLabel">
-                    delete
-                    <input
-                      id="delete"
-                      type="text"
-                      placeholder="Enter your delete"
-                      {...register('delete')}
-                    />
                   </label>
                 </div>
                 <input className="btn" type="submit" name="" value="Add" />

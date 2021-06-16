@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  // BiMessageEdit,
-  BiPencil, BiMessage,
+  BiPencil, BiMessageEdit, BiMessage,
 } from 'react-icons/bi';
 import {
   BsExclamationCircle,
@@ -13,9 +12,7 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
-const DemoOptionsMainContent = () => {
-  const [comments, setComments] = useState([]);
-
+const DemoOptionsAdminMain = () => {
   const params = useParams();
   console.log('wat is params', params);
   const {
@@ -31,8 +28,6 @@ const DemoOptionsMainContent = () => {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
-      setComments(result.data.comments);
-      console.log('RESULT', result.data);
       reset(result.data);
       console.log(`This is the get header ${result.request.header}`);
     } catch (e) {
@@ -108,27 +103,32 @@ const DemoOptionsMainContent = () => {
         <div className="content-box">
           {!deleted ? (
             <div>
-              <h1>Options</h1>
+              <h1>Admin Options</h1>
               <div>{demo.username}</div>
               <div>{demo.artist}</div>
-              <div>
-                <BiMessage />
-                {demo.feedback}
-              </div>
-              {comments.map((comment) => (<div>{comment.comment}</div>))}
-              {/* <div>{demo.comment}</div> */}
-              {/* <div>{demo.comments}</div> */}
-              {/* <h2>{params.demo}</h2> */}
-              {/* { */}
-              {/*  comments.map((comment) => ( */}
-              {/*    <div> */}
-              {/*      <div>{comment}</div> */}
-              {/*    </div> */}
-              {/*  )) */}
-              {/* } */}
+              <div>{demo.feedback}</div>
+              <div>{demo.comment}</div>
+              <h2>{params.demo}</h2>
 
               <form onSubmit={handleSubmit(formSubmit)}>
-
+                <div className="text-box">
+                  <BiMessage />
+                  <label htmlFor="feedback" className="inputLabel">
+                    Feedback
+                    <input
+                      id="feedback"
+                      type="text"
+                      placeholder="Enter your track name"
+                      {...register('feedback')}
+                    />
+                    {errors.feedback && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.feedback.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
                 <div className="text-box">
                   <BiPencil />
                   <label htmlFor="trackName" className="inputLabel">
@@ -165,24 +165,24 @@ const DemoOptionsMainContent = () => {
                     )}
                   </label>
                 </div>
-                {/* <div className="text-box"> */}
-                {/*  <BiMessageEdit /> */}
-                {/*  <label htmlFor="comment" className="inputLabel"> */}
-                {/*    Comment */}
-                {/*    <input */}
-                {/*      id="comment" */}
-                {/*      type="text" */}
-                {/*      placeholder="Enter your comment" */}
-                {/*      {...register('comment')} */}
-                {/*    /> */}
-                {/*    {errors.comment && ( */}
-                {/*    <div className="error"> */}
-                {/*      <BsExclamationCircle /> */}
-                {/*      {errors.comment.message} */}
-                {/*    </div> */}
-                {/*    )} */}
-                {/*  </label> */}
-                {/* </div> */}
+                <div className="text-box">
+                  <BiMessageEdit />
+                  <label htmlFor="comment" className="inputLabel">
+                    Comment
+                    <input
+                      id="comment"
+                      type="text"
+                      placeholder="Enter your comment"
+                      {...register('comment')}
+                    />
+                    {errors.comment && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.comment.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
                 <input className="btn" type="submit" name="" value="Save" />
               </form>
               <button
@@ -215,4 +215,4 @@ const DemoOptionsMainContent = () => {
   );
 };
 
-export default DemoOptionsMainContent;
+export default DemoOptionsAdminMain;

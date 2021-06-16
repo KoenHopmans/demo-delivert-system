@@ -4,8 +4,8 @@ import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVid
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
-import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
-import tracks from '../TrackLists/TrackListHexagon';
+// import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
+// import tracks from '../TrackLists/TrackListHexagon';
 import HexagonMain from '../MainComponents/HexagonMain';
 
 function Hexagon() {
@@ -15,7 +15,7 @@ function Hexagon() {
         <NavigationBar singOutBtn demosBtn profileBtn />
         <BackgroundVideo video="blueStar" />
         <Header />
-        <AudioPlayer video="donDiablo" tracks={tracks} />
+        {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}
         <HexagonMain />
       </div>
       <FooterHexagon />

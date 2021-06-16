@@ -6,7 +6,7 @@ import {
 } from 'react-icons/bs';
 import axios from 'axios';
 import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
-import UserDemosList from '../MainComponentsModules/UsersDeomosList/UsersDemosList';
+import AllUsersDemosList from '../MainComponentsModules/UsersDeomosList/AllUsersDemosList';
 
 const HexagonMain = () => {
   async function postData(payload) {
@@ -77,7 +77,7 @@ const HexagonMain = () => {
           </form>
         </div>
         <AllUsersList />
-        <UserDemosList />
+        <AllUsersDemosList />
       </div>
     </div>
   );

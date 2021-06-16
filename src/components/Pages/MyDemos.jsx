@@ -6,21 +6,20 @@ import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 // import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 // import tracks from '../TrackLists/TrackListHexagon';
-import LoginMainContent from '../MainComponents/LoginMain';
+import MyDemosMain from '../MainComponents/MyDemosMain';
 
-function Login() {
+function MyDemos() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar signUpBtn singOutBtn demosBtn hexagonBtn />
+        <NavigationBar singOutBtn demosBtn profileBtn />
         <BackgroundVideo video="blueStar" />
         <Header />
         {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}
-        <LoginMainContent />
+        <MyDemosMain />
       </div>
       <FooterHexagon />
     </div>
   );
 }
-
-export default Login;
+export default MyDemos;
