@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   BiEnvelope,
@@ -7,21 +7,24 @@ import {
 import {
   BsExclamationCircle,
 } from 'react-icons/bs';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import { userContext } from '../contexts/UserProvider';
 
 const LoginMainContent = () => {
   const [succes, setSucces] = useState(false);
+  const [message, setMessage] = useState(false);
+  const { setCurrentUser } = useContext(userContext);
 
   const history = useHistory();
 
   async function postData(payload) {
     console.log('hallo post data ');
     try {
+      console.log('payload$', payload);
       const resp = await axios.post('http://localhost:8080/api/v1/authenticate', payload);
-      console.log(`payload${payload}`);
-      console.log(resp.data);
       console.log(resp.data.jwt);
       const AUTH_TOKEN = resp.data.jwt;
       // LOCAL STORAGE HEADER JWT TOKEN
@@ -33,8 +36,12 @@ const LoginMainContent = () => {
       localStorage.setItem('token', resp.data.jwt);
       const token = localStorage.getItem('token');
       console.log(`local storage token: ${token}`);
+      history.push(`/my-demos/${payload.username}`);
     } catch (e) {
       console.error(e);
+      setSucces(false);
+      setMessage(true);
+      setCurrentUser(payload.username);
     }
   }
 
@@ -42,8 +49,9 @@ const LoginMainContent = () => {
   const formSubmit = (data) => {
     console.log(data);
     postData(data);
+    setCurrentUser(data.username);
     setSucces(true);
-    history.push(`/profile/${data.username}`);
+    // history.push(`/profile/${data.username}`);
   };
 
   console.log(errors);
@@ -54,6 +62,12 @@ const LoginMainContent = () => {
           {!succes ? (
             <div>
               <h1>Login</h1>
+              {message ? (
+                <div className="error">
+                  <BsExclamationCircle />
+                  Username and Password are not correct
+                </div>
+              ) : ''}
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
                   <BiEnvelope />

@@ -12,7 +12,7 @@ function Profile() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar addDemoBtn singOutBtn demosBtn />
+        <NavigationBar addDemoBtn singOutBtn demosBtn myDemosBtn />
         <BackgroundVideo />
         <Header />
         {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   BiPencil, BiMessageEdit,
@@ -13,7 +13,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
+import { userContext } from '../contexts/UserProvider';
+
 const AddDemoMainContent = () => {
+  const { currentUser } = useContext(userContext);
   const [succes, setSucces] = useState(false);
   const formData = new FormData();
 
@@ -30,7 +33,7 @@ const AddDemoMainContent = () => {
   const formSubmit = (data) => {
     formData.append('file', data.file[0]);
     formData.append('artist', data.artist);
-    formData.append('username', data.username);
+    formData.append('username', currentUser);
     formData.append('comment', data.comment);
     formData.append('feedback', data.feedback);
     formData.append('trackName', data.trackName);
@@ -46,6 +49,9 @@ const AddDemoMainContent = () => {
         <div className="content-box">
           {!succes ? (
             <div>
+              <h2 style={{ border: '2px green solid' }}>
+                {currentUser}
+              </h2>
               <h1>Add demo</h1>
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
@@ -56,38 +62,38 @@ const AddDemoMainContent = () => {
                       id="file"
                       // name="file"
                       type="file"
-                      {...register('file')}
+                      {...register('file', { required: 'Please add your track' })}
                     />
-                    {errors.File && (
-                      <div className="error">
-                        <BsExclamationCircle />
-                        {errors.File.message}
-                      </div>
+                    {errors.file && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.file.message}
+                    </div>
                     )}
                   </label>
                 </div>
-                <div className="text-box">
-                  <BiPencil />
-                  <label htmlFor="username" className="inputLabel">
-                    User Name
-                    <input
-                      id="username"
-                      type="text"
-                      placeholder="Enter your username"
-                      {...register('username', {
-                        required: 'Please enter your User Name',
-                        // minLength: { value: 4, message: 'At least 4 characters' },
+                {/* <div className="text-box"> */}
+                {/*  <BiPencil /> */}
+                {/*  <label htmlFor="username" className="inputLabel"> */}
+                {/*    User Name */}
+                {/*    <input */}
+                {/*      id="username" */}
+                {/*      type="text" */}
+                {/*      placeholder="Enter your username" */}
+                {/*      {...register('username', { */}
+                {/*        required: 'Please enter your User Name', */}
+                {/*        // minLength: { value: 4, message: 'At least 4 characters' }, */}
 
-                      })}
-                    />
-                    {errors.username && (
-                      <div className="error">
-                        <BsExclamationCircle />
-                        {errors.username.message}
-                      </div>
-                    )}
-                  </label>
-                </div>
+                {/*      })} */}
+                {/*    /> */}
+                {/*    {errors.username && ( */}
+                {/*      <div className="error"> */}
+                {/*        <BsExclamationCircle /> */}
+                {/*        {errors.username.message} */}
+                {/*      </div> */}
+                {/*    )} */}
+                {/*  </label> */}
+                {/* </div> */}
                 <div className="text-box">
                   <BiPencil />
                   <label htmlFor="trackName" className="inputLabel">

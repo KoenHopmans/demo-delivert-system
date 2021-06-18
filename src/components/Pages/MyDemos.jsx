@@ -12,7 +12,7 @@ function MyDemos() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar singOutBtn demosBtn profileBtn />
+        <NavigationBar singOutBtn demosBtn profileBtn addDemoBtn />
         <BackgroundVideo video="blueStar" />
         <Header />
         {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}

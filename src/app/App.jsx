@@ -18,12 +18,12 @@ import SignUpPage from '../components/Pages/SignUpPage';
 import MyDemos from '../components/Pages/MyDemos';
 import ChangePassword from '../components/Pages/ChangePassword';
 import DemoOptionsAdmin from '../components/Pages/DemoOptionsAdmin';
-import DatePickerProvider from '../components/DatePickerProvider';
+import UserProvider from '../components/contexts/UserProvider';
 
 function App() {
   return (
 
-    <DatePickerProvider>
+    <UserProvider>
       <Router>
         <Switch>
           <Route path="/demos" exact component={Demos} />
@@ -34,16 +34,16 @@ function App() {
           <Route path="/log-out" exact component={LogOut} />
           <Route path="/change-password/:user" exact component={ChangePassword} />
           <Route path="/my-demos/:user" exact component={MyDemos} />
-          <Route path="/profile" exact component={Profile} />
+          {/* <Route path="/profile" exact component={Profile} /> */}
           <Route path="/profile/:user" exact component={Profile} />
-          <Route path="/add-demo/" exact component={AddDemo} />
+          <Route path="/add-demo/:user" exact component={AddDemo} />
           <Route path="/demo-options/:demo" exact component={DemoOptions} />
           <Route path="/demo-options-admin/:demo" exact component={DemoOptionsAdmin} />
           <Route path="/hexagon" exact component={Hexagon} />
           <Route path="/" component={PageNotFound} />
         </Switch>
       </Router>
-    </DatePickerProvider>
+    </UserProvider>
   );
 }
 

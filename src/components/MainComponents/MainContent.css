@@ -200,3 +200,24 @@ select option:hover{
     z-index: 10;
     transform: translateY(-0.80em)
 }
+
+#change-btn{
+    font-family: 'Julius Sans One', sans-serif;
+    width: 160px;
+    height: 70px;
+    background: none;
+    border: 2px solid dodgerblue;
+    color: white;
+    padding: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    margin: 30px 20px 50px 20px;
+}
+
+#change-btn:hover{
+    box-shadow: 0 0 5px dodgerblue,
+    0 0 25px dodgerblue,
+    0 0 50px dodgerblue,
+    0 0 100px dodgerblue;
+    transform: translateY(-0.25em)
+}

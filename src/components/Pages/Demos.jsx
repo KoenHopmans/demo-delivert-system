@@ -15,7 +15,7 @@ function Demos() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar addDemoBtn profileBtn singOutBtn demoOptionBtn />
+        <NavigationBar addDemoBtn profileBtn singOutBtn myDemosBtn />
         <BackgroundVideo video="blueHexagon" />
         <Header />
         {/* <AudioPlayer tracks={tracks} selectedMode1={selectedMode1} /> */}

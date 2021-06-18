@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import { IoMaleFemaleSharp, IoLocationOutline } from 'react-icons/io5';
 import {
@@ -11,21 +13,24 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 // import { ImFileMusic } from 'react-icons/im';
 // import HexagonProfile from '../ReusableComponents/HexagonProfile/HexagonProfile';
-import { useHistory } from 'react-router-dom';
-import profileImage from '../../images/empty-profile-picture.jpg';
+import profileImage from '../../images/dj-default-gray.png';
+import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
+import { userContext } from '../contexts/UserProvider';
 
 const ProfileMainContent = () => {
-  const history = useHistory();
+  const [user, setUser] = useState({});
+  const [url, setUrl] = useState(profileImage);
+  const [newPassword, setNewPassword] = useState(false);
+  const { currentUser } = useContext(userContext);
+
+  console.log('USER', currentUser);
   const formData = new FormData();
   const {
     register, handleSubmit, reset, formState: { errors },
-  } = useForm(
-  );
-
-  const [url, setUrl] = useState(profileImage);
-
+  } = useForm();
   const params = useParams();
-  const [user, setUser] = useState([]);
+
+  console.log(setNewPassword);
   async function postData(payload) {
     console.log('hallo post data ');
     try {
@@ -49,7 +54,7 @@ const ProfileMainContent = () => {
       });
       console.log('RESULT', result);
       const blob = new Blob([result.data], {
-        type: 'audio/mp3',
+        type: 'image/jpg',
       });
       const objectURL = URL.createObjectURL(blob);
       setUrl(objectURL);
@@ -74,6 +79,18 @@ const ProfileMainContent = () => {
     console.log('TEST');
   }, []);
 
+  // useEffect(() => {
+  //   if (user) {
+  //     setValue([{ email: user.email || '' },
+  //       { about: user.about || '' },
+  //       { gender: user.gender || '' },
+  //       { firstName: user.firstName || '' },
+  //       { lastName: user.lastName || '' },
+  //       { location: user.location || '' },
+  //       { birthDate: user.birthDate || '' }]);
+  //   }
+  // }, [user]);
+
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/users/${params.user}`);
@@ -81,9 +98,15 @@ const ProfileMainContent = () => {
       console.log(`This is the get header ${result.request.header}`);
       const receivedData = result.data;
 
-      console.log(receivedData);
+      console.log('User DATA !!', receivedData);
       setUser(receivedData);
-      reset(receivedData);
+      const cleanData = receivedData;
+      if (cleanData.email === 'undefined' || cleanData.email === 'null') { cleanData.email = ''; }
+      if (cleanData.firstName === 'undefined' || cleanData.firstName === 'null') { cleanData.firstName = ''; }
+      if (cleanData.lastName === 'undefined' || cleanData.lastName === 'null') { cleanData.lastName = ''; }
+      if (cleanData.about === 'undefined' || cleanData.about === 'null') { cleanData.about = ''; }
+      if (cleanData.location === 'undefined' || cleanData.location === 'null') { cleanData.location = ''; }
+      reset(cleanData);
     } catch (e) {
       console.error(e);
     }
@@ -92,7 +115,7 @@ const ProfileMainContent = () => {
     fetchData();
     console.log('user', user);
     // eslint-disable-next-line no-use-before-define
-  }, [reset]);
+  }, []);
 
   useEffect(() => {
     fetchPhoto(user.photo);
@@ -126,17 +149,50 @@ const ProfileMainContent = () => {
     console.log(save);
     console.log('hallo form submit 2');
   };
+  const inputFileRef = useRef(undefined);
+
+  const onBtnClick = () => {
+    /* Collecting node-element and performing click */
+    inputFileRef.current.click();
+  };
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
+          <h2 style={{ border: '2px green solid' }}>
+            {currentUser}
+          </h2>
           <h1>Profile</h1>
           <h2>{user.username}</h2>
           <h2>{user.email}</h2>
           <h2>{user.photo}</h2>
           {/* <HexagonProfile photo="photo01" /> */}
-          <div className="hexagon-shape">
-            <img src={url} alt="profile" />
+          <button type="button" id="my-button" onClick={onBtnClick}>
+            <div className="hexagon-shape">
+              <img src={url} alt="profile" />
+            </div>
+          </button>
+          <div className="text-box">
+            {/* <ImFileMusic /> */}
+            <label htmlFor="file" className="inputLabel">
+              Photo
+              <input
+                id="file"
+                type="file"
+                    // ref={inputFileRef}
+                {...register('file', {
+                  ref: { inputFileRef },
+                })}
+              />
+
+              {errors.File && (
+                <div className="error">
+                  <BsExclamationCircle />
+                  {errors.File.message}
+                </div>
+              )}
+            </label>
           </div>
           <div className="text-box">
             <BiLockAlt />
@@ -144,10 +200,13 @@ const ProfileMainContent = () => {
             <label htmlFor="password" className="inputLabel">
               password
             </label>
-            <button type="button" className="input-btn" id="password" onClick={() => history.push(`/change-password/${params.user}`, { from: 'App' })}>
+            <button type="button" className="input-btn" id="password" onClick={() => setNewPassword(!newPassword)}>
               Change
             </button>
           </div>
+          {newPassword ? (
+            <ChangePasswordModule />
+          ) : ''}
           <form onSubmit={handleSubmit(formSubmit)}>
             <div className="text-box">
               <BiUser />
@@ -160,10 +219,10 @@ const ProfileMainContent = () => {
                   {...register('firstName')}
                 />
                 {errors.firstName && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.firstName.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.firstName.message}
+                  </div>
                 )}
               </label>
             </div>
@@ -178,28 +237,10 @@ const ProfileMainContent = () => {
                   {...register('lastName')}
                 />
                 {errors.lastName && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.lastName.message}
-                </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              {/* <ImFileMusic /> */}
-              <label htmlFor="file" className="inputLabel">
-                Photo
-                <input
-                  id="file"
-                  type="file"
-                  placeholder="Enter your track name"
-                  {...register('file')}
-                />
-                {errors.File && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.File.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.lastName.message}
+                  </div>
                 )}
               </label>
             </div>
@@ -218,10 +259,10 @@ const ProfileMainContent = () => {
                   })}
                 />
                 {errors.email && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.email.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.email.message}
+                  </div>
                 )}
               </label>
             </div>
@@ -260,10 +301,10 @@ const ProfileMainContent = () => {
                   {...register('birthDate')}
                 />
                 {errors.birthDate && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.birthDate.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.birthDate.message}
+                  </div>
                 )}
               </label>
             </div>
@@ -278,10 +319,10 @@ const ProfileMainContent = () => {
                   {...register('about')}
                 />
                 {errors.about && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.about.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.about.message}
+                  </div>
                 )}
               </label>
             </div>
@@ -296,17 +337,15 @@ const ProfileMainContent = () => {
                   {...register('location')}
                 />
                 {errors.location && (
-                <div className="error">
-                  <BsExclamationCircle />
-                  {errors.location.message}
-                </div>
+                  <div className="error">
+                    <BsExclamationCircle />
+                    {errors.location.message}
+                  </div>
                 )}
               </label>
-
             </div>
             <input className="btn" type="submit" name="" value="Save" />
           </form>
-          <button type="button" className="btn" onClick={() => history.push(`/my-demos/${params.user}`, { from: 'App' })}>My Demos</button>
         </div>
       </div>
     </div>

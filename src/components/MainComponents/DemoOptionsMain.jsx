@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import {
   // BiMessageEdit,
-  BiPencil, BiMessage,
+  BiPencil, BiMessage, BiMessageEdit,
 } from 'react-icons/bi';
 import {
   BsExclamationCircle,
@@ -12,19 +14,26 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import { userContext } from '../contexts/UserProvider';
+
+import AddCommentModule from '../MainComponentsModules/AddCommentModule';
 
 const DemoOptionsMainContent = () => {
+  const { currentDemo, currentUser } = useContext(userContext);
+  // const { CurrentBlob } = useContext(userContext);
   const [comments, setComments] = useState([]);
+  // const audioRef = useRef(null);
 
   const params = useParams();
   console.log('wat is params', params);
   const {
+
     register, handleSubmit, reset, formState: { errors },
   } = useForm(
   );
 
   const [deleted, setDeleted] = useState(false);
-
+  const [addComment, setAddComment] = useState(false);
   const [demo, setDemo] = useState([]);
 
   async function fetchData() {
@@ -101,11 +110,20 @@ const DemoOptionsMainContent = () => {
       console.error(e);
     }
   }
+  // const musicPlay = () => {
+  //   audioRef.current = new Audio(CurrentBlob);
+  //   console.log('CurrentBlob', CurrentBlob);
+  //   audioRef.current.play();
+  // };
 
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
+          <h2 style={{ border: '2px green solid' }}>
+            {currentUser}
+          </h2>
+          <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2>
           {!deleted ? (
             <div>
               <h1>Options</h1>
@@ -185,6 +203,21 @@ const DemoOptionsMainContent = () => {
                 {/* </div> */}
                 <input className="btn" type="submit" name="" value="Save" />
               </form>
+
+              <div className="text-box">
+                <BiMessageEdit />
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label htmlFor="add-comment" className="inputLabel">
+                  Add Comment
+                </label>
+                <button type="button" className="input-btn" id="add-comment" onClick={() => setAddComment(!addComment)}>
+                  +
+                </button>
+              </div>
+              {addComment ? (
+                <AddCommentModule />
+              ) : ''}
+
               <button
                 className="btn"
                 onClick={() => { downloadFile(params.demo); }}
@@ -199,6 +232,14 @@ const DemoOptionsMainContent = () => {
               >
                 delete
               </button>
+              {/* <button */}
+              {/*  className="btn" */}
+              {/*  onClick={() => { musicPlay(); }} */}
+              {/*  type="button" */}
+              {/* > */}
+              {/*  play */}
+              {/* </button> */}
+
               <div className="question">
                 <Link to="/demos"> To all demo&#39;s </Link>
               </div>

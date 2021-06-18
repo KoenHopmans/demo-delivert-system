@@ -1,15 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { userContext } from '../../contexts/UserProvider';
 
 const NewDemo = ({
+
   item, authorisation,
 }) => {
   const history = useHistory();
-
+  const { setCurrentDemo, setTrackName } = useContext(userContext);
+  // const { setCurrentBlob } = useContext(userContext);
   const audioRef = useRef(null);
 
   async function downloadFile(fileName) {
+    setCurrentDemo(fileName);
     console.log('fileName!!! ');
     console.log(fileName);
 
@@ -40,11 +44,15 @@ const NewDemo = ({
   }
 
   const demoOptions = () => {
+    setCurrentDemo(item.demo);
+    setTrackName(item.trackName);
+    console.log('item.trackName', item.trackName);
     if (authorisation === 'admin') history.push(`/demo-options-admin/${item.demo}`, { from: 'App' });
     else { history.push(`/demo-options/${item.demo}`, { from: 'App' }); }
   };
 
   async function playFile(fileName) {
+    setCurrentDemo(fileName);
     console.log('fileName!!! ');
     console.log(fileName);
 
@@ -59,12 +67,12 @@ const NewDemo = ({
       const blob = new Blob([result.data], {
         type: 'audio/mp3',
       });
+      console.log('blob', blob);
+      // setCurrentBlob(blob);
       const objectURL = URL.createObjectURL(blob);
       // const audio = new Audio(objectURL);
       if (audioRef.current && audioRef.current.pause());
       audioRef.current = new Audio(objectURL);
-      // audio.load();
-      // await audio.play();
       audioRef.current.play();
     } catch (e) {
       console.error(e);
