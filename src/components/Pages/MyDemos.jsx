@@ -4,8 +4,8 @@ import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVid
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
-// import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
-// import tracks from '../TrackLists/TrackListHexagon';
+import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
+import tracks from '../TrackLists/TrackListHexagon';
 import MyDemosMain from '../MainComponents/MyDemosMain';
 
 function MyDemos() {
@@ -15,7 +15,7 @@ function MyDemos() {
         <NavigationBar singOutBtn demosBtn profileBtn addDemoBtn />
         <BackgroundVideo video="blueStar" />
         <Header />
-        {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}
+        <NewAudioPlayer video="donDiablo" tracks={tracks} />
         <MyDemosMain />
       </div>
       <FooterHexagon />

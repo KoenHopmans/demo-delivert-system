@@ -1,6 +1,7 @@
 import React, {
   useState, useEffect, useRef, useContext,
 } from 'react';
+import axios from 'axios';
 import AudioControls from './AudioControls';
 import './AudioPlayer.css';
 import MusicPlayerImg from '../../../images/music-player-tv__img.png';
@@ -13,7 +14,47 @@ import { userContext } from '../../contexts/UserProvider';
  * Read the blog post here:
  * https://letsbuildui.dev/articles/building-an-audio-player-with-react-hooks
  */
-const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
+const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
+  const {
+    trackName, setTrackName, currentUser, currentDemo, playMusic, setPlayMusic,
+  } = useContext(userContext);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [trackProgress, setTrackProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [goodTitle, setGoodTitle] = useState('');
+  const [goodArtist, setGoodArtist] = useState('');
+  const { audioSrc } = tracks[trackIndex];
+  console.log('tracks[trackIndex]', tracks[trackIndex].title);
+
+  // const { titel, artist } = tracks[trackIndex];
+  const audioRef = useRef(new Audio(audioSrc));
+  // const newAudioRef = useRef(null);
+  async function playFile() {
+    console.log(currentDemo);
+    try {
+      const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${currentDemo}`, {
+        responseType: 'arraybuffer',
+        headers: {
+          'Content-Type': 'audio/mp3',
+        },
+      });
+      console.log(result);
+      const blob = new Blob([result.data], {
+        type: 'audio/mp3',
+      });
+      console.log('blob', blob);
+      // setCurrentBlob(blob);
+      const objectURL = URL.createObjectURL(blob);
+      // const audio = new Audio(objectURL);
+
+      if (audioRef.current && audioRef.current.pause());
+      audioRef.current = new Audio(objectURL);
+      audioRef.current.play();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  // ----------------------------------------------------------------------------------------------
   const chosenVideo = () => {
     switch (video) {
       case 'hexagon':
@@ -25,30 +66,25 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
     }
   };
     // State
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const { trackName, currentUser } = useContext(userContext);
-  // Destructure for conciseness
-  const { audioSrc } = tracks[trackIndex];
 
-  let {
-    // eslint-disable-next-line prefer-const
-    title, artist, image,
-  } = tracks[trackIndex];
+  // Destructure for conciseness
+  // let {
+  //   // eslint-disable-next-line prefer-const
+  //   title, artist,
+  // } = tracks[trackIndex];
 
   // eslint-disable-next-line prefer-const,no-unused-vars
-  const [goodTitle, setGoodTitle] = useState(title);
-  const [goodImage, setGoodImage] = useState(image);
-  const [goodArtist, setGoodArtist] = useState(artist);
+  // const [goodTitle, setGoodTitle] = useState(title);
+  // // const [goodImage, setGoodImage] = useState(image);
+  // const [goodArtist, setGoodArtist] = useState(artist);
 
-  function findTrack(track) {
-    // eslint-disable-next-line
-        return track.id == selectedMode1;
-  }
+  // function findTrack(track) {
+  //   // eslint-disable-next-line
+  //       return track.id == selectedMode1;
+  // }
 
-  const goodTrack = tracks.find(findTrack);
-  const audioRef = useRef(new Audio(audioSrc));
+  // const goodTrack = tracks.find(findTrack);
+
   const videoRef = useRef();
   const intervalRef = useRef();
   const isReady = useRef(false);
@@ -64,13 +100,16 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
   `;
 
   const toNextTrack = () => {
+    setGoodTitle(tracks[trackIndex].title);
+    setGoodArtist(tracks[trackIndex].artist);
+    // setTrackName('');
     if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1);
     } else {
       setTrackIndex(0);
     }
-    setGoodTitle('');
-    setGoodArtist('');
+    // setGoodTitle(titel);
+    // setGoodArtist(artist);
   };
 
   const startTimer = () => {
@@ -102,46 +141,69 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
   };
 
   const toPrevTrack = () => {
+    setGoodTitle(tracks[trackIndex].title);
+    setGoodArtist(tracks[trackIndex].artist);
+    setTrackName('');
     if (trackIndex - 1 < 0) {
       setTrackIndex(tracks.length - 1);
     } else {
       setTrackIndex(trackIndex - 1);
     }
-    setGoodTitle('');
-    setGoodArtist('');
+    // setGoodTitle('');
+    // setGoodArtist('');
   };
+
+  useEffect(() => {
+    playFile();
+  }, [trackName]);
+
   useEffect(() => {
     if (isPlaying) {
+      // playFile();
       audioRef.current.play();
       videoRef.current.play();
       startTimer();
     } else {
+      setIsPlaying(false);
+      setPlayMusic(false);
       audioRef.current.pause();
       videoRef.current.pause();
     }
-  }, [isPlaying]);
+  }, [isPlaying, trackName]);
 
   useEffect(() => {
-    audioRef.current.pause();
-
-    audioRef.current = new Audio(goodTrack.audioSrc);
-    // eslint-disable-next-line no-const-assign
-    setGoodTitle(goodTrack.title);
-    setGoodArtist(goodTrack.artist);
-    setGoodImage(goodTrack.image);
-
-    setTrackProgress(audioRef.current.currentTime);
-
-    if (isReady.current) {
-      // eslint-disable-next-line no-use-before-define
-      audioRef.current.play();
-      setIsPlaying(true);
-      startTimer();
-    } else {
-      // Set the isReady ref as true for the next pass
-      isReady.current = true;
+    if (trackName) {
+      setGoodTitle(trackName);
     }
-  }, [selectedMode1]);
+  }, [trackName]);
+
+  useEffect(() => {
+    if (playMusic) {
+      setIsPlaying(true);
+    }
+  }, [playMusic]);
+
+  // useEffect(() => {
+  //   audioRef.current.pause();
+  //
+  //   audioRef.current = new Audio(goodTrack.audioSrc);
+  //   // eslint-disable-next-line no-const-assign
+  //   setGoodTitle(goodTrack.title);
+  //   setGoodArtist(goodTrack.artist);
+  //   setGoodImage(goodTrack.image);
+  //
+  //   setTrackProgress(audioRef.current.currentTime);
+  //
+  //   if (isReady.current) {
+  //     // eslint-disable-next-line no-use-before-define
+  //     audioRef.current.play();
+  //     setIsPlaying(true);
+  //     startTimer();
+  //   } else {
+  //     // Set the isReady ref as true for the next pass
+  //     isReady.current = true;
+  //   }
+  // }, [selectedMode1]);
 
   // Handles cleanup and setup when changing tracks
   useEffect(() => {
@@ -168,7 +230,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
       clearInterval(intervalRef.current);
     },
   []);
-
+  //---------------------------------------------------------------------------
   return (
     <div className="audio-player-container">
       <HexagonAnimation
@@ -179,7 +241,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
         <div className="track-info">
           <img
             className="artwork"
-            src={goodImage}
             alt={`track artwork for ${goodTitle} by ${goodArtist}`}
           />
           <AudioControls
@@ -188,7 +249,8 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks, selectedMode1 = 1 }) => {
             onNextClick={toNextTrack}
             onPlayPauseClick={setIsPlaying}
           />
-          <h2 className="title">{trackName}</h2>
+          {/* <button type="button" onClick={() => { playFile(); }}>PLAY</button> */}
+          <h2 className="title">{goodTitle}</h2>
           <h3 className="artist">{currentUser}</h3>
           <input
             type="range"

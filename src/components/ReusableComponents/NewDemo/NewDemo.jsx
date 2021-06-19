@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { userContext } from '../../contexts/UserProvider';
@@ -8,9 +8,9 @@ const NewDemo = ({
   item, authorisation,
 }) => {
   const history = useHistory();
-  const { setCurrentDemo, setTrackName } = useContext(userContext);
+  const { setCurrentDemo, setTrackName, setPlayMusic } = useContext(userContext);
   // const { setCurrentBlob } = useContext(userContext);
-  const audioRef = useRef(null);
+  // const audioRef = useRef(null);
 
   async function downloadFile(fileName) {
     setCurrentDemo(fileName);
@@ -52,31 +52,33 @@ const NewDemo = ({
   };
 
   async function playFile(fileName) {
-    setCurrentDemo(fileName);
+    setCurrentDemo(item.demo);
+    setTrackName(item.trackName);
+    setPlayMusic(true);
     console.log('fileName!!! ');
     console.log(fileName);
 
-    try {
-      const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
-        responseType: 'arraybuffer',
-        headers: {
-          'Content-Type': 'audio/mp3',
-        },
-      });
-      console.log(result);
-      const blob = new Blob([result.data], {
-        type: 'audio/mp3',
-      });
-      console.log('blob', blob);
-      // setCurrentBlob(blob);
-      const objectURL = URL.createObjectURL(blob);
-      // const audio = new Audio(objectURL);
-      if (audioRef.current && audioRef.current.pause());
-      audioRef.current = new Audio(objectURL);
-      audioRef.current.play();
-    } catch (e) {
-      console.error(e);
-    }
+    // try {
+    //   const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
+    //     responseType: 'arraybuffer',
+    //     headers: {
+    //       'Content-Type': 'audio/mp3',
+    //     },
+    //   });
+    //   console.log(result);
+    //   const blob = new Blob([result.data], {
+    //     type: 'audio/mp3',
+    //   });
+    //   console.log('blob', blob);
+    //   // setCurrentBlob(blob);
+    //   const objectURL = URL.createObjectURL(blob);
+    //   // const audio = new Audio(objectURL);
+    //   if (audioRef.current && audioRef.current.pause());
+    //   audioRef.current = new Audio(objectURL);
+    //   audioRef.current.play();
+    // } catch (e) {
+    //   console.error(e);
+    // }
   }
 
   console.log('test');

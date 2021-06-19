@@ -7,6 +7,7 @@ export default function UserProvider(props) {
   const [currentDemo, setCurrentDemo] = useState('');
   const [currentBlob, setCurrentBlob] = useState({});
   const [trackName, setTrackName] = useState('');
+  const [playMusic, setPlayMusic] = useState('');
   console.log(setCurrentUser);
   return (
     <userContext.Provider
@@ -19,6 +20,9 @@ export default function UserProvider(props) {
         setCurrentBlob,
         setTrackName,
         trackName,
+        setPlayMusic,
+        playMusic,
+
       }}
     >
       {/* eslint-disable-next-line react/destructuring-assignment */}
