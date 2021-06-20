@@ -1,29 +1,24 @@
 import React from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { BiUser, BiKey } from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import axios from 'axios';
+import { BsExclamationCircle } from 'react-icons/bs';
 import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
 import AllUsersDemosList from '../MainComponentsModules/UsersDeomosList/AllUsersDemosList';
 
 const HexagonMain = () => {
+  // Functions
   async function postData(payload) {
     console.log('hallo post data ');
     try {
       await axios.post(`http://localhost:8080/api/v1/users/${payload.username}/authorities`, payload);
-      console.log(`payload${payload}`);
     } catch (e) {
       console.error(e);
     }
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
-    console.log('hallo form submit 1 ');
-    console.log(data);
     postData(data);
-    console.log('hallo form submit 2');
   };
   return (
     <div className="mainContentContainer">

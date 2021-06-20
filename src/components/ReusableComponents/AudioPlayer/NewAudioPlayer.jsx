@@ -100,16 +100,17 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   `;
 
   const toNextTrack = () => {
+    setTrackName('');
     setGoodTitle(tracks[trackIndex].title);
     setGoodArtist(tracks[trackIndex].artist);
+    console.log('TRACK INDEX', [trackIndex]);
+    console.log('TRACK INDEX TITLE', [trackIndex].title);
     // setTrackName('');
     if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1);
     } else {
       setTrackIndex(0);
     }
-    // setGoodTitle(titel);
-    // setGoodArtist(artist);
   };
 
   const startTimer = () => {
@@ -141,14 +142,15 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   };
 
   const toPrevTrack = () => {
-    setGoodTitle(tracks[trackIndex].title);
-    setGoodArtist(tracks[trackIndex].artist);
     setTrackName('');
     if (trackIndex - 1 < 0) {
       setTrackIndex(tracks.length - 1);
     } else {
       setTrackIndex(trackIndex - 1);
     }
+    setGoodTitle(tracks[trackIndex].title);
+    setGoodArtist(tracks[trackIndex].artist);
+    console.log('TRACK INDEX', trackIndex);
     // setGoodTitle('');
     // setGoodArtist('');
   };

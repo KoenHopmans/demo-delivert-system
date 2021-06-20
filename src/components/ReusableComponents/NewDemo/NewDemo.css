@@ -1,0 +1,17 @@
+.demo-btn{
+    -webkit-text-stroke: 1px black;
+    color: white;
+    font-size: 25px;
+}
+
+.demo-btn:hover{
+    color: dodgerblue;
+    transform: scale(1.5)
+}
+
+.demo-trackName{
+    -webkit-text-stroke: 1px black;
+    color: white;
+    font-size: 25px;
+    font-family: 'Audiowide', cursive
+}

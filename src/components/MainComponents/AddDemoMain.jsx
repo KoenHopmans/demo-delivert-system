@@ -1,37 +1,38 @@
-import React, { useContext, useState } from 'react';
+import React, {
+  useContext, useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BiPencil, BiMessageEdit,
-} from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import {
-  ImFileMusic,
-} from 'react-icons/im';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { BiPencil, BiMessageEdit } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
+import { ImFileMusic, ImFilePicture } from 'react-icons/im';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
-import { userContext } from '../contexts/UserProvider';
-
 const AddDemoMainContent = () => {
-  const { currentUser } = useContext(userContext);
-  const [succes, setSucces] = useState(false);
   const formData = new FormData();
+  const { currentUser } = useContext(userContext);
+  const history = useHistory();
+  const [succes, setSucces] = useState(false);
+  // const [item, setItem] = useState({});
 
   async function postData(payload) {
     console.log('hallo post data ');
     try {
       await axios.post('http://localhost:8080/api/v1/demo-upload', payload);
       console.log(`payload${payload}`);
+      history.push(`/my-demos/${currentUser}`);
     } catch (e) {
       console.error(e);
     }
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
-    formData.append('file', data.file[0]);
+    formData.append('musicFile', data.musicFile[0]);
+    console.log('data.musicFile[0].name', data.musicFile[0].name);
+    formData.append('cover', data.cover[0]);
     formData.append('artist', data.artist);
     formData.append('username', currentUser);
     formData.append('comment', data.comment);
@@ -42,6 +43,23 @@ const AddDemoMainContent = () => {
     postData(formData);
     setSucces(true);
   };
+
+  // async function fetchData() {
+  //   try {
+  //     const result = await axios.get(`http://localhost:8080/api/v1/demo/${addedDemo}`);
+  //     console.log('result.data!!!!!', result.data);
+  //     setItem(result.data);
+  //     console.log('item!!!', item);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchData();
+  //   console.log('FETCH DATA');
+  // }, []);
+
   console.log(errors);
   return (
     <div className="mainContentContainer">
@@ -52,48 +70,44 @@ const AddDemoMainContent = () => {
               <h2 style={{ border: '2px green solid' }}>
                 {currentUser}
               </h2>
-              <h1>Add demo</h1>
+              <h1>
+                Add demo item
+              </h1>
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
                   <ImFileMusic />
-                  <label htmlFor="file" className="inputLabel">
-                    File
+                  <label htmlFor="musicFile" className="inputLabel">
+                    Music
                     <input
-                      id="file"
-                      // name="file"
+                      id="musicFile"
                       type="file"
-                      {...register('file', { required: 'Please add your track' })}
+                      {...register('musicFile', { required: 'Please add your track' })}
                     />
-                    {errors.file && (
+                    {errors.musicFile && (
                     <div className="error">
                       <BsExclamationCircle />
-                      {errors.file.message}
+                      {errors.musicFile.message}
                     </div>
                     )}
                   </label>
                 </div>
-                {/* <div className="text-box"> */}
-                {/*  <BiPencil /> */}
-                {/*  <label htmlFor="username" className="inputLabel"> */}
-                {/*    User Name */}
-                {/*    <input */}
-                {/*      id="username" */}
-                {/*      type="text" */}
-                {/*      placeholder="Enter your username" */}
-                {/*      {...register('username', { */}
-                {/*        required: 'Please enter your User Name', */}
-                {/*        // minLength: { value: 4, message: 'At least 4 characters' }, */}
-
-                {/*      })} */}
-                {/*    /> */}
-                {/*    {errors.username && ( */}
-                {/*      <div className="error"> */}
-                {/*        <BsExclamationCircle /> */}
-                {/*        {errors.username.message} */}
-                {/*      </div> */}
-                {/*    )} */}
-                {/*  </label> */}
-                {/* </div> */}
+                <div className="text-box">
+                  <ImFilePicture />
+                  <label htmlFor="musicFile" className="inputLabel">
+                    Cover image
+                    <input
+                      id="cover"
+                      type="file"
+                      {...register('cover')}
+                    />
+                    {errors.cover && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.cover.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
                 <div className="text-box">
                   <BiPencil />
                   <label htmlFor="trackName" className="inputLabel">
@@ -124,17 +138,13 @@ const AddDemoMainContent = () => {
                       id="artist"
                       type="text"
                       placeholder="Enter your artist"
-                      {...register('artist', {
-                        // required: 'Please enter your artist',
-                        // minLength: { value: 4, message: 'At least 4 characters' },
-
-                      })}
+                      {...register('artist')}
                     />
                     {errors.artist && (
-                      <div className="error">
-                        <BsExclamationCircle />
-                        {errors.artist.message}
-                      </div>
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.artist.message}
+                    </div>
                     )}
                   </label>
                 </div>
@@ -146,42 +156,34 @@ const AddDemoMainContent = () => {
                       id="comment"
                       type="text"
                       placeholder="Enter your comment"
-                      {...register('comment', {
-                        // required: 'Please enter your comment',
-                        // minLength: { value: 4, message: 'At least 4 characters' },
-
-                      })}
+                      {...register('comment')}
                     />
                     {errors.comment && (
-                      <div className="error">
-                        <BsExclamationCircle />
-                        {errors.comment.message}
-                      </div>
-                    )}
-                  </label>
-                </div>
-                <div className="text-box">
-                  <BiMessageEdit />
-                  <label htmlFor="feedback" className="inputLabel">
-                    Feedback
-                    <input
-                      id="feedback"
-                      type="text"
-                      placeholder="Enter your feedback"
-                      {...register('feedback', {
-                        // required: 'Please enter your feedback',
-                        // minLength: { value: 4, message: 'At least 4 characters' },
-
-                      })}
-                    />
-                    {errors.feedback && (
                     <div className="error">
                       <BsExclamationCircle />
-                      {errors.feedback.message}
+                      {errors.comment.message}
                     </div>
                     )}
                   </label>
                 </div>
+                {/* <div className="text-box"> */}
+                {/*  <BiMessageEdit /> */}
+                {/*  <label htmlFor="feedback" className="inputLabel"> */}
+                {/*    Feedback */}
+                {/*    <input */}
+                {/*      id="feedback" */}
+                {/*      type="text" */}
+                {/*      placeholder="Enter your feedback" */}
+                {/*      {...register('feedback')} */}
+                {/*    /> */}
+                {/*    {errors.feedback && ( */}
+                {/*    <div className="error"> */}
+                {/*      <BsExclamationCircle /> */}
+                {/*      {errors.feedback.message} */}
+                {/*    </div> */}
+                {/*    )} */}
+                {/*  </label> */}
+                {/* </div> */}
                 <input className="btn" type="submit" name="" value="Add" />
               </form>
               <div className="question">

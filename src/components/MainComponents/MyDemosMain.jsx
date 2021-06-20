@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-
-import UserDemos from '../MainComponentsModules/UsersDeomosList/UserDemos';
 import { userContext } from '../contexts/UserProvider';
+import UserDemos from '../MainComponentsModules/UsersDeomosList/UserDemos';
 
 const MyDemosMain = () => {
+  // Hooks
   const { currentDemo, currentUser } = useContext(userContext);
   return (
     <div className="mainContentContainer">

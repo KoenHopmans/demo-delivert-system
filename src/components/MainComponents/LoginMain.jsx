@@ -1,38 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import {
-  BiEnvelope,
-  BiLockAlt,
-} from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import { BiEnvelope, BiLockAlt } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import { userContext } from '../contexts/UserProvider';
+import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const LoginMainContent = () => {
+  // Hooks
   const [succes, setSucces] = useState(false);
   const [message, setMessage] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { setCurrentUser } = useContext(userContext);
-
   const history = useHistory();
 
+  // Functions
   async function postData(payload) {
-    console.log('hallo post data ');
     try {
-      console.log('payload$', payload);
       const resp = await axios.post('http://localhost:8080/api/v1/authenticate', payload);
       console.log(resp.data.jwt);
       const AUTH_TOKEN = resp.data.jwt;
-      // LOCAL STORAGE HEADER JWT TOKEN
-
-      // eslint-disable-next-line
       axios.defaults.headers.common.Authorization = `Bearer ${AUTH_TOKEN}`;
       console.log(axios.defaults.headers, 'login main axios header');
-
       localStorage.setItem('token', resp.data.jwt);
       const token = localStorage.getItem('token');
       console.log(`local storage token: ${token}`);
@@ -45,13 +36,10 @@ const LoginMainContent = () => {
     }
   }
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
-    console.log(data);
     postData(data);
     setCurrentUser(data.username);
     setSucces(true);
-    // history.push(`/profile/${data.username}`);
   };
 
   console.log(errors);
@@ -98,7 +86,6 @@ const LoginMainContent = () => {
                       id="password"
                       type="password"
                       placeholder="Enter your password"
-                  // name="password"
                       {...register('password')}
                     />
                   </label>

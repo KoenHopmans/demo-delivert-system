@@ -1,62 +1,43 @@
 import React, {
   useContext, useEffect, useState,
 } from 'react';
-import { useForm } from 'react-hook-form';
-import {
-  // BiMessageEdit,
-  BiPencil, BiMessage, BiMessageEdit,
-} from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-
-import { useParams } from 'react-router';
 import axios from 'axios';
-import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
+import { BiPencil, BiMessage, BiMessageEdit } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import { userContext } from '../contexts/UserProvider';
-
+import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/AddCommentModule';
 
 const DemoOptionsMainContent = () => {
+  // Hooks
   const { currentDemo, currentUser } = useContext(userContext);
-  // const { CurrentBlob } = useContext(userContext);
   const [comments, setComments] = useState([]);
-  // const audioRef = useRef(null);
-
+  const [deleted, setDeleted] = useState(false);
+  const [addComment, setAddComment] = useState(false);
+  const [demo, setDemo] = useState([]);
+  const formData = new FormData();
   const params = useParams();
-  console.log('wat is params', params);
   const {
-
     register, handleSubmit, reset, formState: { errors },
   } = useForm(
   );
 
-  const [deleted, setDeleted] = useState(false);
-  const [addComment, setAddComment] = useState(false);
-  const [demo, setDemo] = useState([]);
-
+  // Functions
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
       setComments(result.data.comments);
-      console.log('RESULT', result.data);
       reset(result.data);
-      console.log(`This is the get header ${result.request.header}`);
     } catch (e) {
       console.error(e);
     }
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   async function downloadFile(fileName) {
-    console.log('fileName!!! ');
-    console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -64,15 +45,12 @@ const DemoOptionsMainContent = () => {
           'Content-Type': 'audio/mp3',
         },
       });
-      console.log(result);
       const blob = new Blob([result.data], {
         type: 'audio/mp3',
       });
       const objectURL = URL.createObjectURL(blob);
       const downloadLink = document.createElement('a');
       document.body.appendChild(downloadLink);
-      console.log(`downloadLink ${downloadLink}`);
-      console.log(`objectURL ${objectURL}`);
       downloadLink.href = objectURL;
       downloadLink.download = fileName;
       downloadLink.style.display = 'none';
@@ -84,7 +62,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function postData(payload, fileName) {
-    console.log('hallo post data ');
     try {
       await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
     } catch (e) {
@@ -93,28 +70,28 @@ const DemoOptionsMainContent = () => {
   }
 
   const formSubmit = (data) => {
-    console.log(data);
-    postData(data, params.demo);
+    if (data.file[0]) {
+      formData.append('file', data.file[0]);
+    }
+    formData.append('trackName', data.trackName);
+    formData.append('artist', data.artist);
+    postData(formData, params.demo);
   };
   console.log(errors);
 
   async function deleteDemo(fileName) {
-    console.log('fileName!!! ');
-    console.log(fileName);
     setDeleted(true);
-
     try {
-      const result = await axios.delete(`http://localhost:8080/api/v1/demo/${fileName}`);
-      console.log(result);
+      await axios.delete(`http://localhost:8080/api/v1/demo/${fileName}`);
     } catch (e) {
       console.error(e);
     }
   }
-  // const musicPlay = () => {
-  //   audioRef.current = new Audio(CurrentBlob);
-  //   console.log('CurrentBlob', CurrentBlob);
-  //   audioRef.current.play();
-  // };
+
+  // Effects
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="mainContentContainer">
@@ -134,19 +111,7 @@ const DemoOptionsMainContent = () => {
                 {demo.feedback}
               </div>
               {comments.map((comment) => (<div>{comment.comment}</div>))}
-              {/* <div>{demo.comment}</div> */}
-              {/* <div>{demo.comments}</div> */}
-              {/* <h2>{params.demo}</h2> */}
-              {/* { */}
-              {/*  comments.map((comment) => ( */}
-              {/*    <div> */}
-              {/*      <div>{comment}</div> */}
-              {/*    </div> */}
-              {/*  )) */}
-              {/* } */}
-
               <form onSubmit={handleSubmit(formSubmit)}>
-
                 <div className="text-box">
                   <BiPencil />
                   <label htmlFor="trackName" className="inputLabel">
@@ -183,27 +148,27 @@ const DemoOptionsMainContent = () => {
                     )}
                   </label>
                 </div>
-                {/* <div className="text-box"> */}
-                {/*  <BiMessageEdit /> */}
-                {/*  <label htmlFor="comment" className="inputLabel"> */}
-                {/*    Comment */}
-                {/*    <input */}
-                {/*      id="comment" */}
-                {/*      type="text" */}
-                {/*      placeholder="Enter your comment" */}
-                {/*      {...register('comment')} */}
-                {/*    /> */}
-                {/*    {errors.comment && ( */}
-                {/*    <div className="error"> */}
-                {/*      <BsExclamationCircle /> */}
-                {/*      {errors.comment.message} */}
-                {/*    </div> */}
-                {/*    )} */}
-                {/*  </label> */}
-                {/* </div> */}
+                <div className="text-box">
+                  {/* <ImFileMusic /> */}
+                  <label htmlFor="file" className="inputLabel">
+                    Photo
+                    <input
+                      id="file"
+                      type="file"
+                        // ref={inputFileRef}
+                      {...register('file')}
+                    />
+
+                    {errors.File && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.File.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
                 <input className="btn" type="submit" name="" value="Save" />
               </form>
-
               <div className="text-box">
                 <BiMessageEdit />
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -217,7 +182,6 @@ const DemoOptionsMainContent = () => {
               {addComment ? (
                 <AddCommentModule />
               ) : ''}
-
               <button
                 className="btn"
                 onClick={() => { downloadFile(params.demo); }}
@@ -232,14 +196,6 @@ const DemoOptionsMainContent = () => {
               >
                 delete
               </button>
-              {/* <button */}
-              {/*  className="btn" */}
-              {/*  onClick={() => { musicPlay(); }} */}
-              {/*  type="button" */}
-              {/* > */}
-              {/*  play */}
-              {/* </button> */}
-
               <div className="question">
                 <Link to="/demos"> To all demo&#39;s </Link>
               </div>

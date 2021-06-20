@@ -1,34 +1,27 @@
-/* eslint-disable react/jsx-props-no-spreading */
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BiEnvelope,
-  BiLockAlt, BiUser,
-} from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
+import { BiEnvelope, BiLockAlt, BiUser } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import ProducersList from '../ReusableComponents/ProducersList/ProducersList';
 
 const SignUpPageMainContent = () => {
+  // Hooks
   const [succes, setSucces] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
+  // Functions
   async function postData(payload) {
     console.log('hallo post data ');
     try {
-      console.log(axios.defaults.headers, 'producers axios header');
       await axios.post('http://localhost:8080/api/v1/users/', payload);
-      console.log(`payload${payload}`);
     } catch (e) {
       console.error(e);
     }
   }
-  const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
-    console.log(data);
     postData(data);
     setSucces(true);
   };

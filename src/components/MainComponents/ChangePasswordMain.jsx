@@ -1,37 +1,30 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { BiLockAlt } from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-
-import axios from 'axios';
 import { useHistory, useParams } from 'react-router';
-
-// import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import { BiLockAlt } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
 
 const ChangePasswordMain = () => {
+  // Hooks
   const params = useParams();
+  const password = useRef({});
   const [succes, setSucces] = useState(false);
   const history = useHistory();
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm();
+  password.current = watch('password', '');
 
+  // Functions
   async function postData(payload) {
     console.log('hallo post data ');
     try {
-      const resp = await axios.put(`http://localhost:8080/api/v1/users/${params.user}/password`, payload);
-      console.log(`payload${payload}`);
-      console.log(resp.data);
-      // if (!(resp.status === undefined)) { history.goBack(); }
+      await axios.put(`http://localhost:8080/api/v1/users/${params.user}/password`, payload);
     } catch (e) {
       console.error(e);
     }
   }
-
-  const {
-    register, watch, handleSubmit, formState: { errors },
-  } = useForm();
-  const password = useRef({});
-  password.current = watch('password', '');
 
   const formSubmit = (data) => {
     console.log(data);

@@ -22,7 +22,6 @@ export default function UserProvider(props) {
         trackName,
         setPlayMusic,
         playMusic,
-
       }}
     >
       {/* eslint-disable-next-line react/destructuring-assignment */}

@@ -1,48 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  BiPencil, BiMessageEdit, BiMessage,
-} from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-
 import { useParams } from 'react-router';
 import axios from 'axios';
+import { BiPencil, BiMessageEdit, BiMessage } from 'react-icons/bi';
+import { BsExclamationCircle } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const DemoOptionsAdminMain = () => {
+  // Hooks
+  const [deleted, setDeleted] = useState(false);
+  const [demo, setDemo] = useState([]);
   const params = useParams();
-  console.log('wat is params', params);
   const {
     register, handleSubmit, reset, formState: { errors },
-  } = useForm(
-  );
+  } = useForm();
 
-  const [deleted, setDeleted] = useState(false);
-
-  const [demo, setDemo] = useState([]);
-
+  // Functions
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
       reset(result.data);
-      console.log(`This is the get header ${result.request.header}`);
     } catch (e) {
       console.error(e);
     }
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   async function downloadFile(fileName) {
-    console.log('fileName!!! ');
-    console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -51,14 +36,10 @@ const DemoOptionsAdminMain = () => {
         },
       });
       console.log(result);
-      const blob = new Blob([result.data], {
-        type: 'audio/mp3',
-      });
+      const blob = new Blob([result.data], { type: 'audio/mp3' });
       const objectURL = URL.createObjectURL(blob);
       const downloadLink = document.createElement('a');
       document.body.appendChild(downloadLink);
-      console.log(`downloadLink ${downloadLink}`);
-      console.log(`objectURL ${objectURL}`);
       downloadLink.href = objectURL;
       downloadLink.download = fileName;
       downloadLink.style.display = 'none';
@@ -70,23 +51,14 @@ const DemoOptionsAdminMain = () => {
   }
 
   async function postData(payload, fileName) {
-    console.log('hallo post data ');
     try {
       await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
   }
 
-  const formSubmit = (data) => {
-    console.log(data);
-    postData(data, params.demo);
-  };
-  console.log(errors);
+  const formSubmit = (data) => { postData(data, params.demo); };
 
   async function deleteDemo(fileName) {
-    console.log('fileName!!! ');
-    console.log(fileName);
     setDeleted(true);
 
     try {
@@ -96,6 +68,11 @@ const DemoOptionsAdminMain = () => {
       console.error(e);
     }
   }
+
+  // Effects
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="mainContentContainer">

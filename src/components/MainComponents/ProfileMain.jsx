@@ -1,50 +1,42 @@
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 import { IoMaleFemaleSharp, IoLocationOutline } from 'react-icons/io5';
 import {
   BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle,
 } from 'react-icons/bi';
-import {
-  BsExclamationCircle,
-} from 'react-icons/bs';
-import axios from 'axios';
-import { useParams } from 'react-router';
-// import { ImFileMusic } from 'react-icons/im';
-// import HexagonProfile from '../ReusableComponents/HexagonProfile/HexagonProfile';
+import { BsExclamationCircle } from 'react-icons/bs';
+import { userContext } from '../contexts/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
 import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
-import { userContext } from '../contexts/UserProvider';
 
 const ProfileMainContent = () => {
+  // Hooks
   const [user, setUser] = useState({});
+  const [save, setSave] = useState(true);
   const [url, setUrl] = useState(profileImage);
   const [newPassword, setNewPassword] = useState(false);
+  const inputFileRef = useRef(undefined);
+  const params = useParams();
   const { currentUser } = useContext(userContext);
-
-  console.log('USER', currentUser);
   const formData = new FormData();
   const {
     register, handleSubmit, reset, formState: { errors },
   } = useForm();
-  const params = useParams();
 
-  console.log(setNewPassword);
+  // Functions
   async function postData(payload) {
-    console.log('hallo post data ');
     try {
       await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
-      console.log(`payload${payload}`);
     } catch (e) {
       console.error(e);
     }
   }
 
   async function fetchPhoto(fileName) {
-    // console.log('fileName!!! ');
-    // console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -58,27 +50,12 @@ const ProfileMainContent = () => {
       });
       const objectURL = URL.createObjectURL(blob);
       setUrl(objectURL);
-      // const downloadLink = document.createElement('a');
-      // document.body.appendChild(downloadLink);
-      // console.log(`downloadLink ${downloadLink}`);
-      // console.log(`objectURL ${objectURL}`);
-      // downloadLink.href = objectURL;
-      // downloadLink.download = fileName;
-      // downloadLink.style.display = 'none';
-      // downloadLink.click();
-      // document.body.removeChild(downloadLink);
     } catch (e) {
       console.error(e);
     }
   }
 
-  const [save, setSave] = useState(true);
-
-  useEffect(() => {
-    fetchPhoto(user.photo);
-    console.log('TEST');
-  }, []);
-
+  // Nova voorbeeld
   // useEffect(() => {
   //   if (user) {
   //     setValue([{ email: user.email || '' },
@@ -111,32 +88,13 @@ const ProfileMainContent = () => {
       console.error(e);
     }
   }
-  useEffect(() => {
-    fetchData();
-    console.log('user', user);
-    // eslint-disable-next-line no-use-before-define
-  }, []);
-
-  useEffect(() => {
-    fetchPhoto(user.photo);
-  }, [user, save]);
 
   const formSubmit = (data) => {
     console.log('hallo form submit 1 ');
     console.log(data);
     if (data.file[0]) {
-      console.log('DATA');
-      console.log('DATA');
-      console.log('DATA');
       formData.append('file', data.file[0]);
-      console.log('DATA');
-      console.log('DATA');
-      console.log('DATA');
-      console.log('DATA');
-      console.log(data.file);
-      console.log(data.file[0]);
     }
-
     formData.append('email', data.email);
     formData.append('about', data.about);
     formData.append('gender', data.gender);
@@ -149,12 +107,27 @@ const ProfileMainContent = () => {
     console.log(save);
     console.log('hallo form submit 2');
   };
-  const inputFileRef = useRef(undefined);
 
   const onBtnClick = () => {
     /* Collecting node-element and performing click */
     inputFileRef.current.click();
   };
+
+  // Effects
+  useEffect(() => {
+    fetchPhoto(user.photo);
+    console.log('TEST');
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+    console.log('user', user);
+    // eslint-disable-next-line no-use-before-define
+  }, []);
+
+  useEffect(() => {
+    fetchPhoto(user.photo);
+  }, [user, save]);
 
   return (
     <div className="mainContentContainer">
@@ -266,19 +239,6 @@ const ProfileMainContent = () => {
                 )}
               </label>
             </div>
-            {/* <div className="text-box"> */}
-            {/*  <BiLockAlt /> */}
-            {/*  <label htmlFor="password" className="inputLabel"> */}
-            {/*    Password */}
-            {/*    <input */}
-            {/*      id="password" */}
-            {/*      type="password" */}
-            {/*      placeholder="Enter your password" */}
-            {/*                        // name="password" */}
-            {/*      {...register('password')} */}
-            {/*    /> */}
-            {/*  </label> */}
-            {/* </div> */}
             <div className="text-box">
               <IoMaleFemaleSharp />
               <label htmlFor="gender" className="inputLabel">
