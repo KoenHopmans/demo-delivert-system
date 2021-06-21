@@ -21,7 +21,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   } = useContext(userContext);
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [goodTitle, setGoodTitle] = useState('');
   const [goodArtist, setGoodArtist] = useState('');
   const { audioSrc } = tracks[trackIndex];
@@ -103,7 +103,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   const toNextTrack = () => {
     console.log('TRACK INDEX', [trackIndex]);
     console.log('TRACK INDEX TITLE', [trackIndex].title);
-    // setTrackName('');
+    setIsPlaying(true);
     if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1);
     } else {
@@ -142,6 +142,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   };
 
   const toPrevTrack = () => {
+    setIsPlaying(true);
     if (trackIndex - 1 < 0) {
       setTrackIndex(tracks.length - 1);
     } else {
@@ -156,10 +157,15 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
 
   useEffect(() => {
     playFile();
-    setIsPlaying(!isPlaying);
+    setIsPlaying(true);
     setGoodTitle(trackName);
     // setIsPlaying(!isPlaying);
   }, [trackName, clicked]);
+
+  useEffect(() => {
+    playFile();
+    setIsPlaying(false);
+  }, []);
 
   useEffect(() => {
     if (isPlaying) {
@@ -234,7 +240,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   // Pause and clean up on unmount
   // eslint-disable-next-line implicit-arrow-linebreak
     () => {
-      // setIsPlaying(false);
       audioRef.current.pause();
       clearInterval(intervalRef.current);
     },
