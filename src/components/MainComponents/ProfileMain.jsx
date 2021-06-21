@@ -21,7 +21,7 @@ const ProfileMainContent = () => {
   const [newPassword, setNewPassword] = useState(false);
   const inputFileRef = useRef(undefined);
   const params = useParams();
-  const { currentUser } = useContext(userContext);
+  const { currentUser, setCurrentUser } = useContext(userContext);
   const formData = new FormData();
   const {
     register, handleSubmit, reset, formState: { errors },
@@ -116,13 +116,9 @@ const ProfileMainContent = () => {
   // Effects
   useEffect(() => {
     fetchPhoto(user.photo);
-    console.log('TEST');
-  }, []);
-
-  useEffect(() => {
     fetchData();
-    console.log('user', user);
-    // eslint-disable-next-line no-use-before-define
+    setCurrentUser(params.user);
+    console.log('TEST');
   }, []);
 
   useEffect(() => {

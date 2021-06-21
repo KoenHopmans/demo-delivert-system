@@ -17,7 +17,6 @@ import PageNotFound from '../components/Pages/PageNotFound';
 import SignUpPage from '../components/Pages/SignUpPage';
 import MyDemos from '../components/Pages/MyDemos';
 import ChangePassword from '../components/Pages/ChangePassword';
-import DemoOptionsAdmin from '../components/Pages/DemoOptionsAdmin';
 import UserProvider from '../components/contexts/UserProvider';
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
           <Route path="/profile/:user" exact component={Profile} />
           <Route path="/add-demo/:user" exact component={AddDemo} />
           <Route path="/demo-options/:demo" exact component={DemoOptions} />
-          <Route path="/demo-options-admin/:demo" exact component={DemoOptionsAdmin} />
           <Route path="/hexagon" exact component={Hexagon} />
           <Route path="/" component={PageNotFound} />
         </Switch>

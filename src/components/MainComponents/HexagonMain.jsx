@@ -70,9 +70,9 @@ const HexagonMain = () => {
             </div>
             <input className="btn" type="submit" name="" value="Save" />
           </form>
+          <AllUsersList />
+          <AllUsersDemosList />
         </div>
-        <AllUsersList />
-        <AllUsersDemosList />
       </div>
     </div>
   );

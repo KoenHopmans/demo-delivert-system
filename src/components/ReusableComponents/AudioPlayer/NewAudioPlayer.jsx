@@ -15,20 +15,26 @@ import { userContext } from '../../contexts/UserProvider';
  * https://letsbuildui.dev/articles/building-an-audio-player-with-react-hooks
  */
 const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
+  // Hooks
   const {
-    trackName, setTrackName, currentUser, currentDemo, playMusic, setPlayMusic,
+    trackName, currentUser, currentDemo, setPlayMusic, clicked,
   } = useContext(userContext);
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [goodTitle, setGoodTitle] = useState('');
   const [goodArtist, setGoodArtist] = useState('');
   const { audioSrc } = tracks[trackIndex];
+  const audioRef = useRef(new Audio(audioSrc));
+  const videoRef = useRef();
+  const intervalRef = useRef();
+  const isReady = useRef(false);
   console.log('tracks[trackIndex]', tracks[trackIndex].title);
 
   // const { titel, artist } = tracks[trackIndex];
-  const audioRef = useRef(new Audio(audioSrc));
   // const newAudioRef = useRef(null);
+
+  // Functions
   async function playFile() {
     console.log(currentDemo);
     try {
@@ -50,6 +56,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       if (audioRef.current && audioRef.current.pause());
       audioRef.current = new Audio(objectURL);
       audioRef.current.play();
+      videoRef.current.play();
     } catch (e) {
       console.error(e);
     }
@@ -84,14 +91,8 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   // }
 
   // const goodTrack = tracks.find(findTrack);
-
-  const videoRef = useRef();
-  const intervalRef = useRef();
-  const isReady = useRef(false);
-
   // Destructure for conciseness
   const { duration } = audioRef.current;
-
   const currentPercentage = duration
     ? `${(trackProgress / duration) * 100}%`
     : '0%';
@@ -100,9 +101,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   `;
 
   const toNextTrack = () => {
-    setTrackName('');
-    setGoodTitle(tracks[trackIndex].title);
-    setGoodArtist(tracks[trackIndex].artist);
     console.log('TRACK INDEX', [trackIndex]);
     console.log('TRACK INDEX TITLE', [trackIndex].title);
     // setTrackName('');
@@ -111,6 +109,8 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     } else {
       setTrackIndex(0);
     }
+    // setGoodTitle(tracks[trackIndex].title);
+    // setGoodArtist(tracks[trackIndex].artist);
   };
 
   const startTimer = () => {
@@ -142,7 +142,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   };
 
   const toPrevTrack = () => {
-    setTrackName('');
     if (trackIndex - 1 < 0) {
       setTrackIndex(tracks.length - 1);
     } else {
@@ -157,33 +156,37 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
 
   useEffect(() => {
     playFile();
-  }, [trackName]);
+    setIsPlaying(!isPlaying);
+    setGoodTitle(trackName);
+    // setIsPlaying(!isPlaying);
+  }, [trackName, clicked]);
 
   useEffect(() => {
     if (isPlaying) {
-      // playFile();
+      // setIsPlaying(true);
+      console.log('isPlaying', isPlaying);
       audioRef.current.play();
       videoRef.current.play();
       startTimer();
     } else {
-      setIsPlaying(false);
+      // setIsPlaying(false);
       setPlayMusic(false);
       audioRef.current.pause();
       videoRef.current.pause();
     }
   }, [isPlaying, trackName]);
 
-  useEffect(() => {
-    if (trackName) {
-      setGoodTitle(trackName);
-    }
-  }, [trackName]);
+  // useEffect(() => {
+  //   if (trackName) {
+  //     setGoodTitle(trackName);
+  //   }
+  // }, [trackName]);
 
-  useEffect(() => {
-    if (playMusic) {
-      setIsPlaying(true);
-    }
-  }, [playMusic]);
+  // useEffect(() => {
+  //   if (playMusic) {
+  //     setIsPlaying(true);
+  //   }
+  // }, [playMusic]);
 
   // useEffect(() => {
   //   audioRef.current.pause();
@@ -209,6 +212,8 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
 
   // Handles cleanup and setup when changing tracks
   useEffect(() => {
+    setGoodTitle(tracks[trackIndex].title);
+    // setGoodArtist(tracks[trackIndex].artist);
     audioRef.current.pause();
 
     audioRef.current = new Audio(audioSrc);
@@ -216,6 +221,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
 
     if (isReady.current) {
       audioRef.current.play();
+      videoRef.current.play();
       setIsPlaying(true);
       startTimer();
     } else {
@@ -228,6 +234,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   // Pause and clean up on unmount
   // eslint-disable-next-line implicit-arrow-linebreak
     () => {
+      // setIsPlaying(false);
       audioRef.current.pause();
       clearInterval(intervalRef.current);
     },

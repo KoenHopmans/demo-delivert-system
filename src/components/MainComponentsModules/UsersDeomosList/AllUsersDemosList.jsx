@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import axios from 'axios';
 // disable eslint next line
 import './AllUsersDemosList.css';
 // import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
+import { userContext } from '../../contexts/UserProvider';
 
 const AllUsersDemosList = () => {
   // const history = useHistory();
 
   const [users, setUsers] = useState([]);
   const audioRef = useRef(null);
+  const { setAdmin } = useContext(userContext);
   async function fetchData() {
     try {
       const result = await axios.get('http://localhost:8080/api/v1/users/');
@@ -86,6 +90,7 @@ const AllUsersDemosList = () => {
     fetchData();
     return () => {
       if (audioRef.current && audioRef.current.pause());
+      setAdmin(true);
     };
   }, []);
 
@@ -99,7 +104,7 @@ const AllUsersDemosList = () => {
                         <div>{user.username}</div>
                         <div className="user-demos">
                           {user.demos.map((item) => (
-                            <NewDemo item={item} authorisation="admin" />
+                            <NewDemo item={item} />
                             // <div className="music-file">
                             //   <div>{item.demo}</div>
                             //   <button

@@ -45,7 +45,7 @@ const AddCommentMudule = () => {
               New Comment
               <input
                 id="comment"
-                type="comment"
+                type="text"
                 placeholder="Enter your new comment"
                 {...register('comment')}
               />

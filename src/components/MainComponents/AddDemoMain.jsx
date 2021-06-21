@@ -1,5 +1,5 @@
 import React, {
-  useContext, useState,
+  useContext, useEffect, useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -7,15 +7,16 @@ import { BiPencil, BiMessageEdit } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { ImFileMusic, ImFilePicture } from 'react-icons/im';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const AddDemoMainContent = () => {
   const formData = new FormData();
-  const { currentUser } = useContext(userContext);
+  const { currentUser, setCurrentUser } = useContext(userContext);
   const history = useHistory();
   const [succes, setSucces] = useState(false);
+  const params = useParams();
   // const [item, setItem] = useState({});
 
   async function postData(payload) {
@@ -59,6 +60,10 @@ const AddDemoMainContent = () => {
   //   fetchData();
   //   console.log('FETCH DATA');
   // }, []);
+
+  useEffect(() => {
+    setCurrentUser(params.user);
+  }, []);
 
   console.log(errors);
   return (

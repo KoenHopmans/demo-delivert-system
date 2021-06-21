@@ -11,11 +11,13 @@ import redHexagon from '../../../images/hexagon-red.jpeg';
 import './NewDemo.css';
 
 const NewDemo = ({
-  item, authorisation = 'user',
+  item,
 }) => {
   const [url, setUrl] = useState(redHexagon);
   const history = useHistory();
-  const { setCurrentDemo, setTrackName, setPlayMusic } = useContext(userContext);
+  const {
+    setCurrentDemo, setTrackName, setPlayMusic, setClicked, clicked,
+  } = useContext(userContext);
   // const { setCurrentBlob } = useContext(userContext);
   // const audioRef = useRef(null);
 
@@ -54,14 +56,14 @@ const NewDemo = ({
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
     console.log('item.trackName', item.trackName);
-    if (authorisation === 'admin') history.push(`/demo-options-admin/${item.demo}`, { from: 'App' });
-    else { history.push(`/demo-options/${item.demo}`, { from: 'App' }); }
+    history.push(`/demo-options/${item.demo}`, { from: 'App' });
   };
 
   async function playFile(fileName) {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
     setPlayMusic(true);
+    setClicked(!clicked);
     console.log('fileName!!! ');
     console.log(fileName);
 
@@ -118,13 +120,6 @@ const NewDemo = ({
   return (
     <div
       className="music-file"
-      // style={{
-      //   background: `url(${url})`,
-      //   backgroundPosition: 'center',
-      //   backgroundRepeat: 'no-repeat',
-      //   backgroundSize: 'cover',
-      //   // boxShadow: `-2px 2px 50px ${color}`,
-      // }}
     >
       <div style={{
         position: 'fixed',

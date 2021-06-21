@@ -8,7 +8,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /*gap: 10px;*/
+    box-shadow: 0 0 50px gray;
+    gap: 10px;
     background-color: darkred;
     border: 2px black solid;
     width: 200px;
@@ -50,7 +51,7 @@
 .user-demos {
     /*border: red solid 2px;*/
     display: grid;
-    /*grid-gap: 20px 20px;*/
+    grid-gap: 30px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 0.5fr));
     grid-auto-rows: min-content;
     grid-auto-columns: min-content;
@@ -69,4 +70,8 @@
     position: fixed;
     bottom: 0px;
     z-index: 10;
+}
+
+.feedback-box{
+    width: 100%;
 }

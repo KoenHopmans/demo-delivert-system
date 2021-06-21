@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 // disable eslint next line
 import './AllUsersDemosList.css';
 // import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
+import { userContext } from '../../contexts/UserProvider';
 
 const UserDemos = () => {
   const params = useParams();
+  const { setAdmin } = useContext(userContext);
   // const history = useHistory();
   const initial = { demos: [] };
 
@@ -89,6 +91,7 @@ const UserDemos = () => {
     // return () => {
     //   if (audioRef.current && audioRef.current.pause());
     // };
+    setAdmin(true);
   }, []);
 
   console.log('demos', myUser.demos);
@@ -96,12 +99,12 @@ const UserDemos = () => {
   return (
     <div className="user-demos-container">
       <div>
-        <h1>User Demos</h1>
+        {/* <h1>User Demos</h1> */}
         <div className="user-container">
           <div>{myUser.username}</div>
           <div className="user-demos">
             {myUser.demos.map((item) => (
-              <div>
+              <div className="user-demos">
                 <NewDemo item={item} />
                 {/* <div className="music-file"> */}
                 {/*  /!* <div>{item.demo}</div> *!/ */}

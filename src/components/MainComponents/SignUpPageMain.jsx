@@ -5,7 +5,6 @@ import { BiEnvelope, BiLockAlt, BiUser } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
-import ProducersList from '../ReusableComponents/ProducersList/ProducersList';
 
 const SignUpPageMainContent = () => {
   // Hooks
@@ -106,7 +105,6 @@ const SignUpPageMainContent = () => {
             </div>
           )}
         </div>
-        <ProducersList />
       </div>
     </div>
   );
