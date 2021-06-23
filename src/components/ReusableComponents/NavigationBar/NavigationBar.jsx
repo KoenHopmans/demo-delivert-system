@@ -14,6 +14,7 @@ const NavigationBar = ({
   singOutBtn = false, demosBtn = false, myDemosBtn = false, hexagonBtn = false,
 }) => {
   const { currentUser } = useContext(userContext);
+
   return (
     <nav id="navigation-bar" className="navigation-bar">
       <img className="navigation-bar__background-img" src={image} alt="navigation bar" />

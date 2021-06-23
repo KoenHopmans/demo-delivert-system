@@ -2,6 +2,7 @@ import React, {
   useContext, useEffect,
   useState,
 } from 'react';
+import { useParams } from 'react-router';
 import axios from 'axios';
 import { FaDownload, FaPlay } from 'react-icons/fa';
 import { TiThMenu } from 'react-icons/ti';
@@ -16,7 +17,7 @@ const NewDemo = ({
   const [url, setUrl] = useState(redHexagon);
   const history = useHistory();
   const {
-    setCurrentDemo, setTrackName, setPlayMusic, setClicked, clicked,
+    setCurrentDemo, setTrackName, adminUser, setPlayMusic, setClicked, clicked,
   } = useContext(userContext);
   // const { setCurrentBlob } = useContext(userContext);
   // const audioRef = useRef(null);
@@ -52,11 +53,13 @@ const NewDemo = ({
     }
   }
 
+  const params = useParams();
+
   const demoOptions = () => {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
     console.log('item.trackName', item.trackName);
-    history.push(`/demo-options/${item.demo}`, { from: 'App' });
+    if (adminUser) { history.push(`/admin/${params.role}/demo-options/${item.demo}`, { from: 'App' }); } else { history.push(`/demo-options/${item.demo}`, { from: 'App' }); }
   };
 
   async function playFile(fileName) {

@@ -34,11 +34,13 @@ a:visited{
 
 .content-box{
     /*border: 2px greenyellow solid;*/
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     justify-content: center;
     align-items: center;
     color: white;
+    width: 80%;
+    /*height: fit-content;*/
 }
 
 

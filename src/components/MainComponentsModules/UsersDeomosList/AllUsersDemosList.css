@@ -76,7 +76,13 @@
 
 .demo-list{
     grid-area: demo-list;
-    display: flex;
+    /*display: flex;*/
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: min-content;
+    grid-auto-columns: min-content;
+    width: 100%;
+    height: 100%;
 }
 
 .user-demos {

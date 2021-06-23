@@ -8,10 +8,19 @@ import problems from '../../audio/problems.mp3';
 import whatchuDo from '../../audio/whatchu-do.mp3';
 import BigPineapple from '../../audio/big-pineapple.mp3';
 import WakeMe from '../../audio/Wake-Me-When-Its-Quiet.mp3';
+import nature from '../../audio/Hexagon.mp3';
 
 export default [
   {
     id: 1,
+    title: 'Nature',
+    artist: 'Don Diablo',
+    audioSrc: nature,
+    image: purpleHexagon,
+    color: 'purple',
+  },
+  {
+    id: 2,
     title: 'Big Pineapple',
     artist: 'Don Diablo',
     audioSrc: BigPineapple,
@@ -19,7 +28,7 @@ export default [
     color: 'purple',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Momentum',
     artist: 'Don Diablo',
     audioSrc: momentum,
@@ -27,7 +36,7 @@ export default [
     color: 'red',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Keeping Your Head Up',
     artist: 'Don Diablo',
     audioSrc: keepingYourHeadUp,
@@ -35,7 +44,7 @@ export default [
     color: 'green',
   },
   {
-    id: 4,
+    id: 5,
     title: 'Whatchu Do',
     artist: 'Don Diablo',
     audioSrc: whatchuDo,
@@ -43,7 +52,7 @@ export default [
     color: 'gold',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Problems',
     artist: 'Don Diablo',
     audioSrc: problems,
@@ -51,7 +60,7 @@ export default [
     color: 'purple',
   },
   {
-    id: 6,
+    id: 7,
     title: 'Wake me',
     artist: 'Don Diablo',
     audioSrc: WakeMe,

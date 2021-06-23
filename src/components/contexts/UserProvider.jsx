@@ -4,6 +4,7 @@ export const userContext = createContext();
 
 export default function UserProvider(props) {
   const [currentUser, setCurrentUser] = useState('');
+  const [adminUser, setAdminUser] = useState('');
   const [currentDemo, setCurrentDemo] = useState('');
   const [currentBlob, setCurrentBlob] = useState({});
   const [trackName, setTrackName] = useState('');
@@ -25,6 +26,8 @@ export default function UserProvider(props) {
         playMusic,
         clicked,
         setClicked,
+        adminUser,
+        setAdminUser,
       }}
     >
       {/* eslint-disable-next-line react/destructuring-assignment */}

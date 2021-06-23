@@ -37,7 +37,8 @@ function App() {
           <Route path="/demo-options/:demo" exact component={DemoOptions} />
           <Route path="/hexagon" exact component={Hexagon} />
           <Route path="/test" exact component={Hexagon} />
-          <Route path="/admin/:admin/hexagon" exact component={Hexagon} />
+          <Route path="/admin/:role/demo-options/:demo" exact component={DemoOptions} />
+          <Route path="/admin/:role/hexagon" exact component={Hexagon} />
           <Route path="/" component={PageNotFound} />
         </Switch>
       </Router>

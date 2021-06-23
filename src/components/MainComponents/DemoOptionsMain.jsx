@@ -17,7 +17,7 @@ import redHexagon from '../../images/hexagon-red.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks
-  const { currentDemo, currentUser, admin } = useContext(userContext);
+  const { currentDemo, currentUser } = useContext(userContext);
   const [url, setUrl] = useState(redHexagon);
   const [comments, setComments] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
@@ -222,7 +222,7 @@ const DemoOptionsMainContent = () => {
             {addComment ? (
               <AddCommentModule />
             ) : ''}
-            {admin ? (
+            {params.role ? (
               <div className="feedback-box">
                 <div className="text-box">
                   <BiMessageEdit />

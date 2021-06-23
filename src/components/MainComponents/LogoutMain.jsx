@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { userContext } from '../contexts/UserProvider';
 
 const LogoutMainContent = () => {
   // Hooks
   const history = useHistory();
+  const { setAdminUser } = useContext(userContext);
+
+  const logout = () => {
+    history.push('/', { from: 'App' });
+    setAdminUser('');
+  };
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
@@ -26,7 +34,7 @@ const LogoutMainContent = () => {
               Cancel
             </button>
             <button
-              onClick={() => history.push('/', { from: 'App' })}
+              onClick={logout}
               type="button"
               className="btn"
             >

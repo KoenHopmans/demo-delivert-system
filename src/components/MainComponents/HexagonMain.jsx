@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { BiUser, BiKey } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 // import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
+import { useParams } from 'react-router';
 import AllUsersDemosList from '../MainComponentsModules/UsersDeomosList/AllUsersDemosList';
+import { userContext } from '../contexts/UserProvider';
 
 const HexagonMain = () => {
-  console.log('test');
+  const params = useParams();
+  const { setAdminUser, adminUser } = useContext(userContext);
 
   async function postData(payload) {
     console.log('hallo post data ');
@@ -21,10 +24,18 @@ const HexagonMain = () => {
   const formSubmit = (data) => {
     postData(data);
   };
+
+  useEffect(() => {
+    setAdminUser(params.role);
+  }, []);
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
+          <h2 style={{ border: '2px blue solid' }}>
+            {adminUser}
+          </h2>
           <h1>Hexagon</h1>
           <form onSubmit={handleSubmit(formSubmit)}>
             <div className="text-box">
