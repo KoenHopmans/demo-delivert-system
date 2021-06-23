@@ -121,22 +121,15 @@ const NewDemo = ({
     <div
       className="music-file"
     >
-      <div style={{
-        position: 'fixed',
-        zIndex: '-1',
-      }}
-      >
+      <div className="demo-img-box">
         <img
-          style={{
-            objectFit: 'cover',
-            height: '200px',
-            width: '200px',
-
-            // minWidth: '200px',
-            // minHeight: '200px',
-            // maxWidth: '200px',
-            // maxHeight: '200px',
-          }}
+          className="demo-img"
+          // style={{
+          //   objectFit: 'cover',
+          //   height: '200px',
+          //   width: '200px',
+          //
+          // }}
           src={url}
           alt="profile"
         />

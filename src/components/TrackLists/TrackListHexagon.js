@@ -6,13 +6,15 @@ import keepingYourHeadUp from '../../audio/keeping-your-head-up.mp3';
 import momentum from '../../audio/momentum.mp3';
 import problems from '../../audio/problems.mp3';
 import whatchuDo from '../../audio/whatchu-do.mp3';
+import BigPineapple from '../../audio/big-pineapple.mp3';
+import WakeMe from '../../audio/Wake-Me-When-Its-Quiet.mp3';
 
 export default [
   {
     id: 1,
-    title: 'Problems',
+    title: 'Big Pineapple',
     artist: 'Don Diablo',
-    audioSrc: problems,
+    audioSrc: BigPineapple,
     image: purpleHexagon,
     color: 'purple',
   },
@@ -40,4 +42,21 @@ export default [
     image: goldHexagon,
     color: 'gold',
   },
+  {
+    id: 5,
+    title: 'Problems',
+    artist: 'Don Diablo',
+    audioSrc: problems,
+    image: purpleHexagon,
+    color: 'purple',
+  },
+  {
+    id: 6,
+    title: 'Wake me',
+    artist: 'Don Diablo',
+    audioSrc: WakeMe,
+    image: purpleHexagon,
+    color: 'purple',
+  },
+
 ];

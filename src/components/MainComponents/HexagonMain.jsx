@@ -3,11 +3,12 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { BiUser, BiKey } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
-import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
+// import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
 import AllUsersDemosList from '../MainComponentsModules/UsersDeomosList/AllUsersDemosList';
 
 const HexagonMain = () => {
-  // Functions
+  console.log('test');
+
   async function postData(payload) {
     console.log('hallo post data ');
     try {
@@ -33,9 +34,9 @@ const HexagonMain = () => {
                 <input
                   id="username"
                   type="text"
-                  placeholder="Enter your username"
+                  placeholder="Enter a username"
                   {...register('username', {
-                    required: 'Please enter your username',
+                    required: 'Please enter a username',
                   })}
                 />
                 {errors.username && (
@@ -50,16 +51,19 @@ const HexagonMain = () => {
               <BiKey />
               <label htmlFor="authority" className="inputLabel">
                 Authority
-                <input
+                <select
                   id="authority"
                   type="authority"
                   placeholder="Enter your authority"
-                  {...register('authority', {
-                    required: 'Please enter your authority',
-                    minLength: { value: 4, message: 'At least 4 characters' },
-
-                  })}
-                />
+                  {...register('authority')}
+                >
+                  <option value="ROLE_USER">
+                    User
+                  </option>
+                  <option value="ROLE_ADMIN">
+                    Admin
+                  </option>
+                </select>
                 {errors.authority && (
                 <div className="error">
                   <BsExclamationCircle />
@@ -68,9 +72,9 @@ const HexagonMain = () => {
                 )}
               </label>
             </div>
-            <input className="btn" type="submit" name="" value="Save" />
+            <input className="btn" type="submit" name="" value="Add" />
           </form>
-          <AllUsersList />
+          {/* <AllUsersList /> */}
           <AllUsersDemosList />
         </div>
       </div>

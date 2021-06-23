@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 // disable eslint next line
 import './AllUsersDemosList.css';
 // import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
-import { userContext } from '../../contexts/UserProvider';
+// import { userContext } from '../../contexts/UserProvider';
 
 const UserDemos = () => {
   const params = useParams();
-  const { setAdmin } = useContext(userContext);
+  // const { setAdmin } = useContext(userContext);
   // const history = useHistory();
   const initial = { demos: [] };
 
@@ -91,7 +91,6 @@ const UserDemos = () => {
     // return () => {
     //   if (audioRef.current && audioRef.current.pause());
     // };
-    setAdmin(true);
   }, []);
 
   console.log('demos', myUser.demos);

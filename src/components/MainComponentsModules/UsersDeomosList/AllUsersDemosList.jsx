@@ -1,19 +1,22 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useEffect, useRef, useState,
 } from 'react';
 import axios from 'axios';
 // disable eslint next line
 import './AllUsersDemosList.css';
 // import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
-import { userContext } from '../../contexts/UserProvider';
+// import { userContext } from '../../contexts/UserProvider';
+import ProfileImage from '../../ReusableComponents/ProfileImage';
 
 const AllUsersDemosList = () => {
   // const history = useHistory();
 
   const [users, setUsers] = useState([]);
   const audioRef = useRef(null);
-  const { setAdmin } = useContext(userContext);
+  // const { setAdmin } = useContext(userContext);
+  const history = useHistory();
   async function fetchData() {
     try {
       const result = await axios.get('http://localhost:8080/api/v1/users/');
@@ -86,14 +89,18 @@ const AllUsersDemosList = () => {
   //   }
   // }
 
+  // const profile = (user) => {
+  //   history.push(`/profile/${user.username}`, { from: 'App' });
+  // };
+
   useEffect(() => {
     fetchData();
     return () => {
       if (audioRef.current && audioRef.current.pause());
-      setAdmin(true);
+      // setAdmin(true);
     };
   }, []);
-
+  console.log('USER PHOTO', { users });
   return (
     <div className="user-demos-container">
       <div>
@@ -101,32 +108,19 @@ const AllUsersDemosList = () => {
         {
                     users.map((user) => (
                       <div className="user-container">
-                        <div>{user.username}</div>
-                        <div className="user-demos">
+                        {/* <div>{user.username}</div> */}
+                        <button className="hexagon-photo" type="button" onClick={() => history.push(`/profile/${user.username}`, { from: 'App' })}>
+                          <ProfileImage photo={user.photo} />
+                        </button>
+                        <button className="name-btn" type="button" onClick={() => history.push(`/profile/${user.username}`, { from: 'App' })}>{user.username}</button>
+                        <div className="user-roles">
+                          {user.authorities.map((item) => (
+                            <div>{item.authority}</div>
+                          ))}
+                        </div>
+                        <div className="demo-list">
                           {user.demos.map((item) => (
                             <NewDemo item={item} />
-                            // <div className="music-file">
-                            //   <div>{item.demo}</div>
-                            //   <button
-                            //     onClick={() => history.push(`/demo-options/${item.demo}`,
-                            //     { from: 'App' })}
-                            //     type="button"
-                            //   >
-                            //     options
-                            //   </button>
-                            //   <button
-                            //     onClick={() => { downloadFile(item.demo); }}
-                            //     type="submit"
-                            //   >
-                            //     download
-                            //   </button>
-                            //   <button
-                            //     onClick={() => { playFile(item.demo); }}
-                            //     type="submit"
-                            //   >
-                            //     play
-                            //   </button>
-                            // </div>
                           ))}
                         </div>
                       </div>

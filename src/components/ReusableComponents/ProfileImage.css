@@ -2,12 +2,13 @@
 /*    width: 202px;*/
 /*}*/
 
-.hexagon-shape{
+.small-hexagon-shape{
     background: transparent;
-    width: 200px;
-    height: calc(200px / 1.11);
+    width: 100px;
+    height: calc(100px / 1.11);
     clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
     margin-right: 100px;
+    margin-top: 50px;
     color: #fff;
     overflow: hidden;
 
@@ -17,7 +18,11 @@
 /*    background: black;*/
 /*}*/
 
-.hexagon-shape img {
-    width: 200px;
-    height: 200px;
+.small-hexagon-shape img {
+    width: 100px;
+    height: 100px;
+}
+
+.small-hexagon-shape:hover{
+    transform: scale(1.2);
 }

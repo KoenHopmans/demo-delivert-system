@@ -5,12 +5,13 @@ import UserDemos from '../MainComponentsModules/UsersDeomosList/UserDemos';
 
 const MyDemosMain = () => {
   // Hooks
-  const { currentDemo, currentUser, setCurrentUser } = useContext(userContext);
+  const { currentDemo, currentUser } = useContext(userContext);
   const params = useParams();
 
   useEffect(() => {
     console.log('params.user!!!!!!!!!!!!!!', params.user);
-    setCurrentUser(params.user);
+    // setCurrentUser(params.user);
+    console.log('params.admin', params.admin);
   }, []);
 
   return (

@@ -7,10 +7,9 @@ export default function UserProvider(props) {
   const [currentDemo, setCurrentDemo] = useState('');
   const [currentBlob, setCurrentBlob] = useState({});
   const [trackName, setTrackName] = useState('');
-  const [admin, setAdmin] = useState(false);
   const [playMusic, setPlayMusic] = useState('');
   const [clicked, setClicked] = useState('');
-  console.log(setCurrentUser);
+  // console.log(setCurrentUser);
   return (
     <userContext.Provider
       value={{
@@ -24,8 +23,6 @@ export default function UserProvider(props) {
         trackName,
         setPlayMusic,
         playMusic,
-        admin,
-        setAdmin,
         clicked,
         setClicked,
       }}

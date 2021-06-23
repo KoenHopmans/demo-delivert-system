@@ -1,3 +1,40 @@
+.demo-img-box{
+    position: fixed;
+    z-index: -1;
+}
+
+.demo-img{
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
+}
+
+.options-demo-img{
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+
+
+}
+
+.options-demo-img-box {
+    box-shadow: 0 0 50px gray;
+    border: black solid 2px;
+    border-radius: 5px;
+}
+
+.options-demo-img-box:hover{
+    transform: scale(1.2);
+    box-shadow: 1px 1px 50px white;
+}
+
+.demo-img{
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
+}
+
 .demo-btn{
     -webkit-text-stroke: 1px black;
     color: white;

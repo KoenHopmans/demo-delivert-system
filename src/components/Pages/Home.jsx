@@ -6,7 +6,8 @@ import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import HomeMainContent from '../MainComponents/HomeMain';
 import tracks from '../TrackLists/TrackListHome';
-import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
+// import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
+import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
 
 function Home() {
   return (
@@ -15,7 +16,8 @@ function Home() {
         <NavigationBar loginBtn signUpBtn />
         <BackgroundVideo video="blueHexagon" />
         <Header />
-        <AudioPlayer video="MusicPlayerVideo" tracks={tracks} />
+        <NewAudioPlayer video="MusicPlayerVideo" tracks={tracks} />
+        {/* <AudioPlayer video="MusicPlayerVideo" tracks={tracks} /> */}
         <HomeMainContent />
         <FooterHexagon />
       </div>

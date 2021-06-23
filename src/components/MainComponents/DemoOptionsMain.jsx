@@ -2,6 +2,7 @@ import React, {
   useContext, useEffect, useState,
 } from 'react';
 import axios from 'axios';
+import '../ReusableComponents/NewDemo/NewDemo.css';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { BiPencil, BiMessageEdit } from 'react-icons/bi';
@@ -12,10 +13,12 @@ import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/AddCommentModule';
 import AddFeedbackModule from '../MainComponentsModules/AddFeedbackModule';
+import redHexagon from '../../images/hexagon-red.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks
   const { currentDemo, currentUser, admin } = useContext(userContext);
+  const [url, setUrl] = useState(redHexagon);
   const [comments, setComments] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [deleted, setDeleted] = useState(false);
@@ -93,10 +96,36 @@ const DemoOptionsMainContent = () => {
     }
   }
 
+  async function fetchCover(fileName) {
+    // console.log('fileName!!! ');
+    // console.log(fileName);
+
+    try {
+      const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
+        responseType: 'arraybuffer',
+        headers: {
+          'Content-Type': 'image/jpg',
+        },
+      });
+      console.log('RESULT', result);
+      const blob = new Blob([result.data], {
+        type: 'image/jpg',
+      });
+      const objectURL = URL.createObjectURL(blob);
+      setUrl(objectURL);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   // Effects
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchCover(demo.cover);
+  }, [demo]);
 
   return (
     <div className="mainContentContainer">
@@ -108,6 +137,15 @@ const DemoOptionsMainContent = () => {
         {!deleted ? (
           <div className="content-box">
             <h1>Options</h1>
+            <button type="button">
+              <div className="options-demo-img-box">
+                <img
+                  className="options-demo-img"
+                  src={url}
+                  alt="profile"
+                />
+              </div>
+            </button>
             <div>{demo.username}</div>
             <div>{demo.artist}</div>
             {comments.map((comment) => (<div>{comment.comment}</div>))}
@@ -157,7 +195,7 @@ const DemoOptionsMainContent = () => {
                   <input
                     id="file"
                     type="file"
-                        // ref={inputFileRef}
+                          // ref={inputFileRef}
                     {...register('file')}
                   />
 

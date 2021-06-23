@@ -24,6 +24,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [goodTitle, setGoodTitle] = useState('');
   const [goodArtist, setGoodArtist] = useState('');
+  const [started, setStarted] = useState(false);
   const { audioSrc } = tracks[trackIndex];
   const audioRef = useRef(new Audio(audioSrc));
   const videoRef = useRef();
@@ -56,6 +57,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       if (audioRef.current && audioRef.current.pause());
       audioRef.current = new Audio(objectURL);
       audioRef.current.play();
+      console.log('PLAY CURRENT');
       videoRef.current.play();
     } catch (e) {
       console.error(e);
@@ -156,17 +158,12 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   };
 
   useEffect(() => {
-    playFile();
+    if (started) { playFile(); }
     setIsPlaying(true);
     setGoodTitle(trackName);
+    setStarted(true);
     // setIsPlaying(!isPlaying);
   }, [trackName, clicked]);
-
-  useEffect(() => {
-    playFile();
-    setIsPlaying(false);
-  }, []);
-
   useEffect(() => {
     if (isPlaying) {
       // setIsPlaying(true);
@@ -242,8 +239,17 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
+      setIsPlaying(false);
+      // setCurrentDemo('');
+      setTrackIndex(0);
     },
   []);
+
+  useEffect(() => {
+    console.log('playing', isPlaying);
+    console.log('trackIndex', trackIndex);
+    console.log('audioref', audioRef.current);
+  }, []);
   //---------------------------------------------------------------------------
   return (
     <div className="audio-player-container">

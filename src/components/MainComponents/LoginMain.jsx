@@ -71,10 +71,10 @@ const LoginMainContent = () => {
                       })}
                     />
                     {errors.username && (
-                      <div className="error">
-                        <BsExclamationCircle />
-                        {errors.username.message}
-                      </div>
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.username.message}
+                    </div>
                     )}
                   </label>
                 </div>
