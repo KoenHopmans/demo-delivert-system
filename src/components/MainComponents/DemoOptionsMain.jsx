@@ -149,7 +149,13 @@ const DemoOptionsMainContent = () => {
             <div>{demo.username}</div>
             <div>{demo.artist}</div>
             {comments.map((comment) => (<div>{comment.comment}</div>))}
-            {feedbacks.map((feedback) => (<div>{feedback.feedback}</div>))}
+            {feedbacks.map((feedbackItem) => (
+              <div>
+                <div>{feedbackItem.feedback}</div>
+                <div>{!(feedbackItem.read) ? <div>NEW Feedback</div> : ''}</div>
+                <button style={{ color: 'white', border: '1px blue solid' }} type="button">read V</button>
+              </div>
+            ))}
             <form onSubmit={handleSubmit(formSubmit)}>
               <div className="text-box">
                 <BiPencil />

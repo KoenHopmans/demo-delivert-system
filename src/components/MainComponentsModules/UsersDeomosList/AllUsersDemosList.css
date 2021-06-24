@@ -39,10 +39,9 @@
     /*width: 100%;*/
     display: grid;
     justify-content: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr auto auto;
-    grid-template-areas:    "photo name-button"
-    "user-roles none"
+    grid-template-columns: 0.5fr 1.5fr;
+    grid-template-rows: 1fr  auto;
+    grid-template-areas:    "photo user-roles"
 "demo-list demo-list";
 
 }
@@ -54,25 +53,43 @@
 
 .name-btn{
     grid-area: name-button;
+    display: flex;
+    gap: 10px;
+    justify-content: start;
+    align-items: start;
     font-family: 'Julius Sans One', sans-serif;
-    width: 160px;
-    height: 70px;
     background: none;
     /*border: 2px solid dodgerblue;*/
     color: white;
-    padding: 10px;
     font-size: 25px;
     cursor: pointer;
-    margin: 30px 20px 50px 20px;
 }
+
+/*.name-btn *{*/
+/*    justify-content: start;*/
+/*    align-items: start;*/
+/*}*/
 
 .name-btn:hover{
     transform: scale(1.2);
 }
 
 .user-roles{
+    /*border: red solid 2px;*/
+    margin-top: 40px;
     grid-area: user-roles;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 30px;
 }
+
+/*.user-roles * {*/
+/*    border: yellow solid 1px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: start;*/
+/*}*/
 
 .demo-list{
     grid-area: demo-list;
@@ -101,6 +118,7 @@
 .user-demos-container{
     width: 100%;
     color: white;
+
 }
 
 .sample-player{

@@ -6,22 +6,29 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { IoMaleFemaleSharp, IoLocationOutline } from 'react-icons/io5';
 import {
-  BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle,
+  BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle, BiTrash,
 } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
+// import { useHistory } from 'react-router-dom';
+import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
 import { userContext } from '../contexts/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
-import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
+import adminIcon from '../../images/hexagon-admin.png';
+import './ProfileMain.css';
 
 const ProfileMainContent = () => {
   // Hooks
+  // const history = useHistory();
   const [user, setUser] = useState({});
+  const [userRole, setUserRole] = useState([]);
   const [save, setSave] = useState(true);
   const [url, setUrl] = useState(profileImage);
   const [newPassword, setNewPassword] = useState(false);
   const inputFileRef = useRef(undefined);
   const params = useParams();
-  const { currentUser, setCurrentUser } = useContext(userContext);
+  const {
+    currentUser, setCurrentUser, adminUser, setAdminUser,
+  } = useContext(userContext);
   const formData = new FormData();
   const {
     register, handleSubmit, reset, formState: { errors },
@@ -77,6 +84,7 @@ const ProfileMainContent = () => {
 
       console.log('User DATA !!', receivedData);
       setUser(receivedData);
+      setUserRole(receivedData.authorities);
       const cleanData = receivedData;
       if (cleanData.email === 'undefined' || cleanData.email === 'null') { cleanData.email = ''; }
       if (cleanData.firstName === 'undefined' || cleanData.firstName === 'null') { cleanData.firstName = ''; }
@@ -113,11 +121,30 @@ const ProfileMainContent = () => {
     inputFileRef.current.click();
   };
 
+  async function deleteAdmin() {
+    console.log('hallo post data ');
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/users/${params.user}/authorities/ROLE_ADMIN`);
+      console.log('DELETED');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // eslint-disable-next-line consistent-return
+  // const redirect = () => {
+  //   if (!(params.user === currentUser)) {
+  //     history.push('/', { from: 'App' });
+  //   }
+  // };
+
   // Effects
   useEffect(() => {
     fetchPhoto(user.photo);
     fetchData();
     setCurrentUser(params.user);
+    setAdminUser(params.role);
+    // redirect();
     console.log('TEST');
   }, []);
 
@@ -125,12 +152,30 @@ const ProfileMainContent = () => {
     fetchPhoto(user.photo);
   }, [user, save]);
 
+  // eslint-disable-next-line consistent-return
+  const admin = (role) => {
+    if (role === 'ROLE_ADMIN') {
+      return (
+        <div className="admin-icon-box">
+          {/* <RiAdminLine /> */}
+          <img className="admin-icon" src={adminIcon} alt="Admin icon" />
+          {/* <p>Admin</p> */}
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+          <button onClick={deleteAdmin} type="button" className="delete-role"><BiTrash /></button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
           <h2 style={{ border: '2px green solid' }}>
             {currentUser}
+          </h2>
+          <h2 style={{ border: '2px blue solid' }}>
+            {adminUser}
           </h2>
           <h1>Profile</h1>
           <h2>{user.username}</h2>
@@ -142,6 +187,11 @@ const ProfileMainContent = () => {
               <img src={url} alt="profile" />
             </div>
           </button>
+          <div className="user-roles">
+            {userRole.map((item) => (
+              <div>{admin(item.authority)}</div>
+            ))}
+          </div>
           <div className="text-box">
             {/* <ImFileMusic /> */}
             <label htmlFor="file" className="inputLabel">

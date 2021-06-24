@@ -1,0 +1,20 @@
+
+.admin-icon-box{
+    display: flex;
+    font-size: 30px;
+    color: white;
+    gap: 10px;
+}
+
+.admin-icon{width: 50px }
+
+.delete-role{
+    color: white;
+    visibility: hidden
+
+}
+
+.admin-icon-box:hover .delete-role{
+    visibility: visible;
+    font-size: 30px;
+}

@@ -5,7 +5,7 @@ import UserDemos from '../MainComponentsModules/UsersDeomosList/UserDemos';
 
 const MyDemosMain = () => {
   // Hooks
-  const { currentDemo, currentUser } = useContext(userContext);
+  const { currentDemo, currentUser, adminUser } = useContext(userContext);
   const params = useParams();
 
   useEffect(() => {
@@ -20,6 +20,9 @@ const MyDemosMain = () => {
         <div className="content-box">
           <h2 style={{ border: '2px green solid' }}>
             {currentUser}
+          </h2>
+          <h2 style={{ border: '2px blue solid' }}>
+            {adminUser}
           </h2>
           <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2>
           <h1>My Demos</h1>

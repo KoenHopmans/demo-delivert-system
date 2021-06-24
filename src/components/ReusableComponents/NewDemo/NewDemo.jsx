@@ -6,7 +6,9 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import { FaDownload, FaPlay } from 'react-icons/fa';
 import { TiThMenu } from 'react-icons/ti';
+import { BiMessageDetail } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
+
 import { userContext } from '../../contexts/UserProvider';
 import redHexagon from '../../../images/hexagon-red.jpeg';
 import './NewDemo.css';
@@ -115,6 +117,29 @@ const NewDemo = ({
     }
   }
 
+  // eslint-disable-next-line consistent-return
+  const newFeedback = (read, message) => {
+    if (read === false) {
+      return (
+        <div className="new-feedback-box">
+          <button
+            className="new-feedback-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            NEW Feedback
+          </button>
+          <button
+            type="button"
+            className="new-feedback-message"
+          >
+            {message}
+          </button>
+        </div>
+      );
+    }
+  };
+
   useEffect(() => {
     fetchCover(item.cover);
   }, []);
@@ -139,6 +164,11 @@ const NewDemo = ({
       </div>
       {/* <div>{item.demo}</div> */}
       <div className="demo-trackName">{item.trackName}</div>
+      <div>
+        {item.feedbacks.map((feedbackItem) => (
+          <div>{newFeedback(feedbackItem.read, feedbackItem.feedback)}</div>
+        ))}
+      </div>
       <button
         className="demo-btn"
         onClick={demoOptions}

@@ -13,7 +13,9 @@ import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation'
 
 const AddDemoMainContent = () => {
   const formData = new FormData();
-  const { currentUser, setCurrentUser } = useContext(userContext);
+  const {
+    currentUser, setCurrentUser, adminUser, setAdminUser,
+  } = useContext(userContext);
   const history = useHistory();
   const [succes, setSucces] = useState(false);
   const params = useParams();
@@ -24,7 +26,7 @@ const AddDemoMainContent = () => {
     try {
       await axios.post('http://localhost:8080/api/v1/demo-upload', payload);
       console.log(`payload${payload}`);
-      history.push(`/my-demos/${currentUser}`);
+      if (adminUser) { history.push(`/admin/${adminUser}/my-demos/${currentUser}`); } else { history.push(`/my-demos/${currentUser}`); }
     } catch (e) {
       console.error(e);
     }
@@ -63,6 +65,7 @@ const AddDemoMainContent = () => {
 
   useEffect(() => {
     setCurrentUser(params.user);
+    setAdminUser(params.role);
   }, []);
 
   console.log(errors);
@@ -74,6 +77,9 @@ const AddDemoMainContent = () => {
             <div>
               <h2 style={{ border: '2px green solid' }}>
                 {currentUser}
+              </h2>
+              <h2 style={{ border: '2px blue solid' }}>
+                {adminUser}
               </h2>
               <h1>
                 Add demo item
