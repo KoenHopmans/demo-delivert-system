@@ -13,7 +13,7 @@ import { userContext } from '../contexts/UserProvider';
 
 const AddFeedbackModule = () => {
   const params = useParams();
-  const { currentUser } = useContext(userContext);
+  const { currentUser, toggleUpdate, update } = useContext(userContext);
 
   async function postData(payload) {
     console.log('hallo post data ');
@@ -21,7 +21,7 @@ const AddFeedbackModule = () => {
       const resp = await axios.post(`http://localhost:8080/api/v1/${params.demo}/feedback`, payload);
       console.log(`payload${payload}`);
       console.log(resp.data);
-      // if (!(resp.status === undefined)) { history.goBack(); }
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
@@ -37,6 +37,8 @@ const AddFeedbackModule = () => {
       // eslint-disable-next-line no-param-reassign
       data.feedback = data.prefix;
     }
+    // eslint-disable-next-line no-param-reassign
+    data.date = new Date().toLocaleString();
     console.log('data', data);
     postData(data);
   };
@@ -68,7 +70,7 @@ const AddFeedbackModule = () => {
                   , thanks for upload, you have a unique sound.
                 </option>
                 <option>
-                  well done
+                  Well done
                   {' '}
                   {currentUser}
                   , nice beat. We want to hear more music from you.

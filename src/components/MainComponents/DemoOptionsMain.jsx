@@ -4,8 +4,14 @@ import React, {
 import axios from 'axios';
 import '../ReusableComponents/NewDemo/NewDemo.css';
 import { useForm } from 'react-hook-form';
+import './DemoOptionsMain.css';
+import {
+  BiPencil, BiMessageEdit,
+  BiMessageDetail,
+  BiCheck, BiTrash,
+} from 'react-icons/bi';
 import { useParams } from 'react-router';
-import { BiPencil, BiMessageEdit } from 'react-icons/bi';
+
 import { ImFilePicture } from 'react-icons/im';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -17,7 +23,9 @@ import redHexagon from '../../images/hexagon-red.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks
-  const { currentDemo, currentUser } = useContext(userContext);
+  const {
+    currentDemo, currentUser, update, toggleUpdate, clicked, setClicked, setPlayMusic,
+  } = useContext(userContext);
   const [url, setUrl] = useState(redHexagon);
   const [comments, setComments] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
@@ -38,7 +46,12 @@ const DemoOptionsMainContent = () => {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
       setComments(result.data.comments);
+      const unorderedFeedbacks = result.data.feedbacks;
+      //! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // eslint-disable-next-line max-len
+      const orderedFeedbacks = unorderedFeedbacks.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFeedbacks(result.data.feedbacks);
+      console.log('orderedFeedbacks', orderedFeedbacks);
       reset(result.data);
     } catch (e) {
       console.error(e);
@@ -72,6 +85,7 @@ const DemoOptionsMainContent = () => {
   async function postData(payload, fileName) {
     try {
       await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
@@ -91,6 +105,39 @@ const DemoOptionsMainContent = () => {
     setDeleted(true);
     try {
       await axios.delete(`http://localhost:8080/api/v1/demo/${fileName}`);
+      toggleUpdate(!update);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function deleteFeedback(fileName, currentFeedback) {
+    console.log(fileName);
+    console.log('FEEDBACK Current', currentFeedback);
+    const feedbackItem = { feedback: currentFeedback };
+    console.log('FEEDBACK ITEM', feedbackItem);
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/${fileName}/feedback`, {
+        data: {
+          feedback: currentFeedback,
+        },
+      });
+      toggleUpdate(!update);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function updateFeedback(fileName, currentFeedback) {
+    console.log(fileName);
+    console.log('FEEDBACK Current', currentFeedback);
+    const feedbackItem = { feedback: currentFeedback };
+    console.log('FEEDBACK ITEM', feedbackItem);
+    try {
+      await axios.put(`http://localhost:8080/api/v1/${fileName}/feedback`, {
+        feedback: currentFeedback,
+      });
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
@@ -118,14 +165,96 @@ const DemoOptionsMainContent = () => {
     }
   }
 
+  // eslint-disable-next-line consistent-return
+  const newFeedback = (feedbackItem) => {
+    if (feedbackItem.read === false) {
+      return (
+        <div className="new-feedback-box">
+          <button
+            className="new-feedback-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            NEW Feedback
+          </button>
+          <button className="feedback-date-btn" type="button">
+            {feedbackItem.date}
+          </button>
+          <button
+            onClick={() => {
+              updateFeedback(currentDemo, feedbackItem.feedback);
+            }}
+            type="button"
+            className="feedback-read-btn"
+          >
+            <BiCheck />
+          </button>
+          <button
+            onClick={() => {
+              deleteFeedback(currentDemo, feedbackItem.feedback);
+            }}
+            type="button"
+            className="feedback-delete-btn"
+          >
+            <BiTrash />
+          </button>
+          <button
+            type="button"
+            className="feedback-message"
+          >
+            {feedbackItem.feedback}
+          </button>
+        </div>
+      );
+    }
+  };
+  // eslint-disable-next-line consistent-return
+  const oldFeedback = (feedbackItem) => {
+    if (feedbackItem.read === true) {
+      return (
+        <div className="feedback-box">
+          <button
+            className="feedback-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            Feedback
+          </button>
+          <button className="feedback-date-btn" type="button">
+            {feedbackItem.date}
+          </button>
+          <button
+            onClick={() => { deleteFeedback(currentDemo, feedbackItem.feedback); }}
+            type="button"
+            className="feedback-delete-btn"
+          >
+            <BiTrash />
+          </button>
+          <button
+            type="button"
+            className="feedback-message"
+          >
+            {feedbackItem.feedback}
+          </button>
+        </div>
+      );
+    }
+  };
+
+  const playMusic = () => {
+    setPlayMusic(true);
+    setClicked(!clicked);
+  };
+
   // Effects
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     fetchCover(demo.cover);
-  }, [demo]);
+  }, [demo, update]);
 
   return (
     <div className="mainContentContainer">
@@ -137,7 +266,7 @@ const DemoOptionsMainContent = () => {
         {!deleted ? (
           <div className="content-box">
             <h1>Options</h1>
-            <button type="button">
+            <button type="button" onClick={() => { playMusic(); }}>
               <div className="options-demo-img-box">
                 <img
                   className="options-demo-img"
@@ -147,15 +276,21 @@ const DemoOptionsMainContent = () => {
               </div>
             </button>
             <div>{demo.username}</div>
+            {' '}
             <div>{demo.artist}</div>
-            {comments.map((comment) => (<div>{comment.comment}</div>))}
+            {comments
+              .map((comment) => (<div>{comment.comment}</div>))}
             {feedbacks.map((feedbackItem) => (
               <div>
-                <div>{feedbackItem.feedback}</div>
-                <div>{!(feedbackItem.read) ? <div>NEW Feedback</div> : ''}</div>
-                <button style={{ color: 'white', border: '1px blue solid' }} type="button">read V</button>
+                {newFeedback(feedbackItem)}
               </div>
             ))}
+            {feedbacks
+              .map((feedbackItem) => (
+                <div>
+                  {oldFeedback(feedbackItem)}
+                </div>
+              ))}
             <form onSubmit={handleSubmit(formSubmit)}>
               <div className="text-box">
                 <BiPencil />
@@ -241,7 +376,7 @@ const DemoOptionsMainContent = () => {
                   </button>
                 </div>
                 {addFeedback ? (
-                  <AddFeedbackModule />
+                  <AddFeedbackModule toggleUpdate update />
                 ) : ''}
               </div>
             ) : ''}

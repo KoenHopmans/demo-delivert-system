@@ -3,6 +3,11 @@
     z-index: -1;
 }
 
+.demo-btn-box{
+    display: flex;
+    gap: 20px;
+}
+
 .demo-img{
     object-fit: cover;
     height: 200px;
@@ -67,29 +72,5 @@
 
 }
 
-.new-feedback-btn{
-    color: white;
-    background: linear-gradient(to bottom, rgb(88, 235, 112), rgb(6, 120, 11));
-    border-radius: 10px;
-    padding: 5px;
-    z-index: 10;
-}
 
-.new-feedback-box:hover .new-feedback-message {
-    visibility: visible;
-}
 
-.new-feedback-message{
-    visibility: hidden;
-    position: fixed;
-    top: 80px;
-    left: 0px;
-    background: linear-gradient(to bottom, rgb(153, 217, 234), dodgerblue);
-    z-index: 10;
-    border-radius: 10px;
-    padding: 5px;
-    width: 90%;
-    margin: 5%;
-    box-shadow: 1px 1px 20px black;
-
-}

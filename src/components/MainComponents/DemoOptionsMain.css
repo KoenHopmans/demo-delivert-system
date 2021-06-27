@@ -1,0 +1,86 @@
+.new-feedback-btn{
+    color: white;
+    background: linear-gradient(to bottom, rgb(88, 235, 112), rgb(6, 120, 11));
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 10;
+}
+
+.feedback-btn{
+    color: white;
+    /*background: linear-gradient(to bottom, rgb(88, 235, 112), rgb(6, 120, 11));*/
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 10;
+}
+
+.feedback-read-btn{
+    color: white;
+    border: 1px dodgerblue solid;
+    border-radius: 50%;
+    padding: 5px;
+    z-index: 10;
+}
+
+.feedback-date-btn{
+    color: white;
+    background: linear-gradient(to bottom, dodgerblue ,mediumblue);
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 10;
+}
+
+
+.feedback-delete-btn{
+    color: white;
+    border: 1px dodgerblue solid;
+    border-radius: 50%;
+    padding: 5px;
+    z-index: 10;
+}
+
+.new-feedback-box:hover .new-feedback-message {
+    visibility: visible;
+}
+
+.feedback-box:hover .new-feedback-message {
+    visibility: visible;
+}
+
+.new-feedback-message{
+    visibility: hidden;
+    position: fixed;
+    top: 10px;
+    left: 0px;
+    background: linear-gradient(to bottom, rgb(153, 217, 234), dodgerblue);
+    z-index: 10;
+    border-radius: 10px;
+    padding: 5px;
+    width: 90%;
+    margin: 5%;
+    box-shadow: 1px 1px 20px black;
+
+}
+
+.new-feedback-box:hover .feedback-message {
+    visibility: visible;
+}
+
+.feedback-box:hover .feedback-message {
+    visibility: visible;
+}
+
+.feedback-message{
+    visibility: hidden;
+    position: fixed;
+    top: 30%;
+    left: 0px;
+    background: linear-gradient(to bottom, rgb(153, 217, 234), dodgerblue);
+    z-index: 10;
+    border-radius: 10px;
+    padding: 5px;
+    width: 90%;
+    margin: 5%;
+    box-shadow: 1px 1px 20px black;
+
+}

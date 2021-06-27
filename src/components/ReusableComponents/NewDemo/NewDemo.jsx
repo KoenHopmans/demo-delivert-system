@@ -152,44 +152,40 @@ const NewDemo = ({
       <div className="demo-img-box">
         <img
           className="demo-img"
-          // style={{
-          //   objectFit: 'cover',
-          //   height: '200px',
-          //   width: '200px',
-          //
-          // }}
           src={url}
           alt="profile"
         />
       </div>
       {/* <div>{item.demo}</div> */}
       <div className="demo-trackName">{item.trackName}</div>
-      <div>
+      <button type="button" onClick={demoOptions}>
         {item.feedbacks.map((feedbackItem) => (
           <div>{newFeedback(feedbackItem.read, feedbackItem.feedback)}</div>
         ))}
+      </button>
+      <div className="demo-btn-box">
+        <button
+          className="demo-btn"
+          onClick={demoOptions}
+          type="button"
+        >
+          <TiThMenu />
+        </button>
+        <button
+          className="demo-btn"
+          onClick={() => { downloadFile(item.demo); }}
+          type="submit"
+        >
+          <FaDownload />
+        </button>
+        <button
+          className="demo-btn"
+          onClick={() => { playFile(item.demo); }}
+          type="submit"
+        >
+          <FaPlay />
+        </button>
       </div>
-      <button
-        className="demo-btn"
-        onClick={demoOptions}
-        type="button"
-      >
-        <TiThMenu />
-      </button>
-      <button
-        className="demo-btn"
-        onClick={() => { downloadFile(item.demo); }}
-        type="submit"
-      >
-        <FaDownload />
-      </button>
-      <button
-        className="demo-btn"
-        onClick={() => { playFile(item.demo); }}
-        type="submit"
-      >
-        <FaPlay />
-      </button>
     </div>
 
   );

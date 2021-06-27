@@ -30,8 +30,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   const videoRef = useRef();
   const intervalRef = useRef();
   const isReady = useRef(false);
-  console.log('tracks[trackIndex]', tracks[trackIndex].title);
-
   // const { titel, artist } = tracks[trackIndex];
   // const newAudioRef = useRef(null);
 
@@ -152,7 +150,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     }
     setGoodTitle(tracks[trackIndex].title);
     setGoodArtist(tracks[trackIndex].artist);
-    console.log('TRACK INDEX', trackIndex);
     // setGoodTitle('');
     // setGoodArtist('');
   };
@@ -167,7 +164,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   useEffect(() => {
     if (isPlaying) {
       // setIsPlaying(true);
-      console.log('isPlaying', isPlaying);
       audioRef.current.play();
       videoRef.current.play();
       startTimer();
@@ -244,12 +240,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       setTrackIndex(0);
     },
   []);
-
-  useEffect(() => {
-    console.log('playing', isPlaying);
-    console.log('trackIndex', trackIndex);
-    console.log('audioref', audioRef.current);
-  }, []);
   //---------------------------------------------------------------------------
   return (
     <div className="audio-player-container">

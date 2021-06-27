@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useState,
 } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -21,10 +21,11 @@ const ProfileMainContent = () => {
   // const history = useHistory();
   const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState([]);
-  const [save, setSave] = useState(true);
+  const [update, toggleUpdate] = useState(false);
   const [url, setUrl] = useState(profileImage);
+  const [photoName, setPhotoName] = useState('');
   const [newPassword, setNewPassword] = useState(false);
-  const inputFileRef = useRef(undefined);
+  // const inputFileRef = useRef(undefined);
   const params = useParams();
   const {
     currentUser, setCurrentUser, adminUser, setAdminUser,
@@ -35,13 +36,6 @@ const ProfileMainContent = () => {
   } = useForm();
 
   // Functions
-  async function postData(payload) {
-    try {
-      await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   async function fetchPhoto(fileName) {
     try {
@@ -57,6 +51,16 @@ const ProfileMainContent = () => {
       });
       const objectURL = URL.createObjectURL(blob);
       setUrl(objectURL);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function postData(payload) {
+    try {
+      await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
+      console.log('PAYLOAD ', payload);
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
@@ -101,6 +105,8 @@ const ProfileMainContent = () => {
     console.log('hallo form submit 1 ');
     console.log(data);
     if (data.file[0]) {
+      console.log('DATA', data.file[0].name);
+      setPhotoName(data.file[0].name);
       formData.append('file', data.file[0]);
     }
     formData.append('email', data.email);
@@ -111,16 +117,7 @@ const ProfileMainContent = () => {
     formData.append('location', data.location);
     formData.append('birthDate', data.birthDate);
     postData(formData);
-    setSave(!save);
-    console.log(save);
-    console.log('hallo form submit 2');
   };
-
-  const onBtnClick = () => {
-    /* Collecting node-element and performing click */
-    inputFileRef.current.click();
-  };
-
   async function deleteAdmin() {
     console.log('hallo post data ');
     try {
@@ -150,7 +147,11 @@ const ProfileMainContent = () => {
 
   useEffect(() => {
     fetchPhoto(user.photo);
-  }, [user, save]);
+  }, [user]);
+
+  useEffect(() => {
+    fetchPhoto(photoName);
+  }, [update]);
 
   // eslint-disable-next-line consistent-return
   const admin = (role) => {
@@ -182,11 +183,9 @@ const ProfileMainContent = () => {
           <h2>{user.email}</h2>
           <h2>{user.photo}</h2>
           {/* <HexagonProfile photo="photo01" /> */}
-          <button type="button" id="my-button" onClick={onBtnClick}>
-            <div className="hexagon-shape">
-              <img src={url} alt="profile" />
-            </div>
-          </button>
+          <div className="hexagon-shape">
+            <img src={url} alt="profile" />
+          </div>
           <div className="user-roles">
             {userRole.map((item) => (
               <div>{admin(item.authority)}</div>
@@ -200,9 +199,7 @@ const ProfileMainContent = () => {
                 id="file"
                 type="file"
                     // ref={inputFileRef}
-                {...register('file', {
-                  ref: { inputFileRef },
-                })}
+                {...register('file')}
               />
 
               {errors.File && (
