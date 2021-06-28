@@ -10,6 +10,7 @@ export default function UserProvider(props) {
   const [trackName, setTrackName] = useState('');
   const [playMusic, setPlayMusic] = useState('');
   const [clicked, setClicked] = useState('');
+  const [feedbacks, setFeedbacks] = useState([]);
   const [update, toggleUpdate] = useState(false);
   // console.log(setCurrentUser);
   return (
@@ -31,6 +32,8 @@ export default function UserProvider(props) {
         setAdminUser,
         update,
         toggleUpdate,
+        feedbacks,
+        setFeedbacks,
       }}
     >
       {/* eslint-disable-next-line react/destructuring-assignment */}

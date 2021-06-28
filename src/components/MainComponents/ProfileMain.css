@@ -1,12 +1,23 @@
 
 .admin-icon-box{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 30px;
     color: white;
     gap: 10px;
 }
 
-.admin-icon{width: 50px }
+.admin-icon {
+    border-radius: 50%;
+    border: 2px solid dodgerblue;
+}
+
+.delete-icon{
+    width: 20px;
+}
+
+
 
 .delete-role{
     color: white;

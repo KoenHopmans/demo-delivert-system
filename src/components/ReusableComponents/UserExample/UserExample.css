@@ -7,7 +7,7 @@
     width: 200px;
     height: calc(200px / 1.11);
     clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
-    margin-right: 100px;
+    /*margin-right: 100px;*/
     color: #fff;
     overflow: hidden;
 

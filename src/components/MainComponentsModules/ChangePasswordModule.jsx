@@ -38,57 +38,55 @@ const ChangePasswordModule = () => {
 
   console.log(errors);
   return (
-    <div className="content-box">
-      <div className="text-box">
-        {/* <h1>Change Password</h1> */}
-        <form onSubmit={handleSubmit(formSubmit)}>
-          <div className="text-box">
-            <BiLockAlt />
-            <label htmlFor="password" className="inputLabel">
-              New Password
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your new password"
-                {...register('password', {
-                  required: 'You must specify a password',
-                  minLength: {
-                    value: 8,
-                    message: 'Password must have at least 8 characters',
-                  },
-                })}
-              />
-              {errors.password && (
+    <div className="text-box">
+      {/* <h1>Change Password</h1> */}
+      <form onSubmit={handleSubmit(formSubmit)}>
+        <div className="text-box">
+          <BiLockAlt />
+          <label htmlFor="password" className="inputLabel">
+            New Password
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your new password"
+              {...register('password', {
+                required: 'You must specify a password',
+                minLength: {
+                  value: 8,
+                  message: 'Password must have at least 8 characters',
+                },
+              })}
+            />
+            {errors.password && (
               <div className="error">
                 <BsExclamationCircle />
                 {errors.password.message}
               </div>
-              )}
-            </label>
-          </div>
-          <div className="text-box">
-            <BiLockAlt />
-            <label htmlFor="confirmPassword" className="inputLabel">
-              Confirm Password
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm your new password"
-                {...register('confirmPassword', {
-                  validate: (value) => value === password.current || 'The passwords do not match',
-                })}
-              />
-              {errors.confirmPassword && (
+            )}
+          </label>
+        </div>
+        <div className="text-box">
+          <BiLockAlt />
+          <label htmlFor="confirmPassword" className="inputLabel">
+            Confirm Password
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm your new password"
+              {...register('confirmPassword', {
+                validate: (value) => value === password.current || 'The passwords do not match',
+              })}
+            />
+            {errors.confirmPassword && (
               <div className="error">
                 <BsExclamationCircle />
                 {errors.confirmPassword.message}
               </div>
-              )}
-            </label>
-          </div>
-          <input id="change-btn" type="submit" name="" value="change" />
-        </form>
-      </div>
+            )}
+          </label>
+        </div>
+        <input id="change-btn" type="submit" name="" value="change" />
+      </form>
     </div>
 
   );

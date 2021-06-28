@@ -60,8 +60,9 @@ const NewDemo = ({
   const demoOptions = () => {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
+    console.log('item !!!!!!$$$$$$$$$$$$$$', item.username);
     console.log('item.trackName', item.trackName);
-    if (adminUser) { history.push(`/admin/${params.role}/demo-options/${item.demo}`, { from: 'App' }); } else { history.push(`/demo-options/${item.demo}`, { from: 'App' }); }
+    if (adminUser) { history.push(`/admin/${params.role}/demo-options/${item.username}/${item.demo}`, { from: 'App' }); } else { history.push(`/demo-options/${item.username}/${item.demo}`, { from: 'App' }); }
   };
 
   async function playFile(fileName) {
@@ -121,9 +122,9 @@ const NewDemo = ({
   const newFeedback = (read, message) => {
     if (read === false) {
       return (
-        <div className="new-feedback-box">
+        <div className="demo-feedback-box">
           <button
-            className="new-feedback-btn"
+            className="feedback-btn"
             type="button"
           >
             <BiMessageDetail />
@@ -131,7 +132,30 @@ const NewDemo = ({
           </button>
           <button
             type="button"
-            className="new-feedback-message"
+            className="demo-feedback-message"
+          >
+            {message}
+          </button>
+        </div>
+      );
+    }
+  };
+
+  // eslint-disable-next-line consistent-return
+  const newComment = (read, message) => {
+    if (read === false) {
+      return (
+        <div className="demo-comment-box">
+          <button
+            className="comment-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            NEW Comment
+          </button>
+          <button
+            type="button"
+            className="demo-comment-message"
           >
             {message}
           </button>
@@ -161,6 +185,9 @@ const NewDemo = ({
       <button type="button" onClick={demoOptions}>
         {item.feedbacks.map((feedbackItem) => (
           <div>{newFeedback(feedbackItem.read, feedbackItem.feedback)}</div>
+        ))}
+        {item.comments.map((commentItem) => (
+          <div>{newComment(commentItem.read, commentItem.comment)}</div>
         ))}
       </button>
       <div className="demo-btn-box">

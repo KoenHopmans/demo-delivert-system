@@ -1,4 +1,6 @@
-
+imput{
+    width: 100%;
+}
 
 form{
     display: flex;
@@ -83,7 +85,7 @@ a:visited{
 
 .inputLabel {
     border-bottom: 1px solid dodgerblue;
-    font-family: 'Julius Sans One', sans-serif
+    font-family: 'Julius Sans One', sans-serif;
 }
 
 .error {
@@ -107,7 +109,7 @@ a:visited{
     color: white;
     background: none;
     font-size: 22px;
-    width: 80%;
+    width: 100%;
     /*float: left;*/
     margin: 0 10px;
 }

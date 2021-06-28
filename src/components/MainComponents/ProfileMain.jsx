@@ -6,14 +6,17 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { IoMaleFemaleSharp, IoLocationOutline } from 'react-icons/io5';
 import {
-  BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle, BiTrash,
+  BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle, BiTrash, BiKey,
 } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 // import { useHistory } from 'react-router-dom';
+// import {
+//   GrUserAdmin,
+// } from 'react-icons/gr';
 import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
 import { userContext } from '../contexts/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
-import adminIcon from '../../images/hexagon-admin.png';
+
 import './ProfileMain.css';
 
 const ProfileMainContent = () => {
@@ -123,6 +126,7 @@ const ProfileMainContent = () => {
     try {
       await axios.delete(`http://localhost:8080/api/v1/users/${params.user}/authorities/ROLE_ADMIN`);
       console.log('DELETED');
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
@@ -159,10 +163,14 @@ const ProfileMainContent = () => {
       return (
         <div className="admin-icon-box">
           {/* <RiAdminLine /> */}
-          <img className="admin-icon" src={adminIcon} alt="Admin icon" />
+          <div className="admin-icon">
+            <BiKey />
+          </div>
+          <p>Admin</p>
+
           {/* <p>Admin</p> */}
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-          <button onClick={deleteAdmin} type="button" className="delete-role"><BiTrash /></button>
+          <div className="delete-icon"><button onClick={deleteAdmin} type="button" className="delete-role"><BiTrash /></button></div>
         </div>
       );
     }
@@ -183,10 +191,11 @@ const ProfileMainContent = () => {
           <h2>{user.email}</h2>
           <h2>{user.photo}</h2>
           {/* <HexagonProfile photo="photo01" /> */}
-          <div className="hexagon-shape">
-            <img src={url} alt="profile" />
-          </div>
-          <div className="user-roles">
+
+          <div>
+            <div className="hexagon-shape">
+              <img src={url} alt="profile" />
+            </div>
             {userRole.map((item) => (
               <div>{admin(item.authority)}</div>
             ))}

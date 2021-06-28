@@ -10,26 +10,28 @@ import {
   BiMessageDetail,
   BiCheck, BiTrash,
 } from 'react-icons/bi';
-import { useParams } from 'react-router';
-
+import { useHistory, useParams } from 'react-router';
 import { ImFilePicture } from 'react-icons/im';
-import { BsExclamationCircle } from 'react-icons/bs';
+import { BsExclamationCircle, BsArrowCounterclockwise } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/AddCommentModule';
-import AddFeedbackModule from '../MainComponentsModules/AddFeedbackModule';
+import AddFeedbackModule from '../MainComponentsModules/Feedback/AddFeedbackModule';
 import redHexagon from '../../images/hexagon-red.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks
   const {
-    currentDemo, currentUser, update, toggleUpdate, clicked, setClicked, setPlayMusic,
+    currentDemo, currentUser, update, toggleUpdate,
+    clicked, setClicked,
+    setCurrentDemo,
+    setCurrentUser, adminUser, setAdminUser,
   } = useContext(userContext);
   const [url, setUrl] = useState(redHexagon);
   const [comments, setComments] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [deleted, setDeleted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [addFeedback, setAddFeedback] = useState(false);
   const [demo, setDemo] = useState([]);
@@ -39,6 +41,7 @@ const DemoOptionsMainContent = () => {
     register, handleSubmit, reset, formState: { errors },
   } = useForm(
   );
+  const history = useHistory();
 
   // Functions
   async function fetchData() {
@@ -46,12 +49,12 @@ const DemoOptionsMainContent = () => {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
       setComments(result.data.comments);
-      const unorderedFeedbacks = result.data.feedbacks;
+      // const unorderedFeedbacks = result.data.feedbacks;
       //! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       // eslint-disable-next-line max-len
-      const orderedFeedbacks = unorderedFeedbacks.sort((a, b) => new Date(b.date) - new Date(a.date));
+      // const orderedFeedbacks = unorderedFeedbacks.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFeedbacks(result.data.feedbacks);
-      console.log('orderedFeedbacks', orderedFeedbacks);
+      // console.log('orderedFeedbacks', orderedFeedbacks);
       reset(result.data);
     } catch (e) {
       console.error(e);
@@ -59,6 +62,7 @@ const DemoOptionsMainContent = () => {
   }
 
   async function downloadFile(fileName) {
+    setLoading(true);
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -77,17 +81,22 @@ const DemoOptionsMainContent = () => {
       downloadLink.style.display = 'none';
       downloadLink.click();
       document.body.removeChild(downloadLink);
+      setLoading(false);
     } catch (e) {
       console.error(e);
+      setLoading(false);
     }
   }
 
   async function postData(payload, fileName) {
+    setLoading(true);
     try {
       await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
       toggleUpdate(!update);
+      setLoading(false);
     } catch (e) {
       console.error(e);
+      setLoading(false);
     }
   }
 
@@ -102,7 +111,8 @@ const DemoOptionsMainContent = () => {
   console.log(errors);
 
   async function deleteDemo(fileName) {
-    setDeleted(true);
+    setLoading(true);
+    history.goBack();
     try {
       await axios.delete(`http://localhost:8080/api/v1/demo/${fileName}`);
       toggleUpdate(!update);
@@ -143,6 +153,38 @@ const DemoOptionsMainContent = () => {
     }
   }
 
+  async function updateComment(fileName, currentComment) {
+    console.log(fileName);
+    console.log('Comment Current', currentComment);
+    const commentItem = { comment: currentComment };
+    console.log('Comment ITEM', commentItem);
+    try {
+      await axios.put(`http://localhost:8080/api/v1/${fileName}/comment`, {
+        comment: currentComment,
+      });
+      toggleUpdate(!update);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function deleteComment(fileName, currentComment) {
+    console.log(fileName);
+    console.log('Comment Current', currentComment);
+    const commentItem = { comment: currentComment };
+    console.log('Comment ITEM', commentItem);
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/${fileName}/comment`, {
+        data: {
+          comment: currentComment,
+        },
+      });
+      toggleUpdate(!update);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async function fetchCover(fileName) {
     // console.log('fileName!!! ');
     // console.log(fileName);
@@ -165,20 +207,35 @@ const DemoOptionsMainContent = () => {
     }
   }
 
+  const displayDate = (date) => {
+    const dateParts = date.split(',');
+    return dateParts[0];
+  };
+
   // eslint-disable-next-line consistent-return
   const newFeedback = (feedbackItem) => {
     if (feedbackItem.read === false) {
       return (
-        <div className="new-feedback-box">
+        <div className="feedback-box">
           <button
-            className="new-feedback-btn"
+            className="feedback-btn"
             type="button"
           >
             <BiMessageDetail />
             NEW Feedback
           </button>
           <button className="feedback-date-btn" type="button">
-            {feedbackItem.date}
+            {displayDate(feedbackItem.date)}
+          </button>
+          <span className="messenger">{feedbackItem.messenger}</span>
+          <button
+            onClick={() => {
+              deleteFeedback(currentDemo, feedbackItem.feedback);
+            }}
+            type="button"
+            className="feedback-delete-btn"
+          >
+            <BiTrash />
           </button>
           <button
             onClick={() => {
@@ -188,15 +245,6 @@ const DemoOptionsMainContent = () => {
             className="feedback-read-btn"
           >
             <BiCheck />
-          </button>
-          <button
-            onClick={() => {
-              deleteFeedback(currentDemo, feedbackItem.feedback);
-            }}
-            type="button"
-            className="feedback-delete-btn"
-          >
-            <BiTrash />
           </button>
           <button
             type="button"
@@ -214,15 +262,16 @@ const DemoOptionsMainContent = () => {
       return (
         <div className="feedback-box">
           <button
-            className="feedback-btn"
+            className="read-feedback-btn"
             type="button"
           >
             <BiMessageDetail />
             Feedback
           </button>
           <button className="feedback-date-btn" type="button">
-            {feedbackItem.date}
+            {displayDate(feedbackItem.date)}
           </button>
+          <span className="messenger">{feedbackItem.messenger}</span>
           <button
             onClick={() => { deleteFeedback(currentDemo, feedbackItem.feedback); }}
             type="button"
@@ -241,12 +290,97 @@ const DemoOptionsMainContent = () => {
     }
   };
 
-  const playMusic = () => {
-    setPlayMusic(true);
+  // eslint-disable-next-line consistent-return
+  const newComment = (commentItem) => {
+    if (commentItem.read === false) {
+      return (
+        <div className="comment-box">
+          <button
+            className="comment-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            NEW Comment
+          </button>
+          <button className="feedback-date-btn" type="button">
+            {displayDate(commentItem.date)}
+          </button>
+          <span className="messenger">{commentItem.messenger}</span>
+          <button
+            onClick={() => {
+              deleteComment(currentDemo, commentItem.comment);
+            }}
+            type="button"
+            className="feedback-delete-btn"
+          >
+            <BiTrash />
+          </button>
+          <button
+            onClick={() => {
+              updateComment(currentDemo, commentItem.comment);
+            }}
+            type="button"
+            className="feedback-read-btn"
+          >
+            <BiCheck />
+          </button>
+          <button
+            type="button"
+            className="comment-message"
+          >
+            {commentItem.comment}
+          </button>
+        </div>
+      );
+    }
+  };
+
+  // eslint-disable-next-line consistent-return
+  const oldComment = (commentItem) => {
+    if (commentItem.read === true) {
+      return (
+        <div className="comment-box">
+          <button
+            className="read-comment-btn"
+            type="button"
+          >
+            <BiMessageDetail />
+            Comment
+          </button>
+          <button className="comment-date-btn" type="button">
+            {displayDate(commentItem.date)}
+          </button>
+          <span className="messenger">{commentItem.messenger}</span>
+          <button
+            onClick={() => { deleteComment(currentDemo, commentItem.comment); }}
+            type="button"
+            className="comment-delete-btn"
+          >
+            <BiTrash />
+          </button>
+          <button
+            type="button"
+            className="comment-message"
+          >
+            {commentItem.comment}
+          </button>
+        </div>
+      );
+    }
+  };
+
+  const playPauseMusic = () => {
     setClicked(!clicked);
   };
 
   // Effects
+
+  useEffect(() => {
+    setCurrentDemo(params.demo);
+    setCurrentUser(params.user);
+    setAdminUser(params.role);
+    setClicked(!clicked);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -262,12 +396,22 @@ const DemoOptionsMainContent = () => {
         <h2 style={{ border: '2px green solid' }}>
           {currentUser}
         </h2>
+        <h2 style={{ border: '2px blue solid' }}>
+          {adminUser}
+        </h2>
         <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2>
-        {!deleted ? (
+        {!loading ? (
           <div className="content-box">
             <h1>Options</h1>
-            <button type="button" onClick={() => { playMusic(); }}>
+            <button type="button" onClick={() => { playPauseMusic(); }}>
               <div className="options-demo-img-box">
+                <div className="demo-trackName-title">
+                  <div>{demo.trackName}</div>
+                  <div>
+                    <BsArrowCounterclockwise />
+                  </div>
+                  <div>{demo.artist}</div>
+                </div>
                 <img
                   className="options-demo-img"
                   src={url}
@@ -275,22 +419,35 @@ const DemoOptionsMainContent = () => {
                 />
               </div>
             </button>
-            <div>{demo.username}</div>
-            {' '}
-            <div>{demo.artist}</div>
-            {comments
-              .map((comment) => (<div>{comment.comment}</div>))}
-            {feedbacks.map((feedbackItem) => (
-              <div>
-                {newFeedback(feedbackItem)}
+            <div className="messages-positioner">
+              <div className="messages-container">
+                {feedbacks.map((feedbackItem) => (
+                  <div>
+                    {newFeedback(feedbackItem)}
+                  </div>
+                ))}
+                {feedbacks
+                  .map((feedbackItem) => (
+                    <div>
+                      {oldFeedback(feedbackItem)}
+                    </div>
+                  ))}
+                {comments
+                  // .map((comment) => (<div>{comment.comment}</div>))}
+                  .map((commentItem) => (
+                    <div>
+                      {newComment(commentItem)}
+                    </div>
+                  ))}
+                {comments
+                  // .map((comment) => (<div>{comment.comment}</div>))}
+                  .map((commentItem) => (
+                    <div>
+                      {oldComment(commentItem)}
+                    </div>
+                  ))}
               </div>
-            ))}
-            {feedbacks
-              .map((feedbackItem) => (
-                <div>
-                  {oldFeedback(feedbackItem)}
-                </div>
-              ))}
+            </div>
             <form onSubmit={handleSubmit(formSubmit)}>
               <div className="text-box">
                 <BiPencil />
@@ -364,17 +521,15 @@ const DemoOptionsMainContent = () => {
               <AddCommentModule />
             ) : ''}
             {params.role ? (
-              <div className="feedback-box">
-                <div className="text-box">
-                  <BiMessageEdit />
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="add-feedback" className="inputLabel">
-                    Add Feedback
-                  </label>
-                  <button type="button" className="input-btn" id="add-feedback" onClick={() => setAddFeedback(!addFeedback)}>
-                    +
-                  </button>
-                </div>
+              <div className="text-box">
+                <BiMessageEdit />
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label htmlFor="add-feedback" className="inputLabel">
+                  Add Feedback
+                </label>
+                <button type="button" className="input-btn" id="add-feedback" onClick={() => setAddFeedback(!addFeedback)}>
+                  +
+                </button>
                 {addFeedback ? (
                   <AddFeedbackModule toggleUpdate update />
                 ) : ''}

@@ -33,11 +33,14 @@ const AddDemoMainContent = () => {
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
   const formSubmit = (data) => {
+    // eslint-disable-next-line no-param-reassign
+    data.date = new Date().toLocaleString();
     formData.append('musicFile', data.musicFile[0]);
     console.log('data.musicFile[0].name', data.musicFile[0].name);
     formData.append('cover', data.cover[0]);
     formData.append('artist', data.artist);
     formData.append('username', currentUser);
+    formData.append('date', data.date);
     formData.append('comment', data.comment);
     formData.append('feedback', data.feedback);
     formData.append('trackName', data.trackName);

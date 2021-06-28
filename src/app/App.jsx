@@ -38,7 +38,8 @@ function App() {
           <Route path="/hexagon" exact component={Hexagon} />
           <Route path="/test" exact component={Hexagon} />
           <Route path="/admin/:role/profile/:user" exact component={Profile} />
-          <Route path="/admin/:role/demo-options/:demo" exact component={DemoOptions} />
+          {/* <Route path="/admin/:role/demo-options/:demo" exact component={DemoOptions} /> */}
+          <Route path="/admin/:role/demo-options/:user/:demo" exact component={DemoOptions} />
           <Route path="/admin/:role/hexagon" exact component={Hexagon} />
           <Route path="/admin/:role/my-demos/:user" exact component={MyDemos} />
           <Route path="/admin/:role/add-demo/:user" exact component={AddDemo} />
