@@ -4,10 +4,10 @@ import '../components/MainComponents/MainContent.css';
 import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
-import Demos from '../components/Pages/Demos';
+// import Demos from '../components/ToDELETE/Demos';
 import Login from '../components/Pages/Login';
 import Home from '../components/Pages/Home';
-import SignUpProducer from '../components/Pages/SignUpProducer';
+// import SignUpProducer from '../components/ToDELETE/SignUpProducer';
 import LogOut from '../components/Pages/LogOut';
 import Profile from '../components/Pages/Profile';
 import AddDemo from '../components/Pages/AddDemo';
@@ -17,6 +17,8 @@ import PageNotFound from '../components/Pages/PageNotFound';
 import SignUpPage from '../components/Pages/SignUpPage';
 import MyDemos from '../components/Pages/MyDemos';
 import UserProvider from '../components/contexts/UserProvider';
+import Authority from '../components/Pages/Authority';
+import ProfileAdmin from '../components/Pages/ProfileAdmin';
 
 function App() {
   return (
@@ -24,26 +26,29 @@ function App() {
     <UserProvider>
       <Router>
         <Switch>
-          <Route path="/demos" exact component={Demos} />
+          {/* <Route path="/demos" exact component={Demos} /> */}
           <Route path="/login" exact component={Login} />
           <Route path="/" exact component={Home} />
           <Route path="/sign-up" exact component={SignUpPage} />
-          <Route path="/sign-up-producer" exact component={SignUpProducer} />
+          {/* <Route path="/sign-up-producer" exact component={SignUpProducer} /> */}
           <Route path="/log-out" exact component={LogOut} />
           <Route path="/my-demos/:user" exact component={MyDemos} />
           {/* <Route path="/profile" exact component={Profile} /> */}
           <Route path="/profile/:user" exact component={Profile} />
+          <Route path="/profile-admin/:user" exact component={ProfileAdmin} />
           <Route path="/add-demo/:user" exact component={AddDemo} />
-          <Route path="/demo-options/:demo" exact component={DemoOptions} />
+          <Route path="/demo-options/:user/:demo" exact component={DemoOptions} />
           <Route path="/hexagon" exact component={Hexagon} />
-          <Route path="/test" exact component={Hexagon} />
+          <Route path="/authority" exact component={Authority} />
           <Route path="/admin/:role/profile/:user" exact component={Profile} />
+          <Route path="/admin/:role/profile-admin/:user" exact component={ProfileAdmin} />
           {/* <Route path="/admin/:role/demo-options/:demo" exact component={DemoOptions} /> */}
           <Route path="/admin/:role/demo-options/:user/:demo" exact component={DemoOptions} />
           <Route path="/admin/:role/hexagon" exact component={Hexagon} />
           <Route path="/admin/:role/my-demos/:user" exact component={MyDemos} />
           <Route path="/admin/:role/add-demo/:user" exact component={AddDemo} />
           <Route path="/admin/:role/hexagon" exact component={Hexagon} />
+          <Route path="/admin/:role/authority" exact component={Authority} />
           <Route path="/" component={PageNotFound} />
         </Switch>
       </Router>

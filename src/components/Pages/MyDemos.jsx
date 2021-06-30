@@ -22,7 +22,7 @@ function MyDemos() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar hexagonBtn={params.role} singOutBtn demosBtn profileBtn addDemoBtn />
+        <NavigationBar hexagonBtn={params.role} singOutBtn profileBtn addDemoBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import AudioControls from './AudioControls';
-import './AudioPlayer.css';
+import './NewAudioPlayer.css';
 import MusicPlayerImg from '../../../images/music-player-tv__img.png';
 import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
 import DonDiabloVideo from '../../../videos/videoplayback.mp4';

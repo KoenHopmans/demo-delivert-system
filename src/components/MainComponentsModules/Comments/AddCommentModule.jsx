@@ -4,16 +4,18 @@ import { BiMessageEdit } from 'react-icons/bi';
 import {
   BsExclamationCircle,
 } from 'react-icons/bs';
-import '../MainComponents/MainContent.css';
+import '../../MainComponents/MainContent.css';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../../contexts/UserProvider';
 
 // import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const AddCommentModule = () => {
   const params = useParams();
-  const { toggleUpdate, update, adminUser } = useContext(userContext);
+  const {
+    toggleUpdate, update, adminUser, currentUser,
+  } = useContext(userContext);
 
   async function postData(payload) {
     console.log('hallo post data ');
@@ -36,7 +38,7 @@ const AddCommentModule = () => {
     // eslint-disable-next-line no-param-reassign
     data.date = new Date().toLocaleString();
     // eslint-disable-next-line no-param-reassign
-    data.messenger = adminUser;
+    if (adminUser) { data.messenger = adminUser; } else { data.messenger = currentUser; }
     postData(data);
   };
 

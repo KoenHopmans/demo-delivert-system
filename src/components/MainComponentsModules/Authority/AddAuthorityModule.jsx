@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BiKey, BiUser } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { userContext } from '../../contexts/UserProvider';
 
 const AddAuthorityModule = () => {
   console.log('demos');
+  const { update, toggleUpdate } = useContext(userContext);
   async function postData(payload) {
     console.log('hallo post data ');
     try {
       await axios.post(`http://localhost:8080/api/v1/users/${payload.username}/authorities`, payload);
+      toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }

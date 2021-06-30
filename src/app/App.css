@@ -9,6 +9,7 @@
   /*border: 1px red solid*/
 }
 
+
 form{
   margin: 0;
   padding: 0;
@@ -24,9 +25,6 @@ body {
 
 #content-wrap {
   padding-bottom: 70px;    /* Footer height */
-  border: 2px green solid;
+  /*border: 2px green solid;*/
   height: fit-content;
 }
-
-
-

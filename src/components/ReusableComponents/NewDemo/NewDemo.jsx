@@ -124,7 +124,7 @@ const NewDemo = ({
       return (
         <div className="demo-feedback-box">
           <button
-            className="feedback-btn"
+            className="demo-feedback-btn"
             type="button"
           >
             <BiMessageDetail />
@@ -147,7 +147,7 @@ const NewDemo = ({
       return (
         <div className="demo-comment-box">
           <button
-            className="comment-btn"
+            className="demo-comment-btn"
             type="button"
           >
             <BiMessageDetail />

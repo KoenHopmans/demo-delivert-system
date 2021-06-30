@@ -50,14 +50,14 @@
     padding: 5px;
 }
 
-.feedback-date-btn{
+.feedback-date{
     color: white;
     border-radius: 10px;
     padding: 5px;
 }
 
 
-.comment-date-btn{
+.comment-date{
     color: white;
     border-radius: 10px;
     padding: 5px;
@@ -87,6 +87,24 @@
 /*.add-feedback-box:hover .demo-feedback-message {*/
 /*    visibility: visible;*/
 /*}*/
+
+.demo-comment-btn{
+    color: white;
+    background: linear-gradient(to bottom, dodgerblue , rgb(1, 73, 146));
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 10px;
+    width: 100px;
+}
+
+.demo-feedback-btn{
+    color: white;
+    background: linear-gradient(to bottom, rgb(16, 205, 124), rgb(9, 115, 70));
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 10px;
+    width: 100px;
+}
 
 .demo-feedback-message{
     visibility: hidden;
@@ -122,12 +140,14 @@
     display: flex;
     gap: 10px;
     margin: 5px;
+    font-family: 'M PLUS 1p', sans-serif
 }
 
 .feedback-box{
     display: flex;
     gap: 10px;
     margin: 5px;
+    font-family: 'M PLUS 1p', sans-serif;
 }
 
 .feedback-box:hover .feedback-message {

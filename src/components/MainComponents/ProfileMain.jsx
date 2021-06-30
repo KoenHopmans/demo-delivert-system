@@ -13,11 +13,13 @@ import { BsExclamationCircle } from 'react-icons/bs';
 // import {
 //   GrUserAdmin,
 // } from 'react-icons/gr';
-import ChangePasswordModule from '../MainComponentsModules/ChangePasswordModule';
+import ChangePasswordModule from '../MainComponentsModules/Password/ChangePasswordModule';
 import { userContext } from '../contexts/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
 
 import './ProfileMain.css';
+import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
+import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
 
 const ProfileMainContent = () => {
   // Hooks
@@ -25,13 +27,14 @@ const ProfileMainContent = () => {
   const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState([]);
   const [update, toggleUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(profileImage);
   const [photoName, setPhotoName] = useState('');
   const [newPassword, setNewPassword] = useState(false);
   // const inputFileRef = useRef(undefined);
   const params = useParams();
   const {
-    currentUser, setCurrentUser, adminUser, setAdminUser,
+    currentUser, setCurrentUser, setAdminUser,
   } = useContext(userContext);
   const formData = new FormData();
   const {
@@ -60,12 +63,15 @@ const ProfileMainContent = () => {
   }
 
   async function postData(payload) {
+    setLoading(true);
     try {
       await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
       console.log('PAYLOAD ', payload);
       toggleUpdate(!update);
+      setLoading(false);
     } catch (e) {
       console.error(e);
+      setLoading(false);
     }
   }
 
@@ -141,6 +147,11 @@ const ProfileMainContent = () => {
 
   // Effects
   useEffect(() => {
+    fetchData();
+    fetchPhoto(photoName);
+  }, [update]);
+
+  useEffect(() => {
     fetchPhoto(user.photo);
     fetchData();
     setCurrentUser(params.user);
@@ -153,24 +164,26 @@ const ProfileMainContent = () => {
     fetchPhoto(user.photo);
   }, [user]);
 
-  useEffect(() => {
-    fetchPhoto(photoName);
-  }, [update]);
-
   // eslint-disable-next-line consistent-return
   const admin = (role) => {
     if (role === 'ROLE_ADMIN') {
       return (
-        <div className="admin-icon-box">
+        <div className="admin-box">
           {/* <RiAdminLine /> */}
           <div className="admin-icon">
             <BiKey />
           </div>
           <p>Admin</p>
+          {currentUser === 'Don Diablo' ? ''
+            : (
+              <div className="delete-icon">
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <button onClick={deleteAdmin} type="button" className="delete-role">
+                  <div className="trash-icon"><BiTrash /></div>
+                </button>
+              </div>
+            )}
 
-          {/* <p>Admin</p> */}
-          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-          <div className="delete-icon"><button onClick={deleteAdmin} type="button" className="delete-role"><BiTrash /></button></div>
         </div>
       );
     }
@@ -179,186 +192,194 @@ const ProfileMainContent = () => {
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
-        <div className="content-box">
-          <h2 style={{ border: '2px green solid' }}>
-            {currentUser}
-          </h2>
-          <h2 style={{ border: '2px blue solid' }}>
-            {adminUser}
-          </h2>
-          <h1>Profile</h1>
-          <h2>{user.username}</h2>
-          <h2>{user.email}</h2>
-          <h2>{user.photo}</h2>
-          {/* <HexagonProfile photo="photo01" /> */}
+        {/* <h2 style={{ border: '2px green solid' }}> */}
+        {/*  {currentUser} */}
+        {/* </h2> */}
+        {/* <h2 style={{ border: '2px blue solid' }}> */}
+        {/*  {adminUser} */}
+        {/* </h2> */}
+        {!loading ? (
+          <div className="content-box">
+            <h1>Profile</h1>
+            <h2>{user.username}</h2>
+            {/* <h2>{user.email}</h2> */}
+            {/* <h2>{user.photo}</h2> */}
+            {/* <HexagonProfile photo="photo01" /> */}
 
-          <div>
-            <div className="hexagon-shape">
-              <img src={url} alt="profile" />
+            <div className="hexagon-positioner">
+              <div className="hexagon-shape">
+                <img src={url} alt="profile" />
+              </div>
+              {userRole.map((item) => (
+                <div>{admin(item.authority)}</div>
+              ))}
             </div>
-            {userRole.map((item) => (
-              <div>{admin(item.authority)}</div>
-            ))}
-          </div>
-          <div className="text-box">
-            {/* <ImFileMusic /> */}
-            <label htmlFor="file" className="inputLabel">
-              Photo
-              <input
-                id="file"
-                type="file"
+            <div className="text-box">
+              {/* <ImFileMusic /> */}
+              <label htmlFor="file" className="inputLabel">
+                Photo
+                <input
+                  id="file"
+                  type="file"
                     // ref={inputFileRef}
-                {...register('file')}
-              />
+                  {...register('file')}
+                />
 
-              {errors.File && (
+                {errors.File && (
                 <div className="error">
                   <BsExclamationCircle />
                   {errors.File.message}
                 </div>
-              )}
-            </label>
-          </div>
-          <div className="text-box">
-            <BiLockAlt />
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="password" className="inputLabel">
-              password
-            </label>
-            <button type="button" className="input-btn" id="password" onClick={() => setNewPassword(!newPassword)}>
-              Change
-            </button>
-          </div>
-          {newPassword ? (
-            <ChangePasswordModule />
-          ) : ''}
-          <form onSubmit={handleSubmit(formSubmit)}>
+                )}
+              </label>
+            </div>
             <div className="text-box">
-              <BiUser />
-              <label htmlFor="firstName" className="inputLabel">
-                First name
-                <input
-                  id="firstName"
-                  type="text"
-                  placeholder="Enter your firstName"
-                  {...register('firstName')}
-                />
-                {errors.firstName && (
+              <BiLockAlt />
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="password" className="inputLabel">
+                password
+              </label>
+              <button type="button" className="input-btn" id="password" onClick={() => setNewPassword(!newPassword)}>
+                Change
+              </button>
+            </div>
+            {newPassword ? (
+              <ChangePasswordModule />
+            ) : ''}
+            <form onSubmit={handleSubmit(formSubmit)}>
+              <div className="text-box">
+                <BiUser />
+                <label htmlFor="firstName" className="inputLabel">
+                  First name
+                  <input
+                    id="firstName"
+                    type="text"
+                    placeholder="Enter your firstName"
+                    {...register('firstName')}
+                  />
+                  {errors.firstName && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.firstName.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiUser />
-              <label htmlFor="lastName" className="inputLabel">
-                Last name
-                <input
-                  id="lastName"
-                  type="text"
-                  placeholder="Enter your lastName"
-                  {...register('lastName')}
-                />
-                {errors.lastName && (
+                  )}
+                </label>
+              </div>
+              <div className="text-box">
+                <BiUser />
+                <label htmlFor="lastName" className="inputLabel">
+                  Last name
+                  <input
+                    id="lastName"
+                    type="text"
+                    placeholder="Enter your lastName"
+                    {...register('lastName')}
+                  />
+                  {errors.lastName && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.lastName.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiEnvelope />
-              <label htmlFor="email" className="inputLabel">
-                Email
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  {...register('email', {
-                    required: 'Please enter your email',
-                    minLength: { value: 4, message: 'At least 4 characters' },
+                  )}
+                </label>
+              </div>
+              <div className="text-box">
+                <BiEnvelope />
+                <label htmlFor="email" className="inputLabel">
+                  Email
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    {...register('email', {
+                      required: 'Please enter your email',
+                      minLength: { value: 4, message: 'At least 4 characters' },
 
-                  })}
-                />
-                {errors.email && (
+                    })}
+                  />
+                  {errors.email && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.email.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <IoMaleFemaleSharp />
-              <label htmlFor="gender" className="inputLabel">
-                Gender
-                <select id="gender" {...register('gender')}>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </label>
-            </div>
-            <div className="text-box">
-              <BiCalendar />
-              <label htmlFor="birthDate" className="inputLabel">
-                Birthdate
-                <input
-                  id="birthDate"
-                  type="date"
-                  placeholder="Enter your birthDate"
-                  {...register('birthDate')}
-                />
-                {errors.birthDate && (
+                  )}
+                </label>
+              </div>
+              <div className="text-box">
+                <IoMaleFemaleSharp />
+                <label htmlFor="gender" className="inputLabel">
+                  Gender
+                  <select id="gender" {...register('gender')}>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+              </div>
+              <div className="text-box">
+                <BiCalendar />
+                <label htmlFor="birthDate" className="inputLabel">
+                  Birthdate
+                  <input
+                    id="birthDate"
+                    type="date"
+                    placeholder="Enter your birthDate"
+                    {...register('birthDate')}
+                  />
+                  {errors.birthDate && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.birthDate.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <BiInfoCircle />
-              <label htmlFor="about" className="inputLabel">
-                About
-                <textarea
-                  id="about"
-                  type="text"
-                  placeholder="Enter your about"
-                  {...register('about')}
-                />
-                {errors.about && (
+                  )}
+                </label>
+              </div>
+              <div className="text-box">
+                <BiInfoCircle />
+                <label htmlFor="about" className="inputLabel">
+                  About
+                  <textarea
+                    id="about"
+                    type="text"
+                    placeholder="Enter your about"
+                    {...register('about')}
+                  />
+                  {errors.about && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.about.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <div className="text-box">
-              <IoLocationOutline />
-              <label htmlFor="location" className="inputLabel">
-                Location
-                <input
-                  id="location"
-                  type="tel"
-                  placeholder="Enter your location"
-                  {...register('location')}
-                />
-                {errors.location && (
+                  )}
+                </label>
+              </div>
+              <div className="text-box">
+                <IoLocationOutline />
+                <label htmlFor="location" className="inputLabel">
+                  Location
+                  <input
+                    id="location"
+                    type="tel"
+                    placeholder="Enter your location"
+                    {...register('location')}
+                  />
+                  {errors.location && (
                   <div className="error">
                     <BsExclamationCircle />
                     {errors.location.message}
                   </div>
-                )}
-              </label>
-            </div>
-            <input className="btn" type="submit" name="" value="Save" />
-          </form>
-        </div>
+                  )}
+                </label>
+              </div>
+              <input className="btn" type="submit" name="" value="Save" />
+            </form>
+            <UserDemos />
+          </div>
+        ) : (
+          <div>
+            <div className="question">Loading... Please wait </div>
+            <LoadingAnimation />
+          </div>
+        )}
       </div>
     </div>
   );

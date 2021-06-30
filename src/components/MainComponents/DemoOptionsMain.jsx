@@ -16,7 +16,7 @@ import { BsExclamationCircle, BsArrowCounterclockwise } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
-import AddCommentModule from '../MainComponentsModules/AddCommentModule';
+import AddCommentModule from '../MainComponentsModules/Comments/AddCommentModule';
 import AddFeedbackModule from '../MainComponentsModules/Feedback/AddFeedbackModule';
 import redHexagon from '../../images/hexagon-red.jpeg';
 
@@ -60,6 +60,10 @@ const DemoOptionsMainContent = () => {
       console.error(e);
     }
   }
+
+  const toMessenger = (messenger) => {
+    if (adminUser) { history.push(`/admin/${params.role}/profile-admin/${messenger}`, { from: 'App' }); } else { history.push(`/profile-admin/${messenger}`, { from: 'App' }); }
+  };
 
   async function downloadFile(fileName) {
     setLoading(true);
@@ -224,10 +228,10 @@ const DemoOptionsMainContent = () => {
             <BiMessageDetail />
             NEW Feedback
           </button>
-          <button className="feedback-date-btn" type="button">
+          <div className="feedback-date">
             {displayDate(feedbackItem.date)}
-          </button>
-          <span className="messenger">{feedbackItem.messenger}</span>
+          </div>
+          <button className="messenger" onClick={() => toMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
           <button
             onClick={() => {
               deleteFeedback(currentDemo, feedbackItem.feedback);
@@ -268,10 +272,10 @@ const DemoOptionsMainContent = () => {
             <BiMessageDetail />
             Feedback
           </button>
-          <button className="feedback-date-btn" type="button">
+          <div className="feedback-date">
             {displayDate(feedbackItem.date)}
-          </button>
-          <span className="messenger">{feedbackItem.messenger}</span>
+          </div>
+          <button className="messenger" onClick={() => toMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
           <button
             onClick={() => { deleteFeedback(currentDemo, feedbackItem.feedback); }}
             type="button"
@@ -302,10 +306,10 @@ const DemoOptionsMainContent = () => {
             <BiMessageDetail />
             NEW Comment
           </button>
-          <button className="feedback-date-btn" type="button">
+          <div className="feedback-date">
             {displayDate(commentItem.date)}
-          </button>
-          <span className="messenger">{commentItem.messenger}</span>
+          </div>
+          <button className="messenger" onClick={() => toMessenger(commentItem.messenger)} type="button">{commentItem.messenger}</button>
           <button
             onClick={() => {
               deleteComment(currentDemo, commentItem.comment);
@@ -347,10 +351,12 @@ const DemoOptionsMainContent = () => {
             <BiMessageDetail />
             Comment
           </button>
-          <button className="comment-date-btn" type="button">
+          <div className="feedback-date">
             {displayDate(commentItem.date)}
+          </div>
+          <button onClick={() => toMessenger(commentItem.messenger)} type="button" className="messenger">
+            {commentItem.messenger}
           </button>
-          <span className="messenger">{commentItem.messenger}</span>
           <button
             onClick={() => { deleteComment(currentDemo, commentItem.comment); }}
             type="button"
@@ -393,12 +399,12 @@ const DemoOptionsMainContent = () => {
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
-        <h2 style={{ border: '2px green solid' }}>
-          {currentUser}
-        </h2>
-        <h2 style={{ border: '2px blue solid' }}>
-          {adminUser}
-        </h2>
+        {/* <h2 style={{ border: '2px green solid' }}> */}
+        {/*  {currentUser} */}
+        {/* </h2> */}
+        {/* <h2 style={{ border: '2px blue solid' }}> */}
+        {/*  {adminUser} */}
+        {/* </h2> */}
         <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2>
         {!loading ? (
           <div className="content-box">
@@ -549,9 +555,19 @@ const DemoOptionsMainContent = () => {
             >
               delete
             </button>
+
             <div className="question">
-              <Link to="/demos"> To all demo&#39;s </Link>
+              {adminUser
+                ? (
+                  <Link to={{ pathname: `/admin/${adminUser}/my-demos/${currentUser}` }}> To all demo&#39;s </Link>
+                )
+                : (
+                  <Link to={{ pathname: `/my-demos/${currentUser}` }}> To all demo&#39;s </Link>
+                )}
             </div>
+
+            <div className="question" />
+
           </div>
         ) : (
           <div>

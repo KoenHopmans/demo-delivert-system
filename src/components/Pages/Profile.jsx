@@ -23,7 +23,7 @@ function Profile() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar hexagonBtn={params.role} addDemoBtn singOutBtn demosBtn myDemosBtn />
+        <NavigationBar hexagonBtn={params.role} addDemoBtn singOutBtn myDemosBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

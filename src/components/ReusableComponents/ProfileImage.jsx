@@ -37,7 +37,7 @@ const ProfileImage = (
 
   return (
     <div>
-      <button type="button" id="my-button">
+      <button type="button" className="image-btn">
         <div className="small-hexagon-shape">
           <img src={url} alt="profile" />
         </div>

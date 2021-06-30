@@ -7,7 +7,7 @@ import Header from '../ReusableComponents/Header/Header';
 import tracks from '../TrackLists/TrackListHexagon';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
 import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
-import SignUpPageMainContent from '../MainComponents/SignUpPageMain';
+import SignUpMainContent from '../MainComponents/SignUpMain';
 
 function SignUpPage() {
   const params = useParams();
@@ -22,11 +22,11 @@ function SignUpPage() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar loginBtn signUpBtn addDemoBtn profileBtn singOutBtn demosBtn />
+        <NavigationBar loginBtn signUpBtn addDemoBtn profileBtn singOutBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />
-        <SignUpPageMainContent />
+        <SignUpMainContent />
         <FooterHexagon />
       </div>
     </div>

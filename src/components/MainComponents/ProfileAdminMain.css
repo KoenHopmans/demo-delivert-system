@@ -1,0 +1,18 @@
+/*.profile-admin-row{*/
+/*    display: flex;*/
+/*    align-items: start;*/
+/*    justify-content: center;*/
+/*    gap: 50px;*/
+/*}*/
+
+.profile-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 50px;
+}
+
+.profile-table td{
+    padding: 5px 20px 5px 20px;
+}

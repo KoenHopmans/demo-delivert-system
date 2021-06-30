@@ -41,7 +41,7 @@ const AddDemoMainContent = () => {
     formData.append('artist', data.artist);
     formData.append('username', currentUser);
     formData.append('date', data.date);
-    formData.append('comment', data.comment);
+    if (data.comment) { formData.append('comment', data.comment); }
     formData.append('feedback', data.feedback);
     formData.append('trackName', data.trackName);
     console.log('This is the formData');
@@ -49,22 +49,6 @@ const AddDemoMainContent = () => {
     postData(formData);
     setSucces(true);
   };
-
-  // async function fetchData() {
-  //   try {
-  //     const result = await axios.get(`http://localhost:8080/api/v1/demo/${addedDemo}`);
-  //     console.log('result.data!!!!!', result.data);
-  //     setItem(result.data);
-  //     console.log('item!!!', item);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchData();
-  //   console.log('FETCH DATA');
-  // }, []);
 
   useEffect(() => {
     setCurrentUser(params.user);
@@ -77,13 +61,13 @@ const AddDemoMainContent = () => {
       <div className="mainContent">
         <div className="content-box">
           {!succes ? (
-            <div>
-              <h2 style={{ border: '2px green solid' }}>
-                {currentUser}
-              </h2>
-              <h2 style={{ border: '2px blue solid' }}>
-                {adminUser}
-              </h2>
+            <>
+              {/* <h2 style={{ border: '2px green solid' }}> */}
+              {/*  {currentUser} */}
+              {/* </h2> */}
+              {/* <h2 style={{ border: '2px blue solid' }}> */}
+              {/*  {adminUser} */}
+              {/* </h2> */}
               <h1>
                 Add demo item
               </h1>
@@ -180,30 +164,18 @@ const AddDemoMainContent = () => {
                     )}
                   </label>
                 </div>
-                {/* <div className="text-box"> */}
-                {/*  <BiMessageEdit /> */}
-                {/*  <label htmlFor="feedback" className="inputLabel"> */}
-                {/*    Feedback */}
-                {/*    <input */}
-                {/*      id="feedback" */}
-                {/*      type="text" */}
-                {/*      placeholder="Enter your feedback" */}
-                {/*      {...register('feedback')} */}
-                {/*    /> */}
-                {/*    {errors.feedback && ( */}
-                {/*    <div className="error"> */}
-                {/*      <BsExclamationCircle /> */}
-                {/*      {errors.feedback.message} */}
-                {/*    </div> */}
-                {/*    )} */}
-                {/*  </label> */}
-                {/* </div> */}
                 <input className="btn" type="submit" name="" value="Add" />
               </form>
               <div className="question">
-                <Link to="/demos"> To all demo&#39;s </Link>
+                {adminUser
+                  ? (
+                    <Link to={{ pathname: `/admin/${adminUser}/my-demos/${currentUser}` }}> To all demo&#39;s </Link>
+                  )
+                  : (
+                    <Link to={{ pathname: `/my-demos/${currentUser}` }}> To all demo&#39;s </Link>
+                  )}
               </div>
-            </div>
+            </>
           ) : (
             <div>
               <div className="question">Loading... Please wait </div>

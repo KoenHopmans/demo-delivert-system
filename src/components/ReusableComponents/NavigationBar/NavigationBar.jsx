@@ -11,7 +11,7 @@ import { userContext } from '../../contexts/UserProvider';
 
 const NavigationBar = ({
   loginBtn = false, signUpBtn = false, addDemoBtn = false, profileBtn = false,
-  singOutBtn = false, demosBtn = false, myDemosBtn = false, hexagonBtn = false,
+  singOutBtn = false, myDemosBtn = false, hexagonBtn = false, authorityBtn = false, homeBtn = false,
 }) => {
   const { currentUser, adminUser } = useContext(userContext);
 
@@ -26,9 +26,12 @@ const NavigationBar = ({
             {addDemoBtn ? <Link to={{ pathname: `/admin/${adminUser}/add-demo/${currentUser}` }}><NavigationBarBtn myIcon="addDemo" titleName="Add demo" /></Link> : ''}
             {profileBtn ? <Link to={{ pathname: `/admin/${adminUser}/profile/${currentUser}` }}><NavigationBarBtn myIcon="profile" titleName="Profile" /></Link> : ''}
             {singOutBtn ? <Link to="/log-out"><NavigationBarBtn myIcon="signOut" titleName="Sign out" /></Link> : ''}
-            {demosBtn ? <Link to="/demos"><NavigationBarBtn myIcon="demos" titleName="Demos" /></Link> : ''}
-            {myDemosBtn ? <Link to={{ pathname: `/admin/${adminUser}/my-demos/${currentUser}` }}><NavigationBarBtn myIcon="demoOptions" titleName="My Demos" /></Link> : ''}
+            {homeBtn ? <Link to="/"><NavigationBarBtn myIcon="home" titleName="Home" /></Link> : ''}
+            {/* {demosBtn ? <Link to="/demos"><NavigationBarBtn myIcon="demos"
+            titleName="Demos" /></Link> : ''} */}
+            {myDemosBtn ? <Link to={{ pathname: `/admin/${adminUser}/my-demos/${currentUser}` }}><NavigationBarBtn myIcon="demos" titleName="Demos" /></Link> : ''}
             {hexagonBtn ? <Link to={{ pathname: `/admin/${adminUser}/hexagon` }}><NavigationBarBtn myIcon="hexagon" titleName="Hexagon" /></Link> : ''}
+            {authorityBtn ? <Link to={{ pathname: `/admin/${adminUser}/authority` }}><NavigationBarBtn myIcon="authority" titleName="Authority" /></Link> : ''}
           </div>
         )
         : (
@@ -38,9 +41,12 @@ const NavigationBar = ({
             {addDemoBtn ? <Link to={{ pathname: `/add-demo/${currentUser}` }}><NavigationBarBtn myIcon="addDemo" titleName="Add demo" /></Link> : ''}
             {profileBtn ? <Link to={{ pathname: `/profile/${currentUser}` }}><NavigationBarBtn myIcon="profile" titleName="Profile" /></Link> : ''}
             {singOutBtn ? <Link to="/log-out"><NavigationBarBtn myIcon="signOut" titleName="Sign out" /></Link> : ''}
-            {demosBtn ? <Link to="/demos"><NavigationBarBtn myIcon="demos" titleName="Demos" /></Link> : ''}
-            {myDemosBtn ? <Link to={{ pathname: `/my-demos/${currentUser}` }}><NavigationBarBtn myIcon="demoOptions" titleName="My Demos" /></Link> : ''}
+            {homeBtn ? <Link to="/"><NavigationBarBtn myIcon="home" titleName="Home" /></Link> : ''}
+            {/* {demosBtn ? <Link to="/demos"><NavigationBarBtn myIcon="demos"
+            titleName="Demos" /></Link> : ''} */}
+            {myDemosBtn ? <Link to={{ pathname: `/my-demos/${currentUser}` }}><NavigationBarBtn myIcon="demos" titleName="Demos" /></Link> : ''}
             {hexagonBtn ? <Link to="/hexagon"><NavigationBarBtn myIcon="hexagon" titleName="Hexagon" /></Link> : ''}
+            {authorityBtn ? <Link to="/authority"><NavigationBarBtn myIcon="authority" titleName="Authority" /></Link> : ''}
           </div>
         )}
     </nav>

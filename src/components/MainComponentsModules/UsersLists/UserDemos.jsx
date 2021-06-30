@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 // disable eslint next line
 import './AllUsersDemosList.css';
 // import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
+import { userContext } from '../../contexts/UserProvider';
 // import { userContext } from '../../contexts/UserProvider';
 
 const UserDemos = () => {
   const params = useParams();
+  const { setCurrentUser } = useContext(userContext);
   // const { setAdmin } = useContext(userContext);
   // const history = useHistory();
   const initial = { demos: [] };
@@ -91,6 +93,7 @@ const UserDemos = () => {
     // return () => {
     //   if (audioRef.current && audioRef.current.pause());
     // };
+    setCurrentUser(params.user);
   }, []);
 
   console.log('demos', myUser.demos);
@@ -99,40 +102,39 @@ const UserDemos = () => {
     <div className="user-demos-container">
       <div>
         {/* <h1>User Demos</h1> */}
-        <div className="user-container">
-          <div>{myUser.username}</div>
-          <div className="user-demos">
-            {myUser.demos.map((item) => (
-              <div className="user-demos">
-                <NewDemo item={item} />
-                {/* <div className="music-file"> */}
-                {/*  /!* <div>{item.demo}</div> *!/ */}
-                {/*  <div>{item.trackName}</div> */}
-                {/*  <button */}
-                {/*    onClick={() => history.push(`/demo-options/${item.demo}`,
+        <div className="demo-list">
+          {/* <div className="user-demos"> */}
+          {myUser.demos.map((item) => (
+            <div className="user-demos">
+              <NewDemo item={item} />
+              {/* <div className="music-file"> */}
+              {/*  /!* <div>{item.demo}</div> *!/ */}
+              {/*  <div>{item.trackName}</div> */}
+              {/*  <button */}
+              {/*    onClick={() => history.push(`/demo-options/${item.demo}`,
                 { from: 'App' })} */}
-                {/*    type="button" */}
-                {/*  > */}
-                {/*    options */}
-                {/*  </button> */}
-                {/*  <button */}
-                {/*    onClick={() => { downloadFile(item.demo); }} */}
-                {/*    type="submit" */}
-                {/*  > */}
-                {/*    download */}
-                {/*  </button> */}
-                {/*  <button */}
-                {/*    onClick={() => { playFile(item.demo); }} */}
-                {/*    type="submit" */}
-                {/*  > */}
-                {/*    play */}
-                {/*  </button> */}
-                {/* </div> */}
-              </div>
-            ))}
-          </div>
+              {/*    type="button" */}
+              {/*  > */}
+              {/*    options */}
+              {/*  </button> */}
+              {/*  <button */}
+              {/*    onClick={() => { downloadFile(item.demo); }} */}
+              {/*    type="submit" */}
+              {/*  > */}
+              {/*    download */}
+              {/*  </button> */}
+              {/*  <button */}
+              {/*    onClick={() => { playFile(item.demo); }} */}
+              {/*    type="submit" */}
+              {/*  > */}
+              {/*    play */}
+              {/*  </button> */}
+              {/* </div> */}
+            </div>
+          ))}
         </div>
       </div>
+      {/* </div> */}
       {/* <button */}
       {/*  className="btn sample-player" */}
       {/*  onClick={() => { stopPlay(); }} */}

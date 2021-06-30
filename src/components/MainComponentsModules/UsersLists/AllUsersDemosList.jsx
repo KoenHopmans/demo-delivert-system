@@ -3,23 +3,19 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import axios from 'axios';
-// disable eslint next line
 import './AllUsersDemosList.css';
-// import { RiAdminLine } from 'react-icons/ri';
-// import { useHistory } from 'react-router-dom';
+import { BiKey } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
-// import { userContext } from '../../contexts/UserProvider';
+
 import ProfileImage from '../../ReusableComponents/ProfileImage';
-import adminIcon from '../../../images/hexagon-admin.png';
 import { userContext } from '../../contexts/UserProvider';
 
 const AllUsersDemosList = () => {
-  // const history = useHistory();
-  const { adminUser } = useContext(userContext);
+  const { adminUser, currentUser } = useContext(userContext);
   const [users, setUsers] = useState([]);
+  // const [adminProfile, setAdminProfile] = useState(false);
   const audioRef = useRef(null);
-  // const { setAdmin } = useContext(userContext);
   const history = useHistory();
   async function fetchData() {
     try {
@@ -35,19 +31,38 @@ const AllUsersDemosList = () => {
   const admin = (role) => {
     if (role === 'ROLE_ADMIN') {
       return (
-        <div style={{ fontSize: '30px', color: 'white' }}>
-          {/* <RiAdminLine /> */}
-          <img style={{ width: '30px' }} src={adminIcon} alt="Admin icon" />
+        <div>
+          <div className="admin-icon">
+            <BiKey />
+          </div>
         </div>
       );
     }
   };
 
+  // const ProfileAdmin = (authority) => {
+  //   console.log('authority', authority);
+  //   if (authority === 'ROLE_ADMIN') {
+  //     setAdminProfile(true);
+  //     console.log('adminProfile', adminProfile);
+  //   }
+  // };
+
   const profilePage = (selectedUser) => () => {
-    if (adminUser) {
-      history.push(`/admin/${adminUser}/profile/${selectedUser}`, { from: 'App' });
+    const myAuthorities = selectedUser.authorities;
+    const adminProfile = myAuthorities.some((person) => person.authority === 'ROLE_ADMIN');
+    if (
+      ((adminProfile && selectedUser.username !== adminUser)
+            || (!adminProfile && selectedUser.username === currentUser))) {
+      if (adminUser) {
+        history.push(`/admin/${adminUser}/profile-admin/${selectedUser.username}`, { from: 'App' });
+      } else {
+        history.push(`/profile-admin/${selectedUser.username}`, { from: 'App' });
+      }
+    } else if (adminUser) {
+      history.push(`/admin/${adminUser}/profile/${selectedUser.username}`, { from: 'App' });
     } else {
-      history.push(`/profile/${selectedUser}`, { from: 'App' });
+      history.push(`/profile/${selectedUser.username}`, { from: 'App' });
     }
   };
 
@@ -62,21 +77,24 @@ const AllUsersDemosList = () => {
   return (
     <div className="user-demos-container">
       <div>
-        <h1>User Demos</h1>
+        {/* <h1>User Demos</h1> */}
         {
-                    users.map((user) => (
-                      <div className="user-container">
+                    users.map((user, index) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div className="user-container" key={index}>
                         {/* <div>{user.username}</div> */}
                         <button className="hexagon-photo" type="button" onClick={profilePage(user.username)}>
                           <ProfileImage photo={user.photo} />
                         </button>
                         <div className="user-roles">
-                          <button className="name-btn" type="button" onClick={profilePage(user.username)}>
-                            <div>{user.username}</div>
-                            <div>
-                              {user.authorities.map((item) => (
-                                <div>{admin(item.authority)}</div>
-                              ))}
+                          <button className="name-btn" type="button" onClick={profilePage(user)}>
+                            <div className="user-box">
+                              <div>{user.username}</div>
+                              <div>
+                                {user.authorities.map((item) => (
+                                  <div>{admin(item.authority)}</div>
+                                ))}
+                              </div>
                             </div>
                           </button>
                         </div>
@@ -89,13 +107,6 @@ const AllUsersDemosList = () => {
                     ))
                 }
       </div>
-      {/* <button */}
-      {/*  className="btn sample-player" */}
-      {/*  onClick={() => { stopPlay(); }} */}
-      {/*  type="submit" */}
-      {/* > */}
-      {/*  pause */}
-      {/* </button> */}
     </div>
   );
 };

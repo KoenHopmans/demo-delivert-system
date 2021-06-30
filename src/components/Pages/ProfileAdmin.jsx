@@ -5,12 +5,11 @@ import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVid
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
 import Header from '../ReusableComponents/Header/Header';
 import FooterHexagon from '../ReusableComponents/Footer/FooterHexagon';
-// import AudioPlayer from '../ReusableComponents/AudioPlayer/AudioPlayer';
 import tracks from '../TrackLists/TrackListHexagon';
-import AddDemoMainContent from '../MainComponents/AddDemoMain';
 import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
+import ProfileAdminMain from '../MainComponents/ProfileAdminMain';
 
-function AddDemo() {
+function Profile() {
   const params = useParams();
   let selectedVideo = 'colorHexagonVideo';
   // eslint-disable-next-line consistent-return
@@ -20,18 +19,19 @@ function AddDemo() {
     }
     return selectedVideo;
   };
+
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar hexagonBtn={params.role} singOutBtn myDemosBtn profileBtn />
+        <NavigationBar hexagonBtn={params.role} addDemoBtn singOutBtn myDemosBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
-        {/* <AudioPlayer video="donDiablo" tracks={tracks} /> */}
         <NewAudioPlayer video="donDiablo" tracks={tracks} />
-        <AddDemoMainContent />
+        <ProfileAdminMain />
+        <FooterHexagon />
       </div>
-      <FooterHexagon />
     </div>
   );
 }
-export default AddDemo;
+
+export default Profile;

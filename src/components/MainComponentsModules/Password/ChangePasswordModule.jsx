@@ -4,7 +4,7 @@ import { BiLockAlt } from 'react-icons/bi';
 import {
   BsExclamationCircle,
 } from 'react-icons/bs';
-import '../MainComponents/MainContent.css';
+import '../../MainComponents/MainContent.css';
 import axios from 'axios';
 import { useParams } from 'react-router';
 

@@ -23,7 +23,7 @@ function Hexagon() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar myDemosBtn singOutBtn demosBtn profileBtn />
+        <NavigationBar myDemosBtn singOutBtn profileBtn authorityBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

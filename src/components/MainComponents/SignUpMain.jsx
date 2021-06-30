@@ -1,21 +1,28 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiEnvelope, BiLockAlt, BiUser } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
-const SignUpPageMainContent = () => {
+const SignUpMainContent = () => {
   // Hooks
-  const [succes, setSucces] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setSucces] = useState(false);
+  const {
+    register, watch, handleSubmit, formState: { errors },
+  } = useForm();
+  const password = useRef({});
+  password.current = watch('password', '');
+  const history = useHistory();
 
   // Functions
   async function postData(payload) {
     console.log('hallo post data ');
     try {
       await axios.post('http://localhost:8080/api/v1/users/', payload);
+      history.push('/login', { from: 'App' });
     } catch (e) {
       console.error(e);
     }
@@ -30,7 +37,7 @@ const SignUpPageMainContent = () => {
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
-          {!succes ? (
+          {!loading ? (
             <div>
               <h1>Sign up</h1>
               <form onSubmit={handleSubmit(formSubmit)}>
@@ -85,10 +92,43 @@ const SignUpPageMainContent = () => {
                     <input
                       id="password"
                       type="password"
-                      placeholder="Enter your password"
-                                            // name="password"
-                      {...register('password')}
+                      placeholder="Enter your new password"
+                      {...register('password', {
+                        required: 'You must specify a password',
+                        minLength: {
+                          value: 8,
+                          message: 'Password must have at least 8 characters',
+                        },
+                      })}
                     />
+                    {errors.password && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.password.message}
+                    </div>
+                    )}
+                  </label>
+                </div>
+                <div className="text-box">
+                  <BiLockAlt />
+                  <label htmlFor="confirmPassword" className="inputLabel">
+                    Confirm Password
+                    <input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm your new password"
+                      {...register('confirmPassword', {
+                        required: 'Please enter your password',
+                        minLength: { value: 4, message: 'At least 4 characters' },
+                        validate: (value) => value === password.current || 'The passwords do not match',
+                      })}
+                    />
+                    {errors.confirmPassword && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.confirmPassword.message}
+                    </div>
+                    )}
                   </label>
                 </div>
                 <input className="btn" type="submit" name="" value="Sign in" />
@@ -110,4 +150,4 @@ const SignUpPageMainContent = () => {
   );
 };
 
-export default SignUpPageMainContent;
+export default SignUpMainContent;

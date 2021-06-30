@@ -26,3 +26,8 @@
 .small-hexagon-shape:hover{
     transform: scale(1.2);
 }
+
+.image-btn{
+    width: 100px;
+    margin: 20px;
+}

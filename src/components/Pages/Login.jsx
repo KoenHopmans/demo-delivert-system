@@ -22,7 +22,7 @@ function Login() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar signUpBtn singOutBtn demosBtn hexagonBtn />
+        <NavigationBar signUpBtn homeBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

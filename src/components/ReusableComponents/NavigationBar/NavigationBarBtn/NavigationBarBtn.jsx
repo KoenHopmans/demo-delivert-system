@@ -5,7 +5,7 @@ import {
   FiEdit, FiPlusSquare, FiLayers, FiHexagon,
 } from 'react-icons/fi';
 import {
-  BiLogOutCircle, BiLogInCircle, BiUserPlus, BiUserCircle,
+  BiLogOutCircle, BiLogInCircle, BiUserPlus, BiUserCircle, BiKey, BiHome,
 } from 'react-icons/bi';
 
 const NavigationBarBtn = ({ myIcon, titleName }) => {
@@ -18,6 +18,8 @@ const NavigationBarBtn = ({ myIcon, titleName }) => {
     profile: <BiUserCircle />,
     demoOptions: <FiEdit />,
     hexagon: <FiHexagon />,
+    authority: <BiKey />,
+    home: <BiHome />,
   };
   return (
     <div className="navigation-bar__btn">
