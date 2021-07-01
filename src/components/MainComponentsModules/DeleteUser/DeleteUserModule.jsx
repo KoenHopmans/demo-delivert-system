@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
+import axios from 'axios';
 import { BiUser } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { userContext } from '../../contexts/UserProvider';
 
 const DeleteUserModule = () => {
-  console.log('demos');
+  // Hooks
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { update, toggleUpdate } = useContext(userContext);
+
+  // Functions
   async function postData(payload) {
-    console.log('hallo post data ');
     try {
       await axios.delete(`http://localhost:8080/api/v1/users/${payload.username}`, payload);
       toggleUpdate(!update);
@@ -17,7 +19,7 @@ const DeleteUserModule = () => {
       console.error(e);
     }
   }
-  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const formSubmit = (data) => {
     const checkedData = data;
     if (data.username === 'Don Diablo') {

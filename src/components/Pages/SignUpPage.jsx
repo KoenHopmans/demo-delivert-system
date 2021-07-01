@@ -10,15 +10,19 @@ import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
 import SignUpMainContent from '../MainComponents/SignUpMain';
 
 function SignUpPage() {
-  const params = useParams();
   let selectedVideo = 'colorHexagonVideo';
-  // eslint-disable-next-line consistent-return
+
+  // Hooks
+  const params = useParams();
+
+  // Hooks
   const backgroundVideo = () => {
     if (params.role) {
       selectedVideo = 'blueStar';
     }
     return selectedVideo;
   };
+
   return (
     <div>
       <div id="content-wrap">

@@ -1,7 +1,3 @@
-import redHexagon from '../../images/hexagon-red.jpeg';
-import greenHexagon from '../../images/hexagon-green.jpeg';
-import purpleHexagon from '../../images/hexagon-purple.jpeg';
-import goldHexagon from '../../images/hexagon-gold.jpeg';
 import keepingYourHeadUp from '../../audio/keeping-your-head-up.mp3';
 import momentum from '../../audio/momentum.mp3';
 import problems from '../../audio/problems.mp3';
@@ -16,7 +12,6 @@ export default [
     title: 'Nature',
     artist: 'Don Diablo',
     audioSrc: nature,
-    image: purpleHexagon,
     color: 'purple',
   },
   {
@@ -24,7 +19,6 @@ export default [
     title: 'Big Pineapple',
     artist: 'Don Diablo',
     audioSrc: BigPineapple,
-    image: purpleHexagon,
     color: 'purple',
   },
   {
@@ -32,7 +26,6 @@ export default [
     title: 'Momentum',
     artist: 'Don Diablo',
     audioSrc: momentum,
-    image: redHexagon,
     color: 'red',
   },
   {
@@ -40,7 +33,6 @@ export default [
     title: 'Keeping Your Head Up',
     artist: 'Don Diablo',
     audioSrc: keepingYourHeadUp,
-    image: greenHexagon,
     color: 'green',
   },
   {
@@ -48,7 +40,6 @@ export default [
     title: 'Whatchu Do',
     artist: 'Don Diablo',
     audioSrc: whatchuDo,
-    image: goldHexagon,
     color: 'gold',
   },
   {
@@ -56,7 +47,6 @@ export default [
     title: 'Problems',
     artist: 'Don Diablo',
     audioSrc: problems,
-    image: purpleHexagon,
     color: 'purple',
   },
   {
@@ -64,7 +54,6 @@ export default [
     title: 'Wake me',
     artist: 'Don Diablo',
     audioSrc: WakeMe,
-    image: purpleHexagon,
     color: 'purple',
   },
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import './HexagonAnimation.css';
 import HexagonLogoSvg from './HexagonLogoSvg';
@@ -27,7 +26,6 @@ const HexagonAnimation = ({
         <HexagonLogoSvg />
       </button>
     )}
-
   </div>
 );
 

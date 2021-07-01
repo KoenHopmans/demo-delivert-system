@@ -9,6 +9,7 @@ import {
   BiUser, BiEnvelope, BiCalendar, BiLockAlt, BiInfoCircle, BiTrash, BiKey,
 } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
+import { ImFilePicture } from 'react-icons/im';
 // import { useHistory } from 'react-router-dom';
 // import {
 //   GrUserAdmin,
@@ -51,7 +52,6 @@ const ProfileMainContent = () => {
           'Content-Type': 'image/jpg',
         },
       });
-      console.log('RESULT', result);
       const blob = new Blob([result.data], {
         type: 'image/jpg',
       });
@@ -66,7 +66,6 @@ const ProfileMainContent = () => {
     setLoading(true);
     try {
       await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
-      console.log('PAYLOAD ', payload);
       toggleUpdate(!update);
       setLoading(false);
     } catch (e) {
@@ -91,11 +90,7 @@ const ProfileMainContent = () => {
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/users/${params.user}`);
-      // setEmail(result.data.email);
-      console.log(`This is the get header ${result.request.header}`);
       const receivedData = result.data;
-
-      console.log('User DATA !!', receivedData);
       setUser(receivedData);
       setUserRole(receivedData.authorities);
       const cleanData = receivedData;
@@ -111,10 +106,7 @@ const ProfileMainContent = () => {
   }
 
   const formSubmit = (data) => {
-    console.log('hallo form submit 1 ');
-    console.log(data);
     if (data.file[0]) {
-      console.log('DATA', data.file[0].name);
       setPhotoName(data.file[0].name);
       formData.append('file', data.file[0]);
     }
@@ -128,22 +120,13 @@ const ProfileMainContent = () => {
     postData(formData);
   };
   async function deleteAdmin() {
-    console.log('hallo post data ');
     try {
       await axios.delete(`http://localhost:8080/api/v1/users/${params.user}/authorities/ROLE_ADMIN`);
-      console.log('DELETED');
       toggleUpdate(!update);
     } catch (e) {
       console.error(e);
     }
   }
-
-  // eslint-disable-next-line consistent-return
-  // const redirect = () => {
-  //   if (!(params.user === currentUser)) {
-  //     history.push('/', { from: 'App' });
-  //   }
-  // };
 
   // Effects
   useEffect(() => {
@@ -156,15 +139,12 @@ const ProfileMainContent = () => {
     fetchData();
     setCurrentUser(params.user);
     setAdminUser(params.role);
-    // redirect();
-    console.log('TEST');
   }, []);
 
   useEffect(() => {
     fetchPhoto(user.photo);
   }, [user]);
 
-  // eslint-disable-next-line consistent-return
   const admin = (role) => {
     if (role === 'ROLE_ADMIN') {
       return (
@@ -177,7 +157,6 @@ const ProfileMainContent = () => {
           {currentUser === 'Don Diablo' ? ''
             : (
               <div className="delete-icon">
-                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                 <button onClick={deleteAdmin} type="button" className="delete-role">
                   <div className="trash-icon"><BiTrash /></div>
                 </button>
@@ -202,26 +181,21 @@ const ProfileMainContent = () => {
           <div className="content-box">
             <h1>Profile</h1>
             <h2>{user.username}</h2>
-            {/* <h2>{user.email}</h2> */}
-            {/* <h2>{user.photo}</h2> */}
-            {/* <HexagonProfile photo="photo01" /> */}
-
             <div className="hexagon-positioner">
               <div className="hexagon-shape">
                 <img src={url} alt="profile" />
               </div>
-              {userRole.map((item) => (
-                <div>{admin(item.authority)}</div>
+              {userRole.map((item, index) => (
+                <div key={index}>{admin(item.authority)}</div>
               ))}
             </div>
             <div className="text-box">
-              {/* <ImFileMusic /> */}
+              <ImFilePicture />
               <label htmlFor="file" className="inputLabel">
                 Photo
                 <input
                   id="file"
                   type="file"
-                    // ref={inputFileRef}
                   {...register('file')}
                 />
 
@@ -235,7 +209,6 @@ const ProfileMainContent = () => {
             </div>
             <div className="text-box">
               <BiLockAlt />
-              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="password" className="inputLabel">
                 password
               </label>

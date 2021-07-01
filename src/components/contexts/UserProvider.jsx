@@ -12,7 +12,7 @@ export default function UserProvider(props) {
   const [clicked, setClicked] = useState('');
   const [feedbacks, setFeedbacks] = useState([]);
   const [update, toggleUpdate] = useState(false);
-  // console.log(setCurrentUser);
+
   return (
     <userContext.Provider
       value={{
@@ -36,7 +36,6 @@ export default function UserProvider(props) {
         setFeedbacks,
       }}
     >
-      {/* eslint-disable-next-line react/destructuring-assignment */}
       {props.children}
     </userContext.Provider>
   );

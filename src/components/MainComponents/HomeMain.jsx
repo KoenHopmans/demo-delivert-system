@@ -5,12 +5,12 @@ import InfiniteText from '../ReusableComponents/InfiniteTextAnnimation/InfiniteT
 import UserExample from '../ReusableComponents/UserExample/UserExample';
 
 const HomeMainContent = () => {
+  // Hooks
   const history = useHistory();
   return (
     <div className="home-main-content-container">
       <div className="home-main-content">
         <div className="home-box">
-
           <div className="btn-container">
             <button
               onClick={() => history.push('/login', { from: 'App' })}
@@ -27,7 +27,6 @@ const HomeMainContent = () => {
               Sign up
             </button>
           </div>
-
           <div className="question">
             What is
             <a href="#about-soundport"> soundport?</a>
@@ -52,7 +51,6 @@ const HomeMainContent = () => {
           comment="The feedback has made my music even better. Thanks Don Diablo!"
           photo="photo03"
         />
-
         <section className="about-soundport" id="about-soundport">
           <h1>Soundport</h1>
           <p>

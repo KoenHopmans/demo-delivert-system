@@ -8,27 +8,24 @@ import { FaDownload, FaPlay } from 'react-icons/fa';
 import { TiThMenu } from 'react-icons/ti';
 import { BiMessageDetail } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
-
 import { userContext } from '../../contexts/UserProvider';
-import redHexagon from '../../../images/hexagon-red.jpeg';
+import goldHexagon from '../../../images/hexagon-gold.jpeg';
 import './NewDemo.css';
 
 const NewDemo = ({
   item,
 }) => {
-  const [url, setUrl] = useState(redHexagon);
+  // hooks
+  const params = useParams();
+  const [url, setUrl] = useState(goldHexagon);
   const history = useHistory();
   const {
     setCurrentDemo, setTrackName, adminUser, setPlayMusic, setClicked, clicked,
   } = useContext(userContext);
-  // const { setCurrentBlob } = useContext(userContext);
-  // const audioRef = useRef(null);
 
+  // functions
   async function downloadFile(fileName) {
     setCurrentDemo(fileName);
-    console.log('fileName!!! ');
-    console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -36,15 +33,12 @@ const NewDemo = ({
           'Content-Type': 'audio/mp3',
         },
       });
-      console.log(result);
       const blob = new Blob([result.data], {
         type: 'audio/mp3',
       });
       const objectURL = URL.createObjectURL(blob);
       const downloadLink = document.createElement('a');
       document.body.appendChild(downloadLink);
-      console.log(`downloadLink ${downloadLink}`);
-      console.log(`objectURL ${objectURL}`);
       downloadLink.href = objectURL;
       downloadLink.download = fileName;
       downloadLink.style.display = 'none';
@@ -55,51 +49,20 @@ const NewDemo = ({
     }
   }
 
-  const params = useParams();
-
   const demoOptions = () => {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
-    console.log('item !!!!!!$$$$$$$$$$$$$$', item.username);
-    console.log('item.trackName', item.trackName);
     if (adminUser) { history.push(`/admin/${params.role}/demo-options/${item.username}/${item.demo}`, { from: 'App' }); } else { history.push(`/demo-options/${item.username}/${item.demo}`, { from: 'App' }); }
   };
 
-  async function playFile(fileName) {
+  async function playFile() {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
     setPlayMusic(true);
     setClicked(!clicked);
-    console.log('fileName!!! ');
-    console.log(fileName);
-
-    // try {
-    //   const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
-    //     responseType: 'arraybuffer',
-    //     headers: {
-    //       'Content-Type': 'audio/mp3',
-    //     },
-    //   });
-    //   console.log(result);
-    //   const blob = new Blob([result.data], {
-    //     type: 'audio/mp3',
-    //   });
-    //   console.log('blob', blob);
-    //   // setCurrentBlob(blob);
-    //   const objectURL = URL.createObjectURL(blob);
-    //   // const audio = new Audio(objectURL);
-    //   if (audioRef.current && audioRef.current.pause());
-    //   audioRef.current = new Audio(objectURL);
-    //   audioRef.current.play();
-    // } catch (e) {
-    //   console.error(e);
-    // }
   }
 
   async function fetchCover(fileName) {
-    // console.log('fileName!!! ');
-    // console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -107,7 +70,6 @@ const NewDemo = ({
           'Content-Type': 'image/jpg',
         },
       });
-      console.log('RESULT', result);
       const blob = new Blob([result.data], {
         type: 'image/jpg',
       });
@@ -118,7 +80,6 @@ const NewDemo = ({
     }
   }
 
-  // eslint-disable-next-line consistent-return
   const newFeedback = (read, message) => {
     if (read === false) {
       return (
@@ -141,7 +102,6 @@ const NewDemo = ({
     }
   };
 
-  // eslint-disable-next-line consistent-return
   const newComment = (read, message) => {
     if (read === false) {
       return (
@@ -164,11 +124,11 @@ const NewDemo = ({
     }
   };
 
+  // effects
   useEffect(() => {
     fetchCover(item.cover);
   }, []);
 
-  console.log('test');
   return (
     <div
       className="music-file"
@@ -180,14 +140,13 @@ const NewDemo = ({
           alt="profile"
         />
       </div>
-      {/* <div>{item.demo}</div> */}
       <div className="demo-trackName">{item.trackName}</div>
       <button type="button" onClick={demoOptions}>
-        {item.feedbacks.map((feedbackItem) => (
-          <div>{newFeedback(feedbackItem.read, feedbackItem.feedback)}</div>
+        {item.feedbacks.map((feedbackItem, index) => (
+          <div key={index}>{newFeedback(feedbackItem.read, feedbackItem.feedback)}</div>
         ))}
-        {item.comments.map((commentItem) => (
-          <div>{newComment(commentItem.read, commentItem.comment)}</div>
+        {item.comments.map((commentItem, index) => (
+          <div key={index}>{newComment(commentItem.read, commentItem.comment)}</div>
         ))}
       </button>
       <div className="demo-btn-box">
@@ -207,14 +166,13 @@ const NewDemo = ({
         </button>
         <button
           className="demo-btn"
-          onClick={() => { playFile(item.demo); }}
+          onClick={() => { playFile(); }}
           type="submit"
         >
           <FaPlay />
         </button>
       </div>
     </div>
-
   );
 };
 

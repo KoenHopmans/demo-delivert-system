@@ -10,15 +10,19 @@ import tracks from '../TrackLists/TrackListHexagon';
 import DemoOptionsMainContent from '../MainComponents/DemoOptionsMain';
 
 function DemoOptions() {
-  const params = useParams();
   let selectedVideo = 'colorHexagonVideo';
-  // eslint-disable-next-line consistent-return
+
+  // Hooks
+  const params = useParams();
+
+  // Functions
   const backgroundVideo = () => {
     if (params.role) {
       selectedVideo = 'blueStar';
     }
     return selectedVideo;
   };
+
   return (
     <div>
       <div id="content-wrap">

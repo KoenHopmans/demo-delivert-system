@@ -12,22 +12,22 @@ import ProfileImage from '../../ReusableComponents/ProfileImage';
 import { userContext } from '../../contexts/UserProvider';
 
 const AllUsersDemosList = () => {
+  // Hooks
   const { adminUser, currentUser } = useContext(userContext);
   const [users, setUsers] = useState([]);
-  // const [adminProfile, setAdminProfile] = useState(false);
   const audioRef = useRef(null);
   const history = useHistory();
+
+  // Functions
   async function fetchData() {
     try {
       const result = await axios.get('http://localhost:8080/api/v1/users/');
       setUsers(result.data);
-      console.log('result.data');
-      console.log(result.data);
     } catch (e) {
       console.error(e);
     }
   }
-  // eslint-disable-next-line consistent-return
+
   const admin = (role) => {
     if (role === 'ROLE_ADMIN') {
       return (
@@ -39,14 +39,6 @@ const AllUsersDemosList = () => {
       );
     }
   };
-
-  // const ProfileAdmin = (authority) => {
-  //   console.log('authority', authority);
-  //   if (authority === 'ROLE_ADMIN') {
-  //     setAdminProfile(true);
-  //     console.log('adminProfile', adminProfile);
-  //   }
-  // };
 
   const profilePage = (selectedUser) => () => {
     const myAuthorities = selectedUser.authorities;
@@ -66,46 +58,42 @@ const AllUsersDemosList = () => {
     }
   };
 
+  // Effects
   useEffect(() => {
     fetchData();
     return () => {
       if (audioRef.current && audioRef.current.pause());
-      // setAdmin(true);
     };
   }, []);
-  console.log('USER PHOTO', { users });
   return (
     <div className="user-demos-container">
       <div>
-        {/* <h1>User Demos</h1> */}
         {
-                    users.map((user, index) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <div className="user-container" key={index}>
-                        {/* <div>{user.username}</div> */}
-                        <button className="hexagon-photo" type="button" onClick={profilePage(user.username)}>
-                          <ProfileImage photo={user.photo} />
-                        </button>
-                        <div className="user-roles">
-                          <button className="name-btn" type="button" onClick={profilePage(user)}>
-                            <div className="user-box">
-                              <div>{user.username}</div>
-                              <div>
-                                {user.authorities.map((item) => (
-                                  <div>{admin(item.authority)}</div>
-                                ))}
-                              </div>
-                            </div>
-                          </button>
-                        </div>
-                        <div className="demo-list">
-                          {user.demos.map((item) => (
-                            <NewDemo item={item} />
-                          ))}
-                        </div>
-                      </div>
-                    ))
-                }
+          users.map((user, index) => (
+            <div className="user-container" key={index}>
+              <button className="hexagon-photo" type="button" onClick={profilePage(user.username)}>
+                <ProfileImage photo={user.photo} />
+              </button>
+              <div className="user-roles">
+                <button className="name-btn" type="button" onClick={profilePage(user)}>
+                  <div className="user-box">
+                    <div>{user.username}</div>
+                    <div>
+                      {user.authorities.map((item, index) => (
+                        <div key={index}>{admin(item.authority)}</div>
+                      ))}
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <div className="demo-list">
+                {user.demos.map((item, indexNr) => (
+                  <NewDemo item={item} key={indexNr} />
+                ))}
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   );

@@ -1,42 +1,38 @@
-import React, {
-  useContext, useEffect, useState,
-} from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { useHistory, useParams } from 'react-router';
 import { BiPencil, BiMessageEdit } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { ImFileMusic, ImFilePicture } from 'react-icons/im';
 import { Link } from 'react-router-dom';
-import { useHistory, useParams } from 'react-router';
 import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const AddDemoMainContent = () => {
-  const formData = new FormData();
+  // Hooks
+  const history = useHistory();
+  const params = useParams();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [succes, setSucces] = useState(false);
   const {
     currentUser, setCurrentUser, adminUser, setAdminUser,
   } = useContext(userContext);
-  const history = useHistory();
-  const [succes, setSucces] = useState(false);
-  const params = useParams();
-  // const [item, setItem] = useState({});
+  const formData = new FormData();
 
+  // Functions
   async function postData(payload) {
-    console.log('hallo post data ');
     try {
       await axios.post('http://localhost:8080/api/v1/demo-upload', payload);
-      console.log(`payload${payload}`);
       if (adminUser) { history.push(`/admin/${adminUser}/my-demos/${currentUser}`); } else { history.push(`/my-demos/${currentUser}`); }
     } catch (e) {
       console.error(e);
     }
   }
-  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const formSubmit = (data) => {
-    // eslint-disable-next-line no-param-reassign
     data.date = new Date().toLocaleString();
     formData.append('musicFile', data.musicFile[0]);
-    console.log('data.musicFile[0].name', data.musicFile[0].name);
     formData.append('cover', data.cover[0]);
     formData.append('artist', data.artist);
     formData.append('username', currentUser);
@@ -44,18 +40,16 @@ const AddDemoMainContent = () => {
     if (data.comment) { formData.append('comment', data.comment); }
     formData.append('feedback', data.feedback);
     formData.append('trackName', data.trackName);
-    console.log('This is the formData');
-    console.log(formData);
     postData(formData);
     setSucces(true);
   };
 
+  // effects
   useEffect(() => {
     setCurrentUser(params.user);
     setAdminUser(params.role);
   }, []);
 
-  console.log(errors);
   return (
     <div className="mainContentContainer">
       <div className="mainContent">

@@ -1,16 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-
-// import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
 import { useParams } from 'react-router';
 import AllUsersDemosList from '../MainComponentsModules/UsersLists/AllUsersDemosList';
 import { userContext } from '../contexts/UserProvider';
 
 const HexagonMain = () => {
+  // Hooks
   const params = useParams();
-  const {
-    setAdminUser, setCurrentUser,
-  } = useContext(userContext);
-
+  const { setAdminUser, setCurrentUser } = useContext(userContext);
   useEffect(() => {
     setAdminUser(params.role);
     setCurrentUser(params.role);

@@ -10,6 +10,7 @@ const MyDemosMain = () => {
   } = useContext(userContext);
   const params = useParams();
 
+  // Effects
   useEffect(() => {
     console.log('params.user!!!!!!!!!!!!!!', params.user);
     setCurrentUser(params.user);

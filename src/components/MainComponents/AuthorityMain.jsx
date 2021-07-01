@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-
-// import AllUsersList from '../MainComponentsModules/UsersRolesList/AllUsersList';
 import { useParams } from 'react-router';
 import { BiLockAlt, BiTrash } from 'react-icons/bi';
 import { userContext } from '../contexts/UserProvider';
@@ -9,14 +7,13 @@ import DeleteUserModule from '../MainComponentsModules/DeleteUser/DeleteUserModu
 import AllUsersList from '../MainComponentsModules/UsersLists/AllUserList';
 
 const AuthorityMain = () => {
+  // Hooks
   const params = useParams();
-  const {
-    setAdminUser, setCurrentUser,
-  } = useContext(userContext);
-
+  const { setAdminUser, setCurrentUser } = useContext(userContext);
   const [newAuthority, setNewAuthority] = useState(false);
   const [deleteUser, setDeleteUser] = useState(false);
 
+  // Effects
   useEffect(() => {
     setAdminUser(params.role);
     setCurrentUser(params.role);

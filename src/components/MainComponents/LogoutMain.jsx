@@ -7,6 +7,7 @@ const LogoutMainContent = () => {
   const history = useHistory();
   const { setAdminUser } = useContext(userContext);
 
+  // Functions
   const logout = () => {
     history.push('/', { from: 'App' });
     setAdminUser('');

@@ -10,9 +10,12 @@ import tracks from '../TrackLists/TrackListHexagon';
 import HexagonMain from '../MainComponents/HexagonMain';
 
 function Hexagon() {
-  const params = useParams();
   let selectedVideo = 'colorHexagonVideo';
-  // eslint-disable-next-line consistent-return
+
+  // Hooks
+  const params = useParams();
+
+  // Functions
   const backgroundVideo = () => {
     if (params.role) {
       selectedVideo = 'blueStar';

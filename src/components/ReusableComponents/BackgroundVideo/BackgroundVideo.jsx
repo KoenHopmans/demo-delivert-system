@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import ColorHexagonVideo from '../../../videos/background-video-hexagon.mp4';
 import './BackgroundVideo.css';

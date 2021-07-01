@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import './UserExample.css';
 import photo01 from '../../../images/dj-profile-photo-01.jpg';
@@ -31,12 +30,8 @@ const UserExample = ({
         </div>
       </div>
       <h2>{name}</h2>
-      <div>
-        <p>{genre}</p>
-      </div>
-      <div>
-        {comment}
-      </div>
+      <div>{genre}</div>
+      <div>{comment}</div>
     </div>
   );
 };

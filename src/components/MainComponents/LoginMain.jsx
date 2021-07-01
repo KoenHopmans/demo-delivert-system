@@ -20,17 +20,12 @@ const LoginMainContent = () => {
   async function postData(payload) {
     try {
       const resp = await axios.post('http://localhost:8080/api/v1/authenticate', payload);
-      console.log('respons.data!!!!!!!!!!!NOW', resp.data.dto);
       const userRole = resp.data.dto.role;
-      console.log('ROLE VAN DE USER IS:', resp.data.dto.role);
-      console.log(resp.data.dto.jwt);
       const AUTH_TOKEN = resp.data.dto.jwt;
       axios.defaults.headers.common.Authorization = `Bearer ${AUTH_TOKEN}`;
-      console.log(axios.defaults.headers, 'login main axios header');
       localStorage.setItem('token', resp.data.dto.jwt);
       const token = localStorage.getItem('token');
       console.log(`local storage token: ${token}`);
-      console.log('MIJN ROL IS ', userRole);
       if (userRole === 'ADMIN') {
         setAdminUser(payload.username);
         history.push(`admin/${payload.username}/hexagon`);
@@ -75,7 +70,6 @@ const LoginMainContent = () => {
                       placeholder="Enter your username"
                       {...register('username', {
                         required: 'Please enter your username',
-
                       })}
                     />
                     {errors.username && (

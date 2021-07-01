@@ -8,32 +8,20 @@ import {
   BiEnvelope, BiInfoCircle, BiUser,
 } from 'react-icons/bi';
 import { useParams } from 'react-router';
-// import { useHistory } from 'react-router-dom';
-// import {
-//   GrUserAdmin,
-// } from 'react-icons/gr';
 import { IoLocationOutline, IoMaleFemaleSharp } from 'react-icons/io5';
 import { userContext } from '../contexts/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
-
 import './ProfileMain.css';
 import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
 
 const ProfileAdminMain = () => {
   // Hooks
-  // const history = useHistory();
   const [user, setUser] = useState({});
-  // const [update, toggleUpdate] = useState(false);
-  // const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState(profileImage);
-  // const [photoName, setPhotoName] = useState('');
-  // const inputFileRef = useRef(undefined);
   const params = useParams();
   const { setCurrentUser, setAdminUser } = useContext(userContext);
-  // const formData = new FormData();
 
   // Functions
-
   async function fetchPhoto(fileName) {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
@@ -42,7 +30,6 @@ const ProfileAdminMain = () => {
           'Content-Type': 'image/jpg',
         },
       });
-      console.log('RESULT', result);
       const blob = new Blob([result.data], {
         type: 'image/jpg',
       });
@@ -53,40 +40,10 @@ const ProfileAdminMain = () => {
     }
   }
 
-  // async function postData(payload) {
-  //   setLoading(true);
-  //   try {
-  //     await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
-  //     console.log('PAYLOAD ', payload);
-  //     toggleUpdate(!update);
-  //     setLoading(false);
-  //   } catch (e) {
-  //     console.error(e);
-  //     setLoading(false);
-  //   }
-  // }
-
-  // Nova voorbeeld
-  // useEffect(() => {
-  //   if (user) {
-  //     setValue([{ email: user.email || '' },
-  //       { about: user.about || '' },
-  //       { gender: user.gender || '' },
-  //       { firstName: user.firstName || '' },
-  //       { lastName: user.lastName || '' },
-  //       { location: user.location || '' },
-  //       { birthDate: user.birthDate || '' }]);
-  //   }
-  // }, [user]);
-
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/users/${params.user}`);
-      // setEmail(result.data.email);
-      console.log(`This is the get header ${result.request.header}`);
       const receivedData = result.data;
-
-      console.log('User DATA !!', receivedData);
       const cleanData = receivedData;
       if (cleanData.email === 'undefined' || cleanData.email === 'null') { cleanData.email = ''; }
       if (cleanData.firstName === 'undefined' || cleanData.firstName === 'null') { cleanData.firstName = ''; }
@@ -101,34 +58,16 @@ const ProfileAdminMain = () => {
     }
   }
   // Effects
-
   useEffect(() => {
     fetchPhoto(user.photo);
     fetchData();
     setCurrentUser(params.user);
     setAdminUser(params.role);
-    // redirect();
-    console.log('TEST');
   }, []);
 
   useEffect(() => {
     fetchPhoto(user.photo);
   }, [user]);
-
-  // // eslint-disable-next-line consistent-return
-  // const admin = (role) => {
-  //   if (role === 'ROLE_ADMIN') {
-  //     return (
-  //       <div className="admin-box">
-  //         {/* <RiAdminLine /> */}
-  //         <div className="admin-icon">
-  //           <BiKey />
-  //         </div>
-  //         <p>Admin</p>
-  //       </div>
-  //     );
-  //   }
-  // };
 
   return (
     <div className="mainContentContainer">
@@ -142,17 +81,10 @@ const ProfileAdminMain = () => {
         <div className="content-box">
           <h1>Profile</h1>
           <h2>{user.username}</h2>
-          {/* <h2>{user.email}</h2> */}
-          {/* <h2>{user.photo}</h2> */}
-          {/* <HexagonProfile photo="photo01" /> */}
-
           <div className="hexagon-positioner">
             <div className="hexagon-shape">
               <img src={url} alt="profile" />
             </div>
-            {/* {userRole.map((item) => ( */}
-            {/*  <div>{admin(item.authority)}</div> */}
-            {/* ))} */}
           </div>
           <table className="profile-table">
             <tbody>

@@ -14,11 +14,9 @@ function PageNotFound() {
           OOPS, THE PAGE YOU ARE LOOKING FOR CAN&#39;T BE FOUND!
         </h2>
         <div className="pnf-home-btn">
-
           <Link to="/" className="pnf-home-button">
             BACK TO HONEPAGE
           </Link>
-
         </div>
         <div className="cartoon-container">
           <img className="cartoon" src={cartoon} alt="lp player" />

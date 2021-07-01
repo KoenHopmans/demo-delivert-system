@@ -49,7 +49,6 @@ const LoadingAnimation = () => (
           style={{ stroke: 'white', strokeWidth: 4 }}
         />
         <text className="loading-text" x="40" y="107" fill="black" style={{ fontFamily: 'Audiowide', fontSize: '27px' }}>Loading</text>
-
       </svg>
     </span>
   </div>

@@ -18,52 +18,55 @@ import { userContext } from '../contexts/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/Comments/AddCommentModule';
 import AddFeedbackModule from '../MainComponentsModules/Feedback/AddFeedbackModule';
-import redHexagon from '../../images/hexagon-red.jpeg';
+import goldHexagon from '../../images/hexagon-gold.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks
-  const {
-    currentDemo, currentUser, update, toggleUpdate,
-    clicked, setClicked,
-    setCurrentDemo,
-    setCurrentUser, adminUser, setAdminUser,
-  } = useContext(userContext);
-  const [url, setUrl] = useState(redHexagon);
+  const history = useHistory();
+  const params = useParams();
+  const [url, setUrl] = useState(goldHexagon);
+  const [demo, setDemo] = useState([]);
   const [comments, setComments] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const [addFeedback, setAddFeedback] = useState(false);
-  const [demo, setDemo] = useState([]);
-  const formData = new FormData();
-  const params = useParams();
   const {
     register, handleSubmit, reset, formState: { errors },
   } = useForm(
   );
-  const history = useHistory();
+  const {
+    currentDemo, currentUser, update, toggleUpdate, clicked,
+    setClicked, setCurrentDemo, setCurrentUser, adminUser, setAdminUser,
+  } = useContext(userContext);
+  const formData = new FormData();
 
   // Functions
+
+  const playPauseMusic = () => {
+    setClicked(!clicked);
+  };
+
+  const displayDate = (date) => {
+    const dateParts = date.split(',');
+    return dateParts[0];
+  };
+
+  const linkToMessenger = (messenger) => {
+    if (adminUser) { history.push(`/admin/${params.role}/profile-admin/${messenger}`, { from: 'App' }); } else { history.push(`/profile-admin/${messenger}`, { from: 'App' }); }
+  };
+
   async function fetchData() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/demo/${params.demo}`);
       setDemo(result.data);
       setComments(result.data.comments);
-      // const unorderedFeedbacks = result.data.feedbacks;
-      //! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      // eslint-disable-next-line max-len
-      // const orderedFeedbacks = unorderedFeedbacks.sort((a, b) => new Date(b.date) - new Date(a.date));
       setFeedbacks(result.data.feedbacks);
-      // console.log('orderedFeedbacks', orderedFeedbacks);
       reset(result.data);
     } catch (e) {
       console.error(e);
     }
   }
-
-  const toMessenger = (messenger) => {
-    if (adminUser) { history.push(`/admin/${params.role}/profile-admin/${messenger}`, { from: 'App' }); } else { history.push(`/profile-admin/${messenger}`, { from: 'App' }); }
-  };
 
   async function downloadFile(fileName) {
     setLoading(true);
@@ -126,10 +129,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function deleteFeedback(fileName, currentFeedback) {
-    console.log(fileName);
-    console.log('FEEDBACK Current', currentFeedback);
-    const feedbackItem = { feedback: currentFeedback };
-    console.log('FEEDBACK ITEM', feedbackItem);
     try {
       await axios.delete(`http://localhost:8080/api/v1/${fileName}/feedback`, {
         data: {
@@ -143,10 +142,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function updateFeedback(fileName, currentFeedback) {
-    console.log(fileName);
-    console.log('FEEDBACK Current', currentFeedback);
-    const feedbackItem = { feedback: currentFeedback };
-    console.log('FEEDBACK ITEM', feedbackItem);
     try {
       await axios.put(`http://localhost:8080/api/v1/${fileName}/feedback`, {
         feedback: currentFeedback,
@@ -158,10 +153,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function updateComment(fileName, currentComment) {
-    console.log(fileName);
-    console.log('Comment Current', currentComment);
-    const commentItem = { comment: currentComment };
-    console.log('Comment ITEM', commentItem);
     try {
       await axios.put(`http://localhost:8080/api/v1/${fileName}/comment`, {
         comment: currentComment,
@@ -173,10 +164,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function deleteComment(fileName, currentComment) {
-    console.log(fileName);
-    console.log('Comment Current', currentComment);
-    const commentItem = { comment: currentComment };
-    console.log('Comment ITEM', commentItem);
     try {
       await axios.delete(`http://localhost:8080/api/v1/${fileName}/comment`, {
         data: {
@@ -190,9 +177,6 @@ const DemoOptionsMainContent = () => {
   }
 
   async function fetchCover(fileName) {
-    // console.log('fileName!!! ');
-    // console.log(fileName);
-
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
         responseType: 'arraybuffer',
@@ -200,7 +184,6 @@ const DemoOptionsMainContent = () => {
           'Content-Type': 'image/jpg',
         },
       });
-      console.log('RESULT', result);
       const blob = new Blob([result.data], {
         type: 'image/jpg',
       });
@@ -211,12 +194,6 @@ const DemoOptionsMainContent = () => {
     }
   }
 
-  const displayDate = (date) => {
-    const dateParts = date.split(',');
-    return dateParts[0];
-  };
-
-  // eslint-disable-next-line consistent-return
   const newFeedback = (feedbackItem) => {
     if (feedbackItem.read === false) {
       return (
@@ -231,7 +208,7 @@ const DemoOptionsMainContent = () => {
           <div className="feedback-date">
             {displayDate(feedbackItem.date)}
           </div>
-          <button className="messenger" onClick={() => toMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
+          <button className="messenger" onClick={() => linkToMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
           <button
             onClick={() => {
               deleteFeedback(currentDemo, feedbackItem.feedback);
@@ -260,7 +237,7 @@ const DemoOptionsMainContent = () => {
       );
     }
   };
-  // eslint-disable-next-line consistent-return
+
   const oldFeedback = (feedbackItem) => {
     if (feedbackItem.read === true) {
       return (
@@ -275,7 +252,7 @@ const DemoOptionsMainContent = () => {
           <div className="feedback-date">
             {displayDate(feedbackItem.date)}
           </div>
-          <button className="messenger" onClick={() => toMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
+          <button className="messenger" onClick={() => linkToMessenger(feedbackItem.messenger)} type="button">{feedbackItem.messenger}</button>
           <button
             onClick={() => { deleteFeedback(currentDemo, feedbackItem.feedback); }}
             type="button"
@@ -294,7 +271,6 @@ const DemoOptionsMainContent = () => {
     }
   };
 
-  // eslint-disable-next-line consistent-return
   const newComment = (commentItem) => {
     if (commentItem.read === false) {
       return (
@@ -309,7 +285,7 @@ const DemoOptionsMainContent = () => {
           <div className="feedback-date">
             {displayDate(commentItem.date)}
           </div>
-          <button className="messenger" onClick={() => toMessenger(commentItem.messenger)} type="button">{commentItem.messenger}</button>
+          <button className="messenger" onClick={() => linkToMessenger(commentItem.messenger)} type="button">{commentItem.messenger}</button>
           <button
             onClick={() => {
               deleteComment(currentDemo, commentItem.comment);
@@ -339,7 +315,6 @@ const DemoOptionsMainContent = () => {
     }
   };
 
-  // eslint-disable-next-line consistent-return
   const oldComment = (commentItem) => {
     if (commentItem.read === true) {
       return (
@@ -354,7 +329,7 @@ const DemoOptionsMainContent = () => {
           <div className="feedback-date">
             {displayDate(commentItem.date)}
           </div>
-          <button onClick={() => toMessenger(commentItem.messenger)} type="button" className="messenger">
+          <button onClick={() => linkToMessenger(commentItem.messenger)} type="button" className="messenger">
             {commentItem.messenger}
           </button>
           <button
@@ -375,12 +350,7 @@ const DemoOptionsMainContent = () => {
     }
   };
 
-  const playPauseMusic = () => {
-    setClicked(!clicked);
-  };
-
   // Effects
-
   useEffect(() => {
     setCurrentDemo(params.demo);
     setCurrentUser(params.user);
@@ -405,7 +375,7 @@ const DemoOptionsMainContent = () => {
         {/* <h2 style={{ border: '2px blue solid' }}> */}
         {/*  {adminUser} */}
         {/* </h2> */}
-        <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2>
+        {/* <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2> */}
         {!loading ? (
           <div className="content-box">
             <h1>Options</h1>
@@ -439,14 +409,12 @@ const DemoOptionsMainContent = () => {
                     </div>
                   ))}
                 {comments
-                  // .map((comment) => (<div>{comment.comment}</div>))}
                   .map((commentItem) => (
                     <div>
                       {newComment(commentItem)}
                     </div>
                   ))}
                 {comments
-                  // .map((comment) => (<div>{comment.comment}</div>))}
                   .map((commentItem) => (
                     <div>
                       {oldComment(commentItem)}
@@ -536,10 +504,10 @@ const DemoOptionsMainContent = () => {
                 <button type="button" className="input-btn" id="add-feedback" onClick={() => setAddFeedback(!addFeedback)}>
                   +
                 </button>
-                {addFeedback ? (
-                  <AddFeedbackModule toggleUpdate update />
-                ) : ''}
               </div>
+            ) : ''}
+            {addFeedback ? (
+              <AddFeedbackModule toggleUpdate update />
             ) : ''}
             <button
               className="btn"
@@ -555,7 +523,6 @@ const DemoOptionsMainContent = () => {
             >
               delete
             </button>
-
             <div className="question">
               {adminUser
                 ? (
@@ -565,9 +532,7 @@ const DemoOptionsMainContent = () => {
                   <Link to={{ pathname: `/my-demos/${currentUser}` }}> To all demo&#39;s </Link>
                 )}
             </div>
-
             <div className="question" />
-
           </div>
         ) : (
           <div>

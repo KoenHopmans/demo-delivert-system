@@ -1,17 +1,13 @@
-import React, {
-  useEffect, useState,
-
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import profileImage from '../../images/dj-default-gray.png';
 import './ProfileImage.css';
 
-const ProfileImage = (
-  photo,
-) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  console.log('PHOTO!!!!', photo.photo);
+const ProfileImage = (photo) => {
+  // Hooks
   const [url, setUrl] = useState(profileImage);
+
+  // Functions
   async function fetchPhoto() {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${photo.photo}`, {
@@ -20,7 +16,6 @@ const ProfileImage = (
           'Content-Type': 'image/jpg',
         },
       });
-      console.log('RESULT', result);
       const blob = new Blob([result.data], {
         type: 'image/jpg',
       });
@@ -30,8 +25,9 @@ const ProfileImage = (
       console.error(e);
     }
   }
+
+  // Effects
   useEffect(() => {
-    console.log('ITEM!!!', photo.photo);
     fetchPhoto();
   }, []);
 

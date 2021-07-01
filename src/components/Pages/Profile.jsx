@@ -10,9 +10,12 @@ import tracks from '../TrackLists/TrackListHexagon';
 import NewAudioPlayer from '../ReusableComponents/AudioPlayer/NewAudioPlayer';
 
 function Profile() {
-  const params = useParams();
   let selectedVideo = 'colorHexagonVideo';
-  // eslint-disable-next-line consistent-return
+
+  // Hooks
+  const params = useParams();
+
+  // Functions
   const backgroundVideo = () => {
     if (params.role) {
       selectedVideo = 'blueStar';

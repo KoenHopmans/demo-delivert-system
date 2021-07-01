@@ -10,10 +10,6 @@ import DonDiabloVideo from '../../../videos/videoplayback.mp4';
 import HexagonAnimation from '../Animations/HexagonAnimation';
 import { userContext } from '../../contexts/UserProvider';
 
-/*
- * Read the blog post here:
- * https://letsbuildui.dev/articles/building-an-audio-player-with-react-hooks
- */
 const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   // Hooks
   const {
@@ -30,8 +26,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   const videoRef = useRef();
   const intervalRef = useRef();
   const isReady = useRef(false);
-  // const { titel, artist } = tracks[trackIndex];
-  // const newAudioRef = useRef(null);
 
   // Functions
   async function playFile() {
@@ -48,10 +42,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
         type: 'audio/mp3',
       });
       console.log('blob', blob);
-      // setCurrentBlob(blob);
       const objectURL = URL.createObjectURL(blob);
-      // const audio = new Audio(objectURL);
-
       if (audioRef.current && audioRef.current.pause());
       audioRef.current = new Audio(objectURL);
       audioRef.current.play();
@@ -61,7 +52,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       console.error(e);
     }
   }
-  // ----------------------------------------------------------------------------------------------
+
   const chosenVideo = () => {
     switch (video) {
       case 'hexagon':
@@ -72,26 +63,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
         return MusicPlayerVideo;
     }
   };
-    // State
-
-  // Destructure for conciseness
-  // let {
-  //   // eslint-disable-next-line prefer-const
-  //   title, artist,
-  // } = tracks[trackIndex];
-
-  // eslint-disable-next-line prefer-const,no-unused-vars
-  // const [goodTitle, setGoodTitle] = useState(title);
-  // // const [goodImage, setGoodImage] = useState(image);
-  // const [goodArtist, setGoodArtist] = useState(artist);
-
-  // function findTrack(track) {
-  //   // eslint-disable-next-line
-  //       return track.id == selectedMode1;
-  // }
-
-  // const goodTrack = tracks.find(findTrack);
-  // Destructure for conciseness
   const { duration } = audioRef.current;
   const currentPercentage = duration
     ? `${(trackProgress / duration) * 100}%`
@@ -109,14 +80,10 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     } else {
       setTrackIndex(0);
     }
-    // setGoodTitle(tracks[trackIndex].title);
-    // setGoodArtist(tracks[trackIndex].artist);
   };
 
   const startTimer = () => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
-
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
         toNextTrack();
@@ -127,14 +94,12 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   };
 
   const onScrub = (value) => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
     setTrackProgress(audioRef.current.currentTime);
   };
 
   const onScrubEnd = () => {
-    // If not already playing, start
     if (!isPlaying) {
       setIsPlaying(true);
     }
@@ -150,69 +115,30 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     }
     setGoodTitle(tracks[trackIndex].title);
     setGoodArtist(tracks[trackIndex].artist);
-    // setGoodTitle('');
-    // setGoodArtist('');
   };
 
+  // Effects
   useEffect(() => {
     if (started) { playFile(); }
     setIsPlaying(true);
     setGoodTitle(trackName);
     setStarted(true);
-    // setIsPlaying(!isPlaying);
   }, [trackName, clicked]);
+
   useEffect(() => {
     if (isPlaying) {
-      // setIsPlaying(true);
       audioRef.current.play();
       videoRef.current.play();
       startTimer();
     } else {
-      // setIsPlaying(false);
       setPlayMusic(false);
       audioRef.current.pause();
       videoRef.current.pause();
     }
   }, [isPlaying, trackName]);
 
-  // useEffect(() => {
-  //   if (trackName) {
-  //     setGoodTitle(trackName);
-  //   }
-  // }, [trackName]);
-
-  // useEffect(() => {
-  //   if (playMusic) {
-  //     setIsPlaying(true);
-  //   }
-  // }, [playMusic]);
-
-  // useEffect(() => {
-  //   audioRef.current.pause();
-  //
-  //   audioRef.current = new Audio(goodTrack.audioSrc);
-  //   // eslint-disable-next-line no-const-assign
-  //   setGoodTitle(goodTrack.title);
-  //   setGoodArtist(goodTrack.artist);
-  //   setGoodImage(goodTrack.image);
-  //
-  //   setTrackProgress(audioRef.current.currentTime);
-  //
-  //   if (isReady.current) {
-  //     // eslint-disable-next-line no-use-before-define
-  //     audioRef.current.play();
-  //     setIsPlaying(true);
-  //     startTimer();
-  //   } else {
-  //     // Set the isReady ref as true for the next pass
-  //     isReady.current = true;
-  //   }
-  // }, [selectedMode1]);
-
-  // Handles cleanup and setup when changing tracks
   useEffect(() => {
     setGoodTitle(tracks[trackIndex].title);
-    // setGoodArtist(tracks[trackIndex].artist);
     audioRef.current.pause();
 
     audioRef.current = new Audio(audioSrc);
@@ -224,23 +150,19 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       setIsPlaying(true);
       startTimer();
     } else {
-      // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
   }, [trackIndex]);
 
   useEffect(() =>
-  // Pause and clean up on unmount
-  // eslint-disable-next-line implicit-arrow-linebreak
     () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
       setIsPlaying(false);
-      // setCurrentDemo('');
       setTrackIndex(0);
     },
   []);
-  //---------------------------------------------------------------------------
+
   return (
     <div className="audio-player-container">
       <HexagonAnimation
@@ -259,7 +181,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
             onNextClick={toNextTrack}
             onPlayPauseClick={setIsPlaying}
           />
-          {/* <button type="button" onClick={() => { playFile(); }}>PLAY</button> */}
           <h2 className="title">{goodTitle}</h2>
           <h3 className="artist">{currentUser}</h3>
           <input

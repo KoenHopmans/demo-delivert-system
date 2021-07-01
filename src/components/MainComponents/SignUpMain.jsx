@@ -19,7 +19,6 @@ const SignUpMainContent = () => {
 
   // Functions
   async function postData(payload) {
-    console.log('hallo post data ');
     try {
       await axios.post('http://localhost:8080/api/v1/users/', payload);
       history.push('/login', { from: 'App' });
@@ -32,7 +31,6 @@ const SignUpMainContent = () => {
     setSucces(true);
   };
 
-  console.log(errors);
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
