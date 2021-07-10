@@ -41,8 +41,6 @@
     width: 150px;
 }
 
-
-
 .feedback-read-btn{
     color: white;
     border: 1px dodgerblue solid;
@@ -55,7 +53,6 @@
     border-radius: 10px;
     padding: 5px;
 }
-
 
 .comment-date{
     color: white;
@@ -83,10 +80,6 @@
 .demo-comment-box:hover .demo-comment-message {
     visibility: visible;
 }
-
-/*.add-feedback-box:hover .demo-feedback-message {*/
-/*    visibility: visible;*/
-/*}*/
 
 .demo-comment-btn{
     color: white;
@@ -118,7 +111,6 @@
     width: 90%;
     margin: 5%;
     box-shadow: 1px 1px 20px black;
-
 }
 
 .demo-comment-message{
@@ -133,7 +125,6 @@
     width: 90%;
     margin: 5%;
     box-shadow: 1px 1px 20px black;
-
 }
 
 .comment-box{
@@ -154,11 +145,9 @@
     visibility: visible;
 }
 
-
 .comment-box:hover .comment-message {
     visibility: visible;
 }
-
 
 .feedback-message{
     visibility: hidden;
@@ -173,7 +162,6 @@
     width: 400px;
     margin:  auto calc(50% - 200px);
     box-shadow: 1px 1px 20px black;
-
 }
 
 .comment-message{

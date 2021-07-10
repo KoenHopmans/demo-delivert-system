@@ -54,7 +54,7 @@ const HomeMainContent = () => {
         <section className="about-soundport" id="about-soundport">
           <h1>Soundport</h1>
           <p>
-            With soundport you can share your own music demo&#39;s with
+            With Soundport you can share your own music demo&#39;s with
             us.
             <br />
             It is the next step for rising producers.

@@ -15,7 +15,7 @@ function PageNotFound() {
         </h2>
         <div className="pnf-home-btn">
           <Link to="/" className="pnf-home-button">
-            BACK TO HONEPAGE
+            BACK TO HOMEPAGE
           </Link>
         </div>
         <div className="cartoon-container">

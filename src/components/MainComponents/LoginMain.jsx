@@ -5,12 +5,12 @@ import { useHistory } from 'react-router';
 import { BiEnvelope, BiLockAlt } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const LoginMainContent = () => {
   // Hooks
-  const [succes, setSucces] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { setCurrentUser, setAdminUser } = useContext(userContext);
@@ -34,7 +34,7 @@ const LoginMainContent = () => {
       }
     } catch (e) {
       console.error(e);
-      setSucces(false);
+      setLoading(false);
       setMessage(true);
     }
   }
@@ -42,15 +42,14 @@ const LoginMainContent = () => {
   const formSubmit = (data) => {
     postData(data);
     setCurrentUser(data.username);
-    setSucces(true);
+    setLoading(true);
   };
 
-  console.log(errors);
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
-          {!succes ? (
+          {!loading ? (
             <div>
               <h1>Login</h1>
               {message ? (
@@ -92,7 +91,7 @@ const LoginMainContent = () => {
                     />
                   </label>
                 </div>
-                <input className="btn" type="submit" name="" value="Sign in" />
+                <input className="btn" type="submit" name="" value="Log in" />
               </form>
               <div className="question">
                 Don&#39;t have an account?

@@ -8,7 +8,7 @@ import { FaDownload, FaPlay } from 'react-icons/fa';
 import { TiThMenu } from 'react-icons/ti';
 import { BiMessageDetail } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 import goldHexagon from '../../../images/hexagon-gold.jpeg';
 import './NewDemo.css';
 
@@ -20,7 +20,8 @@ const NewDemo = ({
   const [url, setUrl] = useState(goldHexagon);
   const history = useHistory();
   const {
-    setCurrentDemo, setTrackName, adminUser, setPlayMusic, setClicked, clicked,
+    setCurrentDemo, setTrackName, setArtist, adminUser,
+    setPlayMusic, setClicked, clicked, demoOptionsBtn,
   } = useContext(userContext);
 
   // functions
@@ -52,12 +53,14 @@ const NewDemo = ({
   const demoOptions = () => {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
+    setArtist(item.artist);
     if (adminUser) { history.push(`/admin/${params.role}/demo-options/${item.username}/${item.demo}`, { from: 'App' }); } else { history.push(`/demo-options/${item.username}/${item.demo}`, { from: 'App' }); }
   };
 
   async function playFile() {
     setCurrentDemo(item.demo);
     setTrackName(item.trackName);
+    setArtist(item.artist);
     setPlayMusic(true);
     setClicked(!clicked);
   }
@@ -150,13 +153,16 @@ const NewDemo = ({
         ))}
       </button>
       <div className="demo-btn-box">
-        <button
-          className="demo-btn"
-          onClick={demoOptions}
-          type="button"
-        >
-          <TiThMenu />
-        </button>
+        {demoOptionsBtn ? (
+          <button
+            className="demo-btn"
+            onClick={demoOptions}
+            type="button"
+          >
+            <TiThMenu />
+          </button>
+        ) : (''
+        )}
         <button
           className="demo-btn"
           onClick={() => { downloadFile(item.demo); }}

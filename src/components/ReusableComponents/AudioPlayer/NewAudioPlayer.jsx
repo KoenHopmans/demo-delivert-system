@@ -8,12 +8,12 @@ import MusicPlayerImg from '../../../images/music-player-tv__img.png';
 import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
 import DonDiabloVideo from '../../../videos/videoplayback.mp4';
 import HexagonAnimation from '../Animations/HexagonAnimation';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
   // Hooks
   const {
-    trackName, currentUser, currentDemo, setPlayMusic, clicked,
+    trackName, artist, currentDemo, setPlayMusic, clicked,
   } = useContext(userContext);
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -122,6 +122,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
     if (started) { playFile(); }
     setIsPlaying(true);
     setGoodTitle(trackName);
+    setGoodArtist(artist);
     setStarted(true);
   }, [trackName, clicked]);
 
@@ -139,6 +140,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
 
   useEffect(() => {
     setGoodTitle(tracks[trackIndex].title);
+    setGoodArtist(tracks[trackIndex].artist);
     audioRef.current.pause();
 
     audioRef.current = new Audio(audioSrc);
@@ -171,10 +173,6 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
       />
       <div className="audio-player">
         <div className="track-info">
-          <img
-            className="artwork"
-            alt={`track artwork for ${goodTitle} by ${goodArtist}`}
-          />
           <AudioControls
             isPlaying={isPlaying}
             onPrevClick={toPrevTrack}
@@ -182,7 +180,7 @@ const NewAudioPlayer = ({ video = 'hexagon', tracks }) => {
             onPlayPauseClick={setIsPlaying}
           />
           <h2 className="title">{goodTitle}</h2>
-          <h3 className="artist">{currentUser}</h3>
+          <h3 className="artist">{goodArtist}</h3>
           <input
             type="range"
             value={trackProgress}

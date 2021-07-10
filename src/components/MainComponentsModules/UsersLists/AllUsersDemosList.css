@@ -1,7 +1,3 @@
-/**{*/
-/*    border: greenyellow solid 2px;*/
-/*}*/
-
 .music-file{
     color: white;
     display: flex;
@@ -14,7 +10,6 @@
     border: 2px black solid;
     width: 200px;
     height: 200px;
-
     transform: perspective(100px) rotateY(30deg) translateX(0px) scale(0.7);
     perspective: 10px;
     transition: .5s all;
@@ -22,21 +17,15 @@
     overflow: hidden;
 }
 
-
 .music-file:hover {
     z-index: 8;
     transform: perspective(0px) rotateY(0deg) translateX(-25px) scale(1.5);
     width: 200px;
     height: 200px;
     box-shadow: 1px 1px 50px white;
-
 }
 
 .user-container{
-    /*border: red solid 2px;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*width: 100%;*/
     min-width: 521px;
     display: grid;
     justify-content: center;
@@ -51,7 +40,6 @@
     grid-area: photo;
 }
 
-
 .name-btn{
     grid-area: name-button;
     display: flex;
@@ -60,16 +48,10 @@
     align-items: start;
     font-family: 'Julius Sans One', sans-serif;
     background: none;
-    /*border: 2px solid dodgerblue;*/
     color: white;
     font-size: 25px;
     cursor: pointer;
 }
-
-/*.name-btn *{*/
-/*    justify-content: start;*/
-/*    align-items: start;*/
-/*}*/
 
 .name-btn:hover{
     transform: scale(1.2);
@@ -86,13 +68,6 @@
     font-size: 30px;
 }
 
-/*.user-roles * {*/
-/*    border: yellow solid 1px;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: start;*/
-/*}*/
-
 .demo-list{
     grid-area: demo-list;
     /*display: flex;*/
@@ -104,19 +79,12 @@
     height: 100%;
 }
 
-
-
 .user-demos {
-    /*border: red solid 2px;*/
     display: grid;
-    /*grid-gap: 30px;*/
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-auto-rows: min-content;
     grid-auto-columns: min-content;
-    /*min-height:30%;*/
     width: 100%;
-    /*height: 100%;*/
-    /*padding: 150px;*/
 }
 
 .user-demos-container{
@@ -130,7 +98,3 @@
     bottom: 0px;
     z-index: 10;
 }
-
-/*.add-feedback-box{*/
-/*    width: 100%;*/
-/*}*/

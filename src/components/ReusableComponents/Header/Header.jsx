@@ -9,7 +9,6 @@ const Header = () => (
       <img src={HexagonWordImage} alt="Hexagon" />
     </div>
   </div>
-
 );
 
 export default Header;

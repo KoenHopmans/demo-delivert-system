@@ -7,9 +7,8 @@ import './AllUsersDemosList.css';
 import { BiKey } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
-
 import ProfileImage from '../../ReusableComponents/ProfileImage';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const AllUsersDemosList = () => {
   // Hooks

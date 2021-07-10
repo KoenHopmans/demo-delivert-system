@@ -30,11 +30,7 @@ a:visited{
     justify-content: start;
     border-radius: 10px;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-    /*opacity: 95%;*/
-
 }
-
-
 
 .content-box{
     /*border: 2px greenyellow solid;*/
@@ -45,9 +41,9 @@ a:visited{
     align-items: center;
     color: white;
     width: 80%;
+    height: 100%;
     /*height: fit-content;*/
 }
-
 
 .content-box h2 {
     font-size: 25px;
@@ -55,7 +51,6 @@ a:visited{
 }
 
 .content-box h1{
-    /*border: 2px orange solid;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,14 +61,12 @@ a:visited{
     padding: 13px 0;
 }
 
-
 .text-box {
     font-family: 'M PLUS 1p', sans-serif ;
     width: 100%;
     overflow: hidden;
     font-size: 30px;
     padding: 0px 15px 0px 15px;
-    /*padding-left: 15px;*/
     margin: 8px 0;
 }
 
@@ -100,15 +93,9 @@ a:visited{
     gap: 10px;
     margin: 5px;
     color: crimson;
-    /*border: 2px crimson solid;*/
     font-family: 'M PLUS 1p', sans-serif ;
     font-size: 18px;
-    /*border: 1px crimson solid;*/
-    /*box-shadow: 2px 2px 5px crimson;*/
-
 }
-
-
 
 .text-box input ,select, textarea{
     border: none;
@@ -120,7 +107,6 @@ a:visited{
     /*float: left;*/
     margin: 0 10px;
 }
-
 
  select option{
      background-color: rgb(33,38,56);
@@ -135,13 +121,11 @@ select option:hover{
     margin: 10px;
 }
 
-
 .text-box input::-webkit-input-placeholder,
 .text-box input::-webkit-input-placeholder{
     opacity: 1;
     transition: opacity 0.30s ease-out;
 }
-
 
 .text-box input:hover::-webkit-input-placeholder,
 .text-box input:focus::-webkit-input-placeholder{
@@ -169,8 +153,6 @@ select option:hover{
     transform: translateY(-0.25em)
 }
 
-
-
 .text-box input[type="file"]::-webkit-file-upload-button {
     border: 2px solid dodgerblue;
     outline: none;
@@ -179,8 +161,6 @@ select option:hover{
     padding: 10px;
     margin: 20px;
     transform: translateY(-0.60em)
-
-
 }
 
 .text-box input[type="file"]::-webkit-file-upload-button:hover {
@@ -191,7 +171,6 @@ select option:hover{
     z-index: 10;
     transform: translateY(-0.80em)
 }
-
 
 .input-btn{
     border: 2px solid dodgerblue;

@@ -14,7 +14,7 @@ import { useHistory, useParams } from 'react-router';
 import { ImFilePicture } from 'react-icons/im';
 import { BsExclamationCircle, BsArrowCounterclockwise } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/Comments/AddCommentModule';
 import AddFeedbackModule from '../MainComponentsModules/Feedback/AddFeedbackModule';
@@ -98,7 +98,8 @@ const DemoOptionsMainContent = () => {
   async function postData(payload, fileName) {
     setLoading(true);
     try {
-      await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
+      // await axios.put(`http://localhost:8080/api/v1/demo-update/${fileName}`, payload);
+      await axios.put(`http://localhost:8080/api/v1/demo/${fileName}`, payload);
       toggleUpdate(!update);
       setLoading(false);
     } catch (e) {
@@ -369,13 +370,6 @@ const DemoOptionsMainContent = () => {
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
-        {/* <h2 style={{ border: '2px green solid' }}> */}
-        {/*  {currentUser} */}
-        {/* </h2> */}
-        {/* <h2 style={{ border: '2px blue solid' }}> */}
-        {/*  {adminUser} */}
-        {/* </h2> */}
-        {/* <h2 style={{ border: '2px red solid' }}>{currentDemo}</h2> */}
         {!loading ? (
           <div className="content-box">
             <h1>Options</h1>
@@ -470,7 +464,6 @@ const DemoOptionsMainContent = () => {
                           // ref={inputFileRef}
                     {...register('file')}
                   />
-
                   {errors.File && (
                   <div className="error">
                     <BsExclamationCircle />

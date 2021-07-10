@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 
 const LogoutMainContent = () => {
   // Hooks
@@ -10,6 +10,7 @@ const LogoutMainContent = () => {
   // Functions
   const logout = () => {
     history.push('/', { from: 'App' });
+    localStorage.removeItem('token');
     setAdminUser('');
   };
 

@@ -24,7 +24,6 @@
     animation-iteration-count: infinite;
     transform-origin: 100px 100px;
     transition: transform 5s;
-
 }
 
 @keyframes spin {
@@ -36,14 +35,12 @@
     }
 }
 
-
 .logo-hexagon:hover .logo-hexagon__svg {
     animation-name: rotate;
     animation-fill-mode: forwards;
     animation-duration: 0.3s;
     animation-timing-function: linear;
 }
-
 
 @keyframes rotate {
     from {
@@ -54,7 +51,6 @@
     }
 }
 
-
 .logo-hexagon:hover .logo-hexagon__svg .logo-hexagon__svg__circle {
     animation-name: circle-disappear;
     animation-fill-mode: forwards;
@@ -63,13 +59,11 @@
     animation-iteration-count: inherit;
 }
 
-
 @keyframes circle-disappear {
     to {
         opacity: 0;
     }
 }
-
 
 .logo-hexagon:hover .logo-hexagon__svg .logo-hexagon__svg__triangle {
     animation-name: move-triangle;
@@ -79,14 +73,9 @@
     animation-iteration-count: inherit;
 }
 
-
 @keyframes move-triangle {
-    from {
-        transform: translateY(0em)
-    }
-    to {
-        transform: translateY(50px) translateX(33px) scale(0.7)
-    }
+    from { transform: translateY(0em) }
+    to { transform: translateY(50px) translateX(33px) scale(0.7) }
 }
 
 .logo-hexagon:hover .logo-hexagon__svg .logo-hexagon__svg__top-horizontal-line,

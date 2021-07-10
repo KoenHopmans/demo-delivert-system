@@ -5,7 +5,7 @@ import '../../MainComponents/MainContent.css';
 import { useParams } from 'react-router';
 import { BiMessageEdit } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const AddCommentModule = () => {
   // Hooks

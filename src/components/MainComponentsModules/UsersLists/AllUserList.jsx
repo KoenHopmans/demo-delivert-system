@@ -7,14 +7,16 @@ import './AllUsersDemosList.css';
 import { BiKey, BiTrash } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import './AllUserList.css';
-
 import ProfileImage from '../../ReusableComponents/ProfileImage';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const AllUsersList = () => {
+  // Hooks
   const { adminUser, update, toggleUpdate } = useContext(userContext);
   const [users, setUsers] = useState([]);
   const history = useHistory();
+
+  // Functions
   async function fetchData() {
     try {
       const result = await axios.get('http://localhost:8080/api/v1/users/');
@@ -41,7 +43,8 @@ const AllUsersList = () => {
             <BiKey />
           </div>
           <p>Admin</p>
-          {username === 'Don Diablo' ? ''
+          {/* Disable deleting admin role form Don Dibalo */}
+          {username === 'don_diablo' ? ''
             : (
               <button
                 onClick={() => {
@@ -75,25 +78,17 @@ const AllUsersList = () => {
         {
           users.map((user, index) => (
             <div key={index} className="user-container">
-              {/* <div>{user.username}</div> */}
               <button className="hexagon-photo" type="button" onClick={profilePage(user.username)}>
                 <ProfileImage photo={user.photo} />
               </button>
               <div className="user-roles">
                 <button className="name-btn" type="button" onClick={profilePage(user.username)}>
-                  {/* <div className="user-box"> */}
                   <div className="username-box">{user.username}</div>
                 </button>
                 {user.authorities.map((item, indexNr) => (
                   <div key={indexNr}>{admin(item.authority, user.username)}</div>
                 ))}
-                {/* </div> */}
               </div>
-              {/* <div className="demo-list"> */}
-              {/*  {user.demos.map((item) => ( */}
-              {/*    <NewDemo item={item} /> */}
-              {/*  ))} */}
-              {/* </div> */}
             </div>
           ))
         }

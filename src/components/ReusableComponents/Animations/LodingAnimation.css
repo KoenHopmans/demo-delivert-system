@@ -11,7 +11,6 @@
     filter: drop-shadow(5px 5px 5px dodgerblue);
 }
 
-
 .logo-loading__svg .logo-loading__svg__triangle__bottom-line {
     opacity: 0;
 }
@@ -23,20 +22,12 @@
     animation-iteration-count: infinite;
     transform-origin: 100px 100px;
     transition: transform 1s;
-
-
 }
 
 @keyframes loading {
-    0%{
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.9);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0%{ transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
 }
 
 
@@ -50,15 +41,11 @@
 }
 
 @keyframes visible {
-    0%{
-        opacity: 0.5;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0.5;
-    }
+    0%{ opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
 }
 
-
+.loading-animation-box{
+    padding-top: 40px;
+}

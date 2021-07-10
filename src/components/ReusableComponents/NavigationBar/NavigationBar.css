@@ -1,5 +1,3 @@
-
-
 .navigation-bar {
     position: relative;
     padding: 0;
@@ -15,7 +13,6 @@
     filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, .6));
 }
 
-
 .navigation-bar__content-container {
     position: absolute;
     top: 15px;
@@ -23,7 +20,6 @@
     z-index: 3;
     display: flex;
     gap: 10px;
-
 }
 
 .navigation-bar__hexagon-logo {
@@ -32,7 +28,6 @@
     left: 40px;
     z-index: 3;
     filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, .6));
-
 }
 
 .navigation-bar__hexagon-logo img{
@@ -42,6 +37,5 @@
 @media only screen and (max-width: 850px) {
     .navigation-bar__hexagon-logo {
         display: none;
-
     }
 }

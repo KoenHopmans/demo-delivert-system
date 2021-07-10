@@ -2,17 +2,6 @@
     --white: #fff;
 }
 
-/** {*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-/*html {*/
-/*    font-family: Arial, Helvetica, sans-serif;*/
-/*    height: 100%;*/
-/*    background: var(--active-color);*/
-/*    transition: background 0.4s ease;*/
-/*}*/
-
 .audio-player-container{
     display: flex;
     justify-content: center;
@@ -40,29 +29,11 @@ input[type="range"] {
     position: fixed;
     display: flex;
     flex-direction: row;
-    /*left: 150px;*/
     bottom: 0px;
-    /*max-width: 350px;*/
     width: 100%;
-    /*padding: 24px;*/
-    /*background: gray;*/
-    /*border-radius: 20px;*/
-    /*border: 2px red solid;*/
     box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
     z-index: 2;
     color: var(--white);
-}
-
-.artwork {
-    /*position: fixed;*/
-    /*right: 0px;*/
-    /*bottom: 0px;*/
-    border-radius: 120px;
-    /*display: block;*/
-    margin: auto;
-    /*height: 200px;*/
-    /*width: 200px;*/
-    display: none;
 }
 
 .track-info {
@@ -85,7 +56,6 @@ input[type="range"] {
     display: inline-block;
     max-width: 200px;
     margin-bottom: 4px;
-    /*margin-right: 30px;*/
     grid-area: progres;
 }
 
@@ -142,7 +112,6 @@ input[type="range"] {
     padding: 3px 10px;
 }
 
-
 .audio-controls button:hover{
     box-shadow: 0 0.5em 0.5em -0.4em lawngreen;
     transform: translateY(-0.25em);
@@ -151,7 +120,6 @@ input[type="range"] {
 .audio-controls button:active {
     border: inset dimgray;
 }
-
 
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -172,10 +140,7 @@ input[type=range]::-webkit-slider-thumb {
     bottom: 84px;
     position: fixed;
     z-index: 4;
-
-
 }
-
 
 .music-player-tv__img {
     /*border: 2px red solid;*/
@@ -189,39 +154,10 @@ input[type=range]::-webkit-slider-thumb {
     filter: drop-shadow(20px 20px 5px rgba(0, 0, 0, .6));
 }
 
-/*.music-player {*/
-/*    z-index: 3;*/
-/*    position: fixed;*/
-/*    bottom: 17px;*/
-/*    left: 174px;*/
-/*    display: flex;*/
-/*    !*border: 2px red solid;*!*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-
-/*}*/
-
-
-
-
-
-
-
 @media only screen and (max-width: 1050px) {
-     .music-player-tv__img, .music-player-tv__video {
-        display: none;
-    }
-    /*.track-info {*/
-    /*display: flex;*/
-    /*    justify-content: space-between;*/
-    /*}*/
-    .audio-controls{
-        margin-left: 50px;
-    }
+     .music-player-tv__img, .music-player-tv__video { display: none; }
+    .audio-controls{ margin-left: 50px; }
 }
-
 @media only screen and (max-width: 750px) {
-    .progress {
-        display: none;
-}
+    .progress { display: none;}
 }

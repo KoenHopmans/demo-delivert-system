@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useParams } from 'react-router';
 import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVideo';
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';

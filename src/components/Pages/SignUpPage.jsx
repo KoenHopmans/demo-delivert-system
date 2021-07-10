@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useParams } from 'react-router';
 import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVideo';
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
@@ -26,7 +25,7 @@ function SignUpPage() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar loginBtn signUpBtn addDemoBtn profileBtn singOutBtn />
+        <NavigationBar loginBtn homeBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

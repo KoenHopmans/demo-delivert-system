@@ -6,7 +6,7 @@ import { BiPencil, BiMessageEdit } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { ImFileMusic, ImFilePicture } from 'react-icons/im';
 import { Link } from 'react-router-dom';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
 const AddDemoMainContent = () => {
@@ -14,7 +14,7 @@ const AddDemoMainContent = () => {
   const history = useHistory();
   const params = useParams();
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [succes, setSucces] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     currentUser, setCurrentUser, adminUser, setAdminUser,
   } = useContext(userContext);
@@ -23,7 +23,7 @@ const AddDemoMainContent = () => {
   // Functions
   async function postData(payload) {
     try {
-      await axios.post('http://localhost:8080/api/v1/demo-upload', payload);
+      await axios.post('http://localhost:8080/api/v1/demo', payload);
       if (adminUser) { history.push(`/admin/${adminUser}/my-demos/${currentUser}`); } else { history.push(`/my-demos/${currentUser}`); }
     } catch (e) {
       console.error(e);
@@ -41,7 +41,7 @@ const AddDemoMainContent = () => {
     formData.append('feedback', data.feedback);
     formData.append('trackName', data.trackName);
     postData(formData);
-    setSucces(true);
+    setLoading(true);
   };
 
   // effects
@@ -54,16 +54,10 @@ const AddDemoMainContent = () => {
     <div className="mainContentContainer">
       <div className="mainContent">
         <div className="content-box">
-          {!succes ? (
+          {!loading ? (
             <>
-              {/* <h2 style={{ border: '2px green solid' }}> */}
-              {/*  {currentUser} */}
-              {/* </h2> */}
-              {/* <h2 style={{ border: '2px blue solid' }}> */}
-              {/*  {adminUser} */}
-              {/* </h2> */}
               <h1>
-                Add demo item
+                Add demo
               </h1>
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
@@ -111,7 +105,6 @@ const AddDemoMainContent = () => {
                       {...register('trackName', {
                         required: 'Please enter your track name',
                         minLength: { value: 4, message: 'At least 4 characters' },
-
                       })}
                     />
                     {errors.trackName && (
@@ -171,7 +164,7 @@ const AddDemoMainContent = () => {
               </div>
             </>
           ) : (
-            <div>
+            <div className="loading-animation-box">
               <div className="question">Loading... Please wait </div>
               <LoadingAnimation />
             </div>

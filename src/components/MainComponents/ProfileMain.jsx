@@ -10,21 +10,14 @@ import {
 } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { ImFilePicture } from 'react-icons/im';
-// import { useHistory } from 'react-router-dom';
-// import {
-//   GrUserAdmin,
-// } from 'react-icons/gr';
 import ChangePasswordModule from '../MainComponentsModules/Password/ChangePasswordModule';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
-
 import './ProfileMain.css';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
-import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
 
 const ProfileMainContent = () => {
   // Hooks
-  // const history = useHistory();
   const [user, setUser] = useState({});
   const [userRole, setUserRole] = useState([]);
   const [update, toggleUpdate] = useState(false);
@@ -32,7 +25,6 @@ const ProfileMainContent = () => {
   const [url, setUrl] = useState(profileImage);
   const [photoName, setPhotoName] = useState('');
   const [newPassword, setNewPassword] = useState(false);
-  // const inputFileRef = useRef(undefined);
   const params = useParams();
   const {
     currentUser, setCurrentUser, setAdminUser,
@@ -43,7 +35,6 @@ const ProfileMainContent = () => {
   } = useForm();
 
   // Functions
-
   async function fetchPhoto(fileName) {
     try {
       const result = await axios.get(`http://localhost:8080/api/v1/downloadFile/${fileName}`, {
@@ -65,7 +56,7 @@ const ProfileMainContent = () => {
   async function postData(payload) {
     setLoading(true);
     try {
-      await axios.put(`http://localhost:8080/api/v1/users/profile/${params.user}`, payload);
+      await axios.put(`http://localhost:8080/api/v1/users/${params.user}`, payload);
       toggleUpdate(!update);
       setLoading(false);
     } catch (e) {
@@ -73,19 +64,6 @@ const ProfileMainContent = () => {
       setLoading(false);
     }
   }
-
-  // Nova voorbeeld
-  // useEffect(() => {
-  //   if (user) {
-  //     setValue([{ email: user.email || '' },
-  //       { about: user.about || '' },
-  //       { gender: user.gender || '' },
-  //       { firstName: user.firstName || '' },
-  //       { lastName: user.lastName || '' },
-  //       { location: user.location || '' },
-  //       { birthDate: user.birthDate || '' }]);
-  //   }
-  // }, [user]);
 
   async function fetchData() {
     try {
@@ -149,7 +127,6 @@ const ProfileMainContent = () => {
     if (role === 'ROLE_ADMIN') {
       return (
         <div className="admin-box">
-          {/* <RiAdminLine /> */}
           <div className="admin-icon">
             <BiKey />
           </div>
@@ -171,12 +148,6 @@ const ProfileMainContent = () => {
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
-        {/* <h2 style={{ border: '2px green solid' }}> */}
-        {/*  {currentUser} */}
-        {/* </h2> */}
-        {/* <h2 style={{ border: '2px blue solid' }}> */}
-        {/*  {adminUser} */}
-        {/* </h2> */}
         {!loading ? (
           <div className="content-box">
             <h1>Profile</h1>
@@ -198,7 +169,6 @@ const ProfileMainContent = () => {
                   type="file"
                   {...register('file')}
                 />
-
                 {errors.File && (
                 <div className="error">
                   <BsExclamationCircle />
@@ -267,7 +237,6 @@ const ProfileMainContent = () => {
                     {...register('email', {
                       required: 'Please enter your email',
                       minLength: { value: 4, message: 'At least 4 characters' },
-
                     })}
                   />
                   {errors.email && (
@@ -345,7 +314,6 @@ const ProfileMainContent = () => {
               </div>
               <input className="btn" type="submit" name="" value="Save" />
             </form>
-            <UserDemos />
           </div>
         ) : (
           <div>

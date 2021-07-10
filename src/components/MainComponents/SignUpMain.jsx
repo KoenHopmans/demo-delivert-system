@@ -9,7 +9,8 @@ import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation'
 
 const SignUpMainContent = () => {
   // Hooks
-  const [loading, setSucces] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [userExistMessage, setUserExistMessage] = useState(false);
   const {
     register, watch, handleSubmit, formState: { errors },
   } = useForm();
@@ -24,11 +25,13 @@ const SignUpMainContent = () => {
       history.push('/login', { from: 'App' });
     } catch (e) {
       console.error(e);
+      setLoading(false);
     }
   }
   const formSubmit = (data) => {
     postData(data);
-    setSucces(true);
+    setLoading(true);
+    setUserExistMessage(true);
   };
 
   return (
@@ -37,6 +40,12 @@ const SignUpMainContent = () => {
         <div className="content-box">
           {!loading ? (
             <div>
+              {userExistMessage ? (
+                <div className="error-message">
+                  <span className="error-message-exclamation"><BsExclamationCircle /></span>
+                  <span>Username already exists. Please try with another one</span>
+                </div>
+              ) : ('')}
               <h1>Sign up</h1>
               <form onSubmit={handleSubmit(formSubmit)}>
                 <div className="text-box">
@@ -50,7 +59,6 @@ const SignUpMainContent = () => {
                       {...register('username', {
                         required: 'Please enter your user name',
                         minLength: { value: 3, message: 'At least 3 characters' },
-
                       })}
                     />
                     {errors.username && (
@@ -72,7 +80,6 @@ const SignUpMainContent = () => {
                       {...register('email', {
                         required: 'Please enter your email',
                         minLength: { value: 4, message: 'At least 4 characters' },
-
                       })}
                     />
                     {errors.email && (
@@ -129,7 +136,7 @@ const SignUpMainContent = () => {
                     )}
                   </label>
                 </div>
-                <input className="btn" type="submit" name="" value="Sign in" />
+                <input className="btn" type="submit" name="" value="Sign up" />
               </form>
               <div className="question">
                 Already have an account?

@@ -9,7 +9,7 @@ import {
 } from 'react-icons/bi';
 import { useParams } from 'react-router';
 import { IoLocationOutline, IoMaleFemaleSharp } from 'react-icons/io5';
-import { userContext } from '../contexts/UserProvider';
+import { userContext } from '../context/UserProvider';
 import profileImage from '../../images/dj-default-gray.png';
 import './ProfileMain.css';
 import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
@@ -19,7 +19,7 @@ const ProfileAdminMain = () => {
   const [user, setUser] = useState({});
   const [url, setUrl] = useState(profileImage);
   const params = useParams();
-  const { setCurrentUser, setAdminUser } = useContext(userContext);
+  const { setCurrentUser, setAdminUser, setDemoOptionsBtn } = useContext(userContext);
 
   // Functions
   async function fetchPhoto(fileName) {
@@ -57,27 +57,29 @@ const ProfileAdminMain = () => {
       console.error(e);
     }
   }
+
   // Effects
   useEffect(() => {
     fetchPhoto(user.photo);
     fetchData();
     setCurrentUser(params.user);
     setAdminUser(params.role);
+    setDemoOptionsBtn(false);
   }, []);
 
   useEffect(() => {
     fetchPhoto(user.photo);
   }, [user]);
 
+  useEffect(() =>
+    () => {
+      setDemoOptionsBtn(true);
+    },
+  []);
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
-        {/* <h2 style={{ border: '2px green solid' }}> */}
-        {/*  {currentUser} */}
-        {/* </h2> */}
-        {/* <h2 style={{ border: '2px blue solid' }}> */}
-        {/*  {adminUser} */}
-        {/* </h2> */}
         <div className="content-box">
           <h1>Profile</h1>
           <h2>{user.username}</h2>

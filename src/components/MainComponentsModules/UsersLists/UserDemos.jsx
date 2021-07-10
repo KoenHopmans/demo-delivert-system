@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import './AllUsersDemosList.css';
 import NewDemo from '../../ReusableComponents/NewDemo/NewDemo';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const UserDemos = () => {
   // Hooks

@@ -5,16 +5,20 @@ import '../../MainComponents/MainContent.css';
 import { useParams } from 'react-router';
 import { BiMessageEdit } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
+// Hooks
 const AddFeedbackModule = () => {
   const {
     currentUser, adminUser,
     toggleUpdate, update,
   } = useContext(userContext);
-
+  const {
+    register, handleSubmit, formState: { errors },
+  } = useForm();
   const params = useParams();
 
+  // functions
   async function postData(payload) {
     console.log('hallo post data ');
     try {
@@ -27,41 +31,28 @@ const AddFeedbackModule = () => {
     }
   }
 
-  const {
-    register, handleSubmit, formState: { errors },
-  } = useForm();
-
   const formSubmit = (data) => {
     console.log(data);
     if (!(data.feedback)) {
-      // eslint-disable-next-line no-param-reassign
-      data.feedback = data.prefix;
+      data.feedback = data.presetFeedback;
     }
-    // eslint-disable-next-line no-param-reassign
     data.date = new Date().toLocaleString();
-    // eslint-disable-next-line no-param-reassign
     data.messenger = adminUser;
     console.log('data', data);
     postData(data);
   };
 
-  // const test = 'test';
-
-  console.log(errors);
   return (
-  //     <p style={{ border: '2px green solid' }}>
-  //  {adminUser}
-  // </p>
     <form onSubmit={handleSubmit(formSubmit)}>
       <div className="text-box">
         <BiMessageEdit />
         <label htmlFor="feedback" className="inputLabel">
-          Prefix Feedback
+          Preset Feedback
           <select
-            id="prefix"
-            type="prefix"
-            placeholder="Enter your new prefix"
-            {...register('prefix')}
+            id="presetFeedback"
+            type="presetFeedback"
+            placeholder="Enter your new presetFeedback"
+            {...register('presetFeedback')}
           >
             <option>
               Hallo

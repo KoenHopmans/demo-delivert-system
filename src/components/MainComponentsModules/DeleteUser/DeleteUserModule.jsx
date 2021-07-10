@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BiUser } from 'react-icons/bi';
 import { BsExclamationCircle } from 'react-icons/bs';
 import { useForm } from 'react-hook-form';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const DeleteUserModule = () => {
   // Hooks

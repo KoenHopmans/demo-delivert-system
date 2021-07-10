@@ -1,7 +1,3 @@
-/*.hexagon-shape-container{*/
-/*    width: 202px;*/
-/*}*/
-
 .small-hexagon-shape{
     background: transparent;
     width: 100px;
@@ -13,10 +9,6 @@
     overflow: hidden;
 
 }
-
-/*.hexagon-shape:hover{*/
-/*    background: black;*/
-/*}*/
 
 .small-hexagon-shape img {
     width: 100px;

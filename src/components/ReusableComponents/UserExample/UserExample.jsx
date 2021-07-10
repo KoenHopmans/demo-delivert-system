@@ -29,9 +29,11 @@ const UserExample = ({
           />
         </div>
       </div>
-      <h2>{name}</h2>
-      <div>{genre}</div>
-      <div>{comment}</div>
+      <span className="user-example-into">
+        <h2>{name}</h2>
+        <div>{genre}</div>
+        <div>{comment}</div>
+      </span>
     </div>
   );
 };

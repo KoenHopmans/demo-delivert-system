@@ -90,7 +90,6 @@ const FooterHexagon = () => (
     </div>
     <img className="footer__background-img" src={FooterHexagonImg} alt="Footer Hexagon" />
   </footer>
-
 );
 
 export default FooterHexagon;

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useParams } from 'react-router';
 import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVideo';
 import NavigationBar from '../ReusableComponents/NavigationBar/NavigationBar';
@@ -26,7 +25,7 @@ function Profile() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar hexagonBtn={params.role} addDemoBtn singOutBtn myDemosBtn />
+        <NavigationBar hexagonBtn={params.role} singOutBtn />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

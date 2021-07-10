@@ -1,29 +1,26 @@
 import peru from '../../audio/peru.mp3';
 import opener from '../../audio/opener.mp3';
-import skydance from '../../audio/skydance.mp3';
+import iMissYou from '../../audio/I-miss-you.mp3';
 
 export default [
   {
     id: 1,
-    title: 'Sun  Intro',
+    title: 'Welcome',
     artist: 'Marco Taylor',
     audioSrc: opener,
-    color: 'red',
 
   },
   {
     id: 2,
-    title: 'Skydance',
+    title: 'I miss you',
     artist: 'Robin Montoro',
-    audioSrc: skydance,
-    color: 'purple',
+    audioSrc: iMissYou,
 
   },
   {
     id: 3,
-    title: 'Keeping Your Head Up',
+    title: 'Peru',
     artist: 'Sophie Lombardo',
     audioSrc: peru,
-    color: 'green',
   },
 ];

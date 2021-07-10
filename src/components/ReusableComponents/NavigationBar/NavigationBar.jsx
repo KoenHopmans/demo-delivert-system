@@ -3,7 +3,7 @@ import './NavigationBar.css';
 import { Link } from 'react-router-dom';
 import image from '../../../images/navigation-bar-background.png';
 import NavigationBarBtn from './NavigationBarBtn/NavigationBarBtn';
-import { userContext } from '../../contexts/UserProvider';
+import { userContext } from '../../context/UserProvider';
 
 const NavigationBar = ({
   loginBtn = false, signUpBtn = false, addDemoBtn = false, profileBtn = false,

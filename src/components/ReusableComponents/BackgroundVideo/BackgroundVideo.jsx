@@ -1,6 +1,6 @@
 import React from 'react';
-import ColorHexagonVideo from '../../../videos/background-video-hexagon.mp4';
 import './BackgroundVideo.css';
+import ColorHexagonVideo from '../../../videos/background-video-hexagon.mp4';
 import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
 import DonDiabloVideo from '../../../videos/videoplayback.mp4';
 import BlueStar from '../../../videos/blue-star-background.mp4';
@@ -25,7 +25,6 @@ const BackgroundVideo = ({ video = 'blueStar' }) => {
     }
   };
   return (
-
     <div>
       <video className="background-video" autoPlay loop muted>
         <source src={chosenVideo()} type="video/mp4" />
