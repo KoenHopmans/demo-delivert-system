@@ -55,6 +55,19 @@ const AddFeedbackModule = () => {
             {...register('presetFeedback')}
           >
             <option>
+              Hi
+              {' '}
+              {currentUser}
+              , Your music sounds very nice.
+            </option>
+            <option>
+              Hi
+              {' '}
+              {currentUser}
+              , well done!
+            </option>
+
+            <option>
               Hallo
               {' '}
               {currentUser}
@@ -67,6 +80,18 @@ const AddFeedbackModule = () => {
               , nice beat. We want to hear more music from you.
             </option>
             <option>
+              Hi
+              {' '}
+              {currentUser}
+              , you make good quality music, We would like to invite you.
+            </option>
+            <option>
+              Hi
+              {' '}
+              {currentUser}
+              , sorry this is not quite right yet. please try again. we believe you can do it.
+            </option>
+            <option>
               Thanks
               {' '}
               {currentUser}
@@ -77,12 +102,6 @@ const AddFeedbackModule = () => {
               {' '}
               {currentUser}
               , Try to make your music more special. Don&#39;t be afraid to try new things.
-            </option>
-            <option>
-              Hi
-              {' '}
-              {currentUser}
-              , you make good quality music, We would like to invite you.
             </option>
             <option>
               Hi

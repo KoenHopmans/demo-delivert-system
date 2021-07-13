@@ -24,7 +24,7 @@ function LogOut() {
   return (
     <div>
       <div id="content-wrap">
-        <NavigationBar loginBtn />
+        <NavigationBar />
         <BackgroundVideo video={backgroundVideo()} />
         <Header />
         <NewAudioPlayer video="donDiablo" tracks={tracks} />

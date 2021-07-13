@@ -50,7 +50,7 @@ const LoginMainContent = () => {
       <div className="mainContent">
         <div className="content-box">
           {!loading ? (
-            <div>
+            <div className="login-box">
               <h1>Login</h1>
               {message ? (
                 <div className="error">
@@ -87,8 +87,16 @@ const LoginMainContent = () => {
                       id="password"
                       type="password"
                       placeholder="Enter your password"
-                      {...register('password')}
+                      {...register('password', {
+                        required: 'Please enter your password',
+                      })}
                     />
+                    {errors.password && (
+                    <div className="error">
+                      <BsExclamationCircle />
+                      {errors.password.message}
+                    </div>
+                    )}
                   </label>
                 </div>
                 <input className="btn" type="submit" name="" value="Log in" />

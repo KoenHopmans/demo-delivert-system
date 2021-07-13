@@ -39,7 +39,7 @@ const SignUpMainContent = () => {
       <div className="mainContent">
         <div className="content-box">
           {!loading ? (
-            <div>
+            <div className="sign-up-box">
               {userExistMessage ? (
                 <div className="error-message">
                   <span className="error-message-exclamation"><BsExclamationCircle /></span>

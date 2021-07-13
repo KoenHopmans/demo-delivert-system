@@ -87,7 +87,7 @@
     border-radius: 10px;
     padding: 5px;
     font-size: 10px;
-    width: 100px;
+    width: 105px;
 }
 
 .demo-feedback-btn{
@@ -96,7 +96,7 @@
     border-radius: 10px;
     padding: 5px;
     font-size: 10px;
-    width: 100px;
+    width: 105px;
 }
 
 .demo-feedback-message{
@@ -188,4 +188,16 @@
 
 .messages-container{
     width: fit-content;
+}
+
+.ArrowCounterclockwise{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.MessageDetail{
+    margin: 0px 5px;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './InfiniteText.css';
 
 const InfiniteText = () => (
-  <div className="infinite-text-effect-wrapper">
+  <div data-testid="infinite-text" className="infinite-text-effect-wrapper">
     <div className="infinite-text-effect">
       <div className="infinite-text">Soundport Remix</div>
       <div className="infinite-text">Hexagon Radio</div>

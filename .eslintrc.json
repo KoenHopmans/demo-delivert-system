@@ -27,6 +27,8 @@
         "no-param-reassign": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "no-shadow": "off",
-        "implicit-arrow-linebreak": "off"
+        "implicit-arrow-linebreak": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-undef": "off"
     }
 }

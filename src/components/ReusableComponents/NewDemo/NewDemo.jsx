@@ -91,7 +91,7 @@ const NewDemo = ({
             className="demo-feedback-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             NEW Feedback
           </button>
           <button
@@ -113,7 +113,7 @@ const NewDemo = ({
             className="demo-comment-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             NEW Comment
           </button>
           <button

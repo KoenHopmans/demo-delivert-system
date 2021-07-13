@@ -104,7 +104,7 @@ const AddDemoMainContent = () => {
                       placeholder="Enter your track name"
                       {...register('trackName', {
                         required: 'Please enter your track name',
-                        minLength: { value: 4, message: 'At least 4 characters' },
+                        minLength: { value: 3, message: 'At least 4 characters' },
                       })}
                     />
                     {errors.trackName && (
@@ -123,7 +123,10 @@ const AddDemoMainContent = () => {
                       id="artist"
                       type="text"
                       placeholder="Enter your artist"
-                      {...register('artist')}
+                      {...register('artist', {
+                        required: 'Please enter your artist name',
+                        minLength: { value: 3, message: 'At least 4 characters' },
+                      })}
                     />
                     {errors.artist && (
                     <div className="error">

@@ -7,7 +7,7 @@ import './AllUsersDemosList.css';
 import { BiKey, BiTrash } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import './AllUserList.css';
-import ProfileImage from '../../ReusableComponents/ProfileImage';
+import ProfileImage from '../../ReusableComponents/ProfileImage/ProfileImage';
 import { userContext } from '../../context/UserProvider';
 
 const AllUsersList = () => {

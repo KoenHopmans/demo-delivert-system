@@ -203,7 +203,7 @@ const DemoOptionsMainContent = () => {
             className="feedback-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             NEW Feedback
           </button>
           <div className="feedback-date">
@@ -247,7 +247,7 @@ const DemoOptionsMainContent = () => {
             className="read-feedback-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             Feedback
           </button>
           <div className="feedback-date">
@@ -280,7 +280,7 @@ const DemoOptionsMainContent = () => {
             className="comment-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             NEW Comment
           </button>
           <div className="feedback-date">
@@ -324,7 +324,7 @@ const DemoOptionsMainContent = () => {
             className="read-comment-btn"
             type="button"
           >
-            <BiMessageDetail />
+            <span className="MessageDetail"><BiMessageDetail /></span>
             Comment
           </button>
           <div className="feedback-date">
@@ -377,7 +377,7 @@ const DemoOptionsMainContent = () => {
               <div className="options-demo-img-box">
                 <div className="demo-trackName-title">
                   <div>{demo.trackName}</div>
-                  <div>
+                  <div className="ArrowCounterclockwise">
                     <BsArrowCounterclockwise />
                   </div>
                   <div>{demo.artist}</div>
@@ -502,6 +502,7 @@ const DemoOptionsMainContent = () => {
             {addFeedback ? (
               <AddFeedbackModule toggleUpdate update />
             ) : ''}
+            <div>Do you want to download this demo?</div>
             <button
               className="btn"
               onClick={() => { downloadFile(params.demo); }}
@@ -509,6 +510,7 @@ const DemoOptionsMainContent = () => {
             >
               download
             </button>
+            <div>Do you want to delete this demo?</div>
             <button
               className="btn"
               onClick={() => { deleteDemo(params.demo); }}
