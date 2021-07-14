@@ -1,18 +1,49 @@
-# Getting Started with Create React App
+# __Soundport__
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## _Promo delivery system_
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Soundport is an application for storing and sharing music files.
 
-### `npm start`
+## Installation
+For installing use.
+```bash
+$ npm install
+```
+
+## Features
+- Create your own account.
+- Create your own profile page.
+- Upload music files.
+- Personalize uploads with cover images.
+- Send and receive messages from other users.
+
+## Usage
+
+On the homepage you can choose to go to the login page to log in or create an account on the sigh-up page.
+
+![home page example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-home.gif)
+
+- You can upload your own music demos for sharing.
+- You can customize your domo.
+- You can play and download the music demos directly.
+
+![demo example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-demo.gif)
+
+With the music player you can pause the music and play the next song.
+
+![music player example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-music-player.gif)
+
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+<img src="../demo-delivery-system/src/images/capture-demo.gif" width="40" height="40" />
 
 ### `npm test`
 
