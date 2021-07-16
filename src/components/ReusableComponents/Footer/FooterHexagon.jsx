@@ -1,7 +1,7 @@
 import React from 'react';
 import './FooterHexagon.css';
-import FooterHexagonLogo from '../../../images/footer-hexagon.png';
-import FooterHexagonImg from '../../../images/footer__background-img.jpg';
+import FooterHexagonLogo from '../../../Images/footer-hexagon.png';
+import FooterHexagonImg from '../../../Images/footer__background-img.jpg';
 
 const FooterHexagon = () => (
   <footer className="footer" id="footer">

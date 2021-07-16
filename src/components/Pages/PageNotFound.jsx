@@ -1,7 +1,7 @@
 import React from 'react';
 import './PageNotFound.css';
 import { Link } from 'react-router-dom';
-import cartoon from '../../images/cartoon-page-not-found.png';
+import cartoon from '../../Images/cartoon-page-not-found.png';
 import BackgroundVideo from '../ReusableComponents/BackgroundVideo/BackgroundVideo';
 
 function PageNotFound() {

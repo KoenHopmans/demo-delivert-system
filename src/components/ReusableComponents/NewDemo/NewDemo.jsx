@@ -9,7 +9,7 @@ import { TiThMenu } from 'react-icons/ti';
 import { BiMessageDetail } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 import { userContext } from '../../context/UserProvider';
-import goldHexagon from '../../../images/hexagon-gold.jpeg';
+import goldHexagon from '../../../Images/hexagon-gold.jpeg';
 import './NewDemo.css';
 
 const NewDemo = ({

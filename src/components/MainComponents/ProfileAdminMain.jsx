@@ -10,8 +10,10 @@ import {
 import { useParams } from 'react-router';
 import { IoLocationOutline, IoMaleFemaleSharp } from 'react-icons/io5';
 import { userContext } from '../context/UserProvider';
-import profileImage from '../../images/dj-default-gray.png';
+import profileImage from '../../Images/dj-default-gray.png';
 import './ProfileMain.css';
+// eslint-disable-next-line import/named
+import { convertDate } from '../HelperFunctions/HelperFunctions';
 import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
 
 const ProfileAdminMain = () => {
@@ -77,6 +79,14 @@ const ProfileAdminMain = () => {
     },
   []);
 
+  // const convertDate = (date) => {
+  //   if (date) {
+  //     const newDate = date.split('-').reverse().join('-');
+  //     console.log('DATE ', date);
+  //     return newDate;
+  //   }
+  // };
+
   return (
     <div className="mainContentContainer">
       <div className="mainContent">
@@ -118,7 +128,7 @@ const ProfileAdminMain = () => {
               <tr key={user.birthDate}>
                 <td><BiCalendar /></td>
                 <td><p>Birth Date</p></td>
-                <td>{user.birthDate}</td>
+                <td>{convertDate(user.birthDate)}</td>
               </tr>
               <tr key={user.about}>
                 <td><BiInfoCircle /></td>

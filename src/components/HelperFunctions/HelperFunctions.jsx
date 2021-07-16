@@ -23,3 +23,10 @@ export const calculatePercentage = (number1, number2) => (number1 / number2) * 1
 export const centimeterToInches = (number1) => number1 * 0.39;
 
 export const inchesToCentimeter = (number1) => number1 / 0.39;
+
+export const convertDate = (date) => {
+  if (date) {
+    const convertedDate = date.split('-').reverse().join('-');
+    return convertedDate;
+  }
+};

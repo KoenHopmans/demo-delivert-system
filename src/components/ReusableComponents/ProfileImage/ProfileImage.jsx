@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import profileImage from '../../../images/dj-default-gray.png';
+import profileImage from '../../../Images/dj-default-gray.png';
 import './ProfileImage.css';
 
 const ProfileImage = (photo) => {

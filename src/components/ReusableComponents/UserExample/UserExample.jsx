@@ -1,8 +1,8 @@
 import React from 'react';
 import './UserExample.css';
-import photo01 from '../../../images/dj-profile-photo-01.jpg';
-import photo02 from '../../../images/dj-profile-photo-02.jpg';
-import photo03 from '../../../images/dj-profile-photo-03.jpg';
+import photo01 from '../../../Images/dj-profile-photo-01.jpg';
+import photo02 from '../../../Images/dj-profile-photo-02.jpg';
+import photo03 from '../../../Images/dj-profile-photo-03.jpg';
 
 const UserExample = ({
   name, genre, comment, photo,

@@ -44,17 +44,20 @@ On the homepage you can choose to go to the login page to log in or create an ac
 
 ![home page example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-home.gif)
 
-on your account you can then add music demos. 
+On your account you can then add music demos. 
 The demos can be played and downloaded by the professional producers with which you want to share your music.
 In the overview you will see all the demos you have added. You can personalize each demo at the options page. On your profile page you can add your own personal information to share it with the professional producers.
 
 ![demo example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-demo.gif)
-you can receive feedback messages and send messages back . You can read your messages back, mark them as read and delete them.
+
+You can receive feedback messages and send messages back . You can read your messages back, mark them as 
+read and delete them.
 
 ![music player example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-messages.gif)
 
 The music player allows you to start, pause and skip to the next song. Or you can skip a section of the 
 song to the selected part.
+
 ![music player example](https://github.com/KoenHopmans/demo-delivery-system/raw/main/src/images/capture-music-player.gif)
 
 As an administrator, you have access to regular user accounts and can give feedback on the music demos.

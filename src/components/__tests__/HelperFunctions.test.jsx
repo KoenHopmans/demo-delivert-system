@@ -2,6 +2,7 @@ import {
   add,
   textExample,
   numberExample,
+  convertDate,
   concatenateNames,
   moreOrLessThanTen,
   testArray,
@@ -11,7 +12,7 @@ import {
   calculatePercentage, centimeterToInches, inchesToCentimeter,
 
 // eslint-disable-next-line import/named
-} from '../HelperExamples/HunctionExamples';
+} from '../HelperFunctions/HelperFunctions';
 
 test('truthy-example', () => {
   expect(textExample).toBeTruthy();
@@ -57,4 +58,8 @@ test('centimeterToInches', () => {
 
 test('inchesToCentimeter', () => {
   expect(inchesToCentimeter(21)).toEqual(53.84615384615385);
+});
+
+test('convertDate', () => {
+  expect(convertDate('2021-11-05')).toEqual('05-11-2021');
 });

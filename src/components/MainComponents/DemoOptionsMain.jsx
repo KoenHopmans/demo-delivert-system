@@ -18,7 +18,7 @@ import { userContext } from '../context/UserProvider';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 import AddCommentModule from '../MainComponentsModules/Comments/AddCommentModule';
 import AddFeedbackModule from '../MainComponentsModules/Feedback/AddFeedbackModule';
-import goldHexagon from '../../images/hexagon-gold.jpeg';
+import goldHexagon from '../../Images/hexagon-gold.jpeg';
 
 const DemoOptionsMainContent = () => {
   // Hooks

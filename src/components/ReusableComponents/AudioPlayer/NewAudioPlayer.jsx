@@ -4,9 +4,9 @@ import React, {
 import axios from 'axios';
 import AudioControls from './AudioControls';
 import './NewAudioPlayer.css';
-import MusicPlayerImg from '../../../images/music-player-tv__img.png';
-import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
-import DonDiabloVideo from '../../../videos/videoplayback.mp4';
+import MusicPlayerImg from '../../../Images/music-player-tv__img.png';
+import MusicPlayerVideo from '../../../Videos/music-player-tv__video.mp4';
+import DonDiabloVideo from '../../../Videos/videoplayback.mp4';
 import HexagonAnimation from '../Animations/HexagonAnimation';
 import { userContext } from '../../context/UserProvider';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import HexagonWordImage from '../../../images/hexagon-word-logo.png';
+import HexagonWordImage from '../../../Images/hexagon-word-logo.png';
 
 const Header = () => (
   <div className="header__content">

@@ -1,11 +1,11 @@
 import React from 'react';
 import './BackgroundVideo.css';
-import ColorHexagonVideo from '../../../videos/background-video-hexagon.mp4';
-import MusicPlayerVideo from '../../../videos/music-player-tv__video.mp4';
-import DonDiabloVideo from '../../../videos/videoplayback.mp4';
-import BlueStar from '../../../videos/blue-star-background.mp4';
-import BlueHexagon from '../../../videos/blue-hexagon-stars.mp4';
-import PageNotFound from '../../../videos/background-page-not-found.mp4';
+import ColorHexagonVideo from '../../../Videos/background-video-hexagon.mp4';
+import MusicPlayerVideo from '../../../Videos/music-player-tv__video.mp4';
+import DonDiabloVideo from '../../../Videos/videoplayback.mp4';
+import BlueStar from '../../../Videos/blue-star-background.mp4';
+import BlueHexagon from '../../../Videos/blue-hexagon-stars.mp4';
+import PageNotFound from '../../../Videos/background-page-not-found.mp4';
 
 const BackgroundVideo = ({ video = 'blueStar' }) => {
   const chosenVideo = () => {

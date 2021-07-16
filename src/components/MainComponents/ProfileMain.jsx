@@ -12,7 +12,7 @@ import { BsExclamationCircle } from 'react-icons/bs';
 import { ImFilePicture } from 'react-icons/im';
 import ChangePasswordModule from '../MainComponentsModules/Password/ChangePasswordModule';
 import { userContext } from '../context/UserProvider';
-import profileImage from '../../images/dj-default-gray.png';
+import profileImage from '../../Images/dj-default-gray.png';
 import './ProfileMain.css';
 import LoadingAnimation from '../ReusableComponents/Animations/LoadingAnimation';
 
