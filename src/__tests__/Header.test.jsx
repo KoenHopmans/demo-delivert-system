@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Header from '../ReusableComponents/Header/Header';
+import Header from '../components/ReusableComponents/Header/Header';
 
 test('should render LoginMain component', () => {
   render(<Header />);

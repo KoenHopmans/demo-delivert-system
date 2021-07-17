@@ -13,7 +13,7 @@ import { userContext } from '../context/UserProvider';
 import profileImage from '../../Images/dj-default-gray.png';
 import './ProfileMain.css';
 // eslint-disable-next-line import/named
-import { convertDate } from '../HelperFunctions/HelperFunctions';
+import { convertDate } from '../../HelperFunctions/HelperFunctions';
 import UserDemos from '../MainComponentsModules/UsersLists/UserDemos';
 
 const ProfileAdminMain = () => {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import InfiniteText from '../ReusableComponents/InfiniteTextAnnimation/InfiniteText';
+import InfiniteText from '../components/ReusableComponents/InfiniteTextAnnimation/InfiniteText';
 
 test('should render InfiniteText component', () => {
   render(<InfiniteText />);
